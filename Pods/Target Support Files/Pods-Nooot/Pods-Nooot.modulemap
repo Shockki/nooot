@@ -1,0 +1,6 @@
+framework module Pods_Nooot {
+  umbrella header "Pods-Nooot-umbrella.h"
+
+  export *
+  module * { export * }
+}
