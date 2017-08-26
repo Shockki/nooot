@@ -11,8 +11,7 @@ import RealmSwift
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
-    //kjk
+
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var labelBodyText: UILabel!
