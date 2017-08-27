@@ -121,7 +121,7 @@
                     <connections>
                         <outlet property="historyTableView" destination="ZMD-Ms-6qg" id="hJM-ST-Ado"/>
                         <outlet property="labelBodyText" destination="RSk-EF-kDy" id="d8y-Go-9Pn"/>
-                        <outlet property="textField" destination="cuX-4e-9gR" id="9u4-iN-CfH"/>
+                        <outlet property="textFieldTitle" destination="cuX-4e-9gR" id="WeE-q3-gIC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

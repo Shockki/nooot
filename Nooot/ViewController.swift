@@ -9,10 +9,10 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
 
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textFieldTitle: UITextField!
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var labelBodyText: UILabel!
     
@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
+        textFieldTitle.delegate = self
         
         
         if load == nil {
@@ -41,29 +41,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-// Кнопка "Готово"
+// Скрывает клавиатуру, когда пользователь касается внешнего вида
     
-    @IBAction func buttonAction(_ sender: Any) {
-    
-        if textField.text!.isEmpty {
-            let alertCont = UIAlertController(title: "Введите имя заметки", message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ок", style: .default, handler: nil)
-            alertCont.addAction(action)
-            self.present(alertCont, animated: true, completion: nil)
-        }else{
-            
-            manager.loadJSON(title: textField.text!)
-            
-            semaphore.wait()
-            notesList = manager.getAllNotes()
-            labelBodyText.text! = manager.getNoteDataText(title: notesList.last!)
-
-            print("3.ReloadHistory \(Thread.current)")
-            historyTableView.reloadData()
-            
-            
-        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
+    
+// Действие кнопки Return
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textFieldTitle.text!.isEmpty {
+            textFieldTitle.resignFirstResponder() // Скрывает клавиатуру
+        } else {
+            performAction()
+            textFieldTitle.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func performAction() {
+        manager.loadJSON(title: textFieldTitle.text!)
+        
+        semaphore.wait()
+        notesList = manager.getAllNotes()
+        labelBodyText.text! = manager.getNoteDataText(title: notesList.last!)
+        
+        print("3.ReloadHistory \(Thread.current)")
+        historyTableView.reloadData()
+    }
+    
+    
     
 // Кнопка удаления всей истории
     
@@ -78,7 +85,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     
 // Источник данных таблицы
     
