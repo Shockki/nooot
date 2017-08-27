@@ -23,7 +23,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-
+        
+        
         
         if load == nil {
             
@@ -93,6 +94,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        cell.detailTextLabel?.text = manager.getNoteDataText(title: (cell.textLabel?.text)!)
         cell.detailTextLabel?.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         cell.detailTextLabel?.font = UIFont(name: "Gill Sans", size: 12)
+        
+        // Изменение цвета при нажатии:
+        
+        // Цвет бекграунда
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = #colorLiteral(red: 0.00336881564, green: 0.483507812, blue: 0.999037087, alpha: 1)
+        cell.selectedBackgroundView = bgColorView
+        
+        // Цвет текста
+        cell.textLabel?.highlightedTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        cell.detailTextLabel?.highlightedTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
         return cell
     }
     
@@ -147,6 +160,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
+    
+
     
 //    Порядок TableView снизу вверх
 //    
