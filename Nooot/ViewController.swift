@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var labelBodyText: UILabel!
     
     var noteText: String = ""
-    var notesList: [String] = ["lol", "secret"]
+    var notesList: [String] = []
     let manager: ManagerData = ManagerData()
     
     override func viewDidLoad() {
@@ -28,9 +28,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if load == nil {
             
             for note in notesList {
-                manager.loadJSON(title: note)
+             manager.loadJSON(title: note)
             }
-            semaphore.wait()
+//            semaphore.wait()
             print("2.ReloadHistory \(Thread.current)")
             historyTableView.reloadData()
         } else {
@@ -54,9 +54,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             manager.loadJSON(title: textField.text!)
             
             semaphore.wait()
-//            labelBodyText.text! = manager.getNoteDataText(title: textField.text!)
-            notesList.append(textField.text!)
-            print(notesList)
+            notesList = manager.getAllNotes()
+            labelBodyText.text! = manager.getNoteDataText(title: notesList.last!)
+
             print("3.ReloadHistory \(Thread.current)")
             historyTableView.reloadData()
             

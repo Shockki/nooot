@@ -16,6 +16,7 @@ class ManagerData {
 // Получает JSON заметики и записывает в базу
     
     func loadJSON(title: String) {
+        
         let note: NoteData = NoteData()
         let bodyText: BodyText = BodyText()
 //        let url = "http://nooot.co/api/texts/\(capitalizingFirstLetter(name: title))"
@@ -27,8 +28,9 @@ class ManagerData {
             case .success(let value):
                 let json = JSON(value)
                 let realm = try! Realm()
+            
                 note.titleName = json["title"].stringValue
-                print(json)
+//                print(json)
                 bodyText.bodyText = json["body"].stringValue
                 note.textList.append(bodyText)
 //                print(note)
@@ -44,8 +46,7 @@ class ManagerData {
                 print(error)
             }
         }
-        
-       
+      
     }
     
 // Первую букву делает заглавной
@@ -60,18 +61,17 @@ class ManagerData {
     
 // Взвращает текст выбранной заметки
     
-    func getNoteDataText(title: String) -> Results<NoteData> {
+    func getNoteDataText(title: String) -> String {
         
         let realm =  try! Realm()
-//        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", capitalizingFirstLetter(name: title))
         let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
-//        var body: String = ""
-//        for value in data[0].textList{
-//            body.append(value.bodyText)
-//        }
-//        print(data)
+        var body: String = ""
+            for value in data[0].textList {
+            body.append(value.bodyText)
+            }
+
         print("2.GetText \(Thread.current)")
-        return data
+        return body
     }
 
 // Возвращает все заметки из базы
