@@ -26,11 +26,8 @@ class TextViewController: UIViewController, UINavigationBarDelegate {
 //        historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
         let data = manager.getNoteDataText(title: hisTitleName)
         
-//        for value in data{
-//            data
-//        }
 
-//        print(data)
+        print(data)
     }
 
     

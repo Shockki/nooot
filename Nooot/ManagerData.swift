@@ -18,8 +18,8 @@ class ManagerData {
     func loadJSON(title: String) {
         let note: NoteData = NoteData()
         let bodyText: BodyText = BodyText()
-        let url = "http://nooot.co/api/texts/\(capitalizingFirstLetter(name: title))"
-        
+//        let url = "http://nooot.co/api/texts/\(capitalizingFirstLetter(name: title))"
+        let url = "http://nooot.co/api/texts/\(title)"
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             print("1.1 Start \(Thread.current)")
             
@@ -64,12 +64,12 @@ class ManagerData {
         
         let realm =  try! Realm()
 //        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", capitalizingFirstLetter(name: title))
-        let data = realm.objects(NoteData.self)
+        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
 //        var body: String = ""
 //        for value in data[0].textList{
 //            body.append(value.bodyText)
 //        }
-        print(data)
+//        print(data)
         print("2.GetText \(Thread.current)")
         return data
     }
@@ -85,7 +85,9 @@ class ManagerData {
 //        print("----------------------------------------------------")
         var titleList: [String] = []
         for value in data {
-            titleList.append(capitalizingFirstLetter(name: value.titleName))
+//            titleList.append(capitalizingFirstLetter(name: value.titleName))
+            titleList.append(value.titleName)
+
         }
         print("1. GetAllNotes \(Thread.current)")
         

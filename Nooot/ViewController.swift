@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var labelBodyText: UILabel!
     
     var noteText: String = ""
-    var notesList: [String] = ["secret", "lol"]
+    var notesList: [String] = ["lol", "secret"]
     let manager: ManagerData = ManagerData()
     
     override func viewDidLoad() {
