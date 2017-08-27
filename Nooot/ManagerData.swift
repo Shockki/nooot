@@ -28,16 +28,16 @@ class ManagerData {
                 let json = JSON(value)
                 let realm = try! Realm()
                 note.titleName = json["title"].stringValue
-//                print(json)
+                print(json)
                 bodyText.bodyText = json["body"].stringValue
                 note.textList.append(bodyText)
 //                print(note)
-                print("1.2 Load \(Thread.current)")
+//                print("1.2 Load \(Thread.current)")
                 try! realm.write {
 //                    realm.add(note, update: true)   // primaryKey
                     realm.add(note)
                 }
-                print("1.3 Write \(Thread.current)")
+//                print("1.3 Write \(Thread.current)")
                 semaphore.signal()
                 load = true as AnyObject
             case .failure(let error):
@@ -60,16 +60,18 @@ class ManagerData {
     
 // Взвращает текст выбранной заметки
     
-    func getNoteDataText(title: String) -> String {
+    func getNoteDataText(title: String) -> Results<NoteData> {
         
         let realm =  try! Realm()
-        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", capitalizingFirstLetter(name: title))
-        var body: String = ""
-        for value in data[0].textList{
-            body.append(value.bodyText)
-        }
+//        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", capitalizingFirstLetter(name: title))
+        let data = realm.objects(NoteData.self)
+//        var body: String = ""
+//        for value in data[0].textList{
+//            body.append(value.bodyText)
+//        }
+        print(data)
         print("2.GetText \(Thread.current)")
-        return body
+        return data
     }
 
 // Возвращает все заметки из базы
@@ -78,9 +80,9 @@ class ManagerData {
         
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self)
-        print("----------------------------------------------------")
-        print(data)
-        print("----------------------------------------------------")
+//        print("----------------------------------------------------")
+//        print(data)
+//        print("----------------------------------------------------")
         var titleList: [String] = []
         for value in data {
             titleList.append(capitalizingFirstLetter(name: value.titleName))

@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var labelBodyText: UILabel!
     
     var noteText: String = ""
-    var notesList: [String] = ["lol"]
+    var notesList: [String] = ["secret", "lol"]
     let manager: ManagerData = ManagerData()
     
     override func viewDidLoad() {
@@ -37,6 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             notesList = manager.getAllNotes()
             print(notesList)
         }
+        
     }
     
 // Кнопка "Готово"
@@ -53,7 +54,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             manager.loadJSON(title: textField.text!)
             
             semaphore.wait()
-            labelBodyText.text! = manager.getNoteDataText(title: textField.text!)
+//            labelBodyText.text! = manager.getNoteDataText(title: textField.text!)
             notesList.append(textField.text!)
             print(notesList)
             print("3.ReloadHistory \(Thread.current)")

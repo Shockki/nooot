@@ -17,13 +17,20 @@ class TextViewController: UIViewController, UINavigationBarDelegate {
     let manager: ManagerData = ManagerData()
     
     var hisTitleName: String = ""
+    var hisBodyText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         nameOfTitle.title! = hisTitleName
-        historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
+//        historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
+        let data = manager.getNoteDataText(title: hisTitleName)
         
+//        for value in data{
+//            data
+//        }
+
+//        print(data)
     }
 
     
