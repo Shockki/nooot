@@ -60,25 +60,17 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSk-EF-kDy">
-                                <rect key="frame" x="16" y="131" width="288" height="276"/>
+                                <rect key="frame" x="16" y="142" width="288" height="234"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">Привет.
-Здесь ты можешь создавать заметки, которые автоматически попадают в облако, поэтому позже можно получить к ним доступ с любого устройства или поделиться ими с другими.
+                                <string key="text">Здесь ты можешь создавать заметки, которые автоматически попадают в облако, поэтому позже можно получить к ним доступ с любого устройства или поделиться ими с другими.
 
 Все заметки хранятся в общей базе, поэтому помни - если кто-то другой откроет заметку с таким же названием, то он сможет изменить ее.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.32928159605205531" green="0.33586722797309643" blue="0.33586722797309643" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Ключевое слово.." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cuX-4e-9gR">
-                                <rect key="frame" x="16" y="93" width="198" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Nooot2" translatesAutoresizingMaskIntoConstraints="NO" id="0ea-2w-hjr">
-                                <rect key="frame" x="16" y="28" width="148" height="40"/>
+                                <rect key="frame" x="16" y="37" width="135" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h69-Tt-W85">
@@ -102,6 +94,13 @@
                                     <action selector="removeAllHistoryNotes:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gNU-c8-4XU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Привет." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qw0-W9-jey">
+                                <rect key="frame" x="16" y="101" width="181" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dnm-fl-CBg">
                                 <rect key="frame" x="282" y="28" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -116,7 +115,6 @@
                     <connections>
                         <outlet property="historyTableView" destination="ZMD-Ms-6qg" id="hJM-ST-Ado"/>
                         <outlet property="labelBodyText" destination="RSk-EF-kDy" id="d8y-Go-9Pn"/>
-                        <outlet property="textFieldTitle" destination="cuX-4e-9gR" id="WeE-q3-gIC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -136,7 +134,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Type anything you want here. When you'll come back your text will still be here." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wPq-nm-gkd">
-                                <rect key="frame" x="14" y="116" width="290" height="432"/>
+                                <rect key="frame" x="10" y="116" width="300" height="432"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.32928159610000002" green="0.33586722800000002" blue="0.33586722800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -157,7 +155,7 @@
                                     <color key="titleColor" red="0.0033688156399875879" green="0.48350781202316284" blue="0.99903708696365356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="Qe5-ME-kMy"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="2hN-gn-ocb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -171,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4O-pK-rug" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3244" y="356"/>
+            <point key="canvasLocation" x="3156" y="356"/>
         </scene>
         <!--Popup View-->
         <scene sceneID="1Fy-A1-fW1">
@@ -203,6 +201,7 @@
                                         <state key="normal" title="Готово"/>
                                         <connections>
                                             <action selector="buttonAddNewNote:" destination="31Z-L2-8wO" eventType="touchUpInside" id="2ix-ui-FOk"/>
+                                            <segue destination="lld-Bd-0gA" kind="show" identifier="goNewViewNote" id="mG9-Yg-O6D"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Название заметки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQT-mk-KbC">
@@ -225,7 +224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DIi-j1-afN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2482.5" y="1028.8732394366198"/>
+            <point key="canvasLocation" x="2484" y="1029"/>
         </scene>
         <!--New Text View Controller-->
         <scene sceneID="Iec-iO-UU9">
@@ -243,6 +242,9 @@
                                 <rect key="frame" x="14" y="35" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Назад"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="xuA-Jv-ro3"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iri-Ec-swF">
                                 <rect key="frame" x="15" y="73" width="286" height="35"/>
@@ -252,7 +254,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Type anything you want here. When you'll come back your text will still be here." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Bgy-1v-akF">
-                                <rect key="frame" x="14" y="116" width="290" height="432"/>
+                                <rect key="frame" x="10" y="116" width="300" height="432"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.32928159610000002" green="0.33586722800000002" blue="0.33586722800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -269,10 +271,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vMu-oD-Nyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="1039"/>
+            <point key="canvasLocation" x="3156" y="1029"/>
         </scene>
     </scenes>
     <resources>
         <image name="Nooot2" width="382" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="xuA-Jv-ro3"/>
+    </inferredMetricsTieBreakers>
 </document>

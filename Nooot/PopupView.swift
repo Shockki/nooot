@@ -24,7 +24,21 @@ class PopupView: UIViewController {
         textFieldAddNote.becomeFirstResponder()
     }
     @IBAction func buttonAddNewNote(_ sender: Any) {
-        textFieldAddNote.resignFirstResponder()
+        if textFieldAddNote.text!.isEmpty {
+            textFieldAddNote.resignFirstResponder()
+            let alertContr = UIAlertController(title: "Введите имя заметки", message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ок", style: .default, handler: nil)
+            alertContr.addAction(action)
+            present(alertContr, animated: true, completion: nil)
+            
+        } else {
+            textFieldAddNote.resignFirstResponder()
+            performSegue(withIdentifier: "goNewViewNote", sender: nil)
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
 
@@ -33,6 +47,13 @@ class PopupView: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goNewViewNote" {
+            let destVC: NewTextViewController = segue.destination as! NewTextViewController
+            destVC.noteList.append(textFieldAddNote.text!)
+        }
+    }
 
     /*
     // MARK: - Navigation

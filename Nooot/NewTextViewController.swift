@@ -27,12 +27,19 @@ class NewTextViewController: UIViewController {
         noteList = manager.getAllNotes().last!
         textView.text? =  manager.getNoteDataText(title: noteList)
         labelTitle.text! = noteList
-//        performSegue(withIdentifier: "goHome", sender: nil)
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func goNewViewNote(segue: UIStoryboardSegue) {
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
 

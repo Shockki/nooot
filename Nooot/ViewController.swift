@@ -9,10 +9,8 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-
-    @IBOutlet weak var textFieldTitle: UITextField!
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var labelBodyText: UILabel!
     
@@ -23,7 +21,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        textFieldTitle.delegate = self
         
         
         if load == nil {
@@ -47,38 +44,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.endEditing(true)
     }
     
-// Действие кнопки Return
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textFieldTitle.text!.isEmpty {
-            textFieldTitle.resignFirstResponder() // Скрывает клавиатуру
-        } else {
-            performAction()
-            textFieldTitle.resignFirstResponder()
-        }
-        return true
-    }
-    
-    func performAction() {
-        manager.loadJSON(title: textFieldTitle.text!)
-        
-        semaphore.wait()
-        notesList = manager.getAllNotes()
-        labelBodyText.text! = manager.getNoteDataText(title: notesList.last!)
-        
-        print("3.ReloadHistory \(Thread.current)")
-        historyTableView.reloadData()
-    }
-    
 //----------------------------------TableView----------------------------------------------
     
 // Кнопка удаления всей истории
     
     @IBAction func removeAllHistoryNotes(_ sender: Any) {
-        manager.removeAllNoteDataFronDB()
-        notesList.removeAll()
-        print("ReloadHistory \(Thread.current)")
-        historyTableView.reloadData()
+        let alertContr = UIAlertController(title: "Вы действительно хотите удалить историю?", message: nil, preferredStyle: .actionSheet)
+        let actionDelete = UIAlertAction(title: "Очистить", style: .destructive) { (action) in
+            self.manager.removeAllNoteDataFronDB()
+            self.notesList.removeAll()
+            print("ReloadHistory \(Thread.current)")
+            self.historyTableView.reloadData()
+        
+        }
+        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertContr.addAction(actionDelete)
+        alertContr.addAction(actionCancel)
+        present(alertContr, animated: true, completion: nil)
+
     }
     
     
@@ -154,8 +137,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return [copyAction, deleteAction, shareAction]
     }
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue .identifier == "details" {
             if let indexPath = historyTableView.indexPathForSelectedRow {
@@ -166,6 +147,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
+    
     
 
     
