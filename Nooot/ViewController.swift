@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         historyTableView.reloadData()
     }
     
-    
+//----------------------------------TableView----------------------------------------------
     
 // Кнопка удаления всей истории
     

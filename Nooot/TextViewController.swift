@@ -12,7 +12,8 @@ class TextViewController: UIViewController, UINavigationBarDelegate {
 
     
     @IBOutlet weak var historyTextView: UITextView!
-    @IBOutlet weak var nameOfTitle: UINavigationItem!
+    @IBOutlet weak var nameOfTitle: UILabel!
+   
     
     let manager: ManagerData = ManagerData()
     
@@ -22,8 +23,8 @@ class TextViewController: UIViewController, UINavigationBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameOfTitle.title! = hisTitleName
-//        historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
+        nameOfTitle.text! = hisTitleName
+        historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
 
     }
 
@@ -34,12 +35,5 @@ class TextViewController: UIViewController, UINavigationBarDelegate {
     }
 
     
-    @IBAction func shareButton(_ sender: Any) {
-        let activityVC = UIActivityViewController(activityItems: ["http://nooot.co/text/\(hisTitleName)"], applicationActivities: nil)
-        activityVC.popoverPresentationController?.sourceView = self.view
-        
-        self.present(activityVC, animated: true, completion: nil)
-        
-    }
     
 }
