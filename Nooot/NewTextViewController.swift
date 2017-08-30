@@ -1,5 +1,5 @@
 //
-//  PopupView.swift
+//  NewTextViewController.swift
 //  Nooot
 //
 //  Created by Анатолий on 30.08.17.
@@ -8,24 +8,26 @@
 
 import UIKit
 
-class PopupView: UIViewController {
-
-    @IBOutlet weak var addNewNoteView: UIView!
+class NewTextViewController: UIViewController {
     
-    @IBOutlet weak var textFieldAddNote: UITextField!
     
+    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var textView: UITextView!
+    
+    
+    var manager: ManagerData = ManagerData()
+    var noteList: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNewNoteView.layer.cornerRadius = 15
-        textFieldAddNote.layer.cornerRadius = 11
         
-
-        textFieldAddNote.becomeFirstResponder()
-    }
-    @IBAction func buttonAddNewNote(_ sender: Any) {
-        textFieldAddNote.resignFirstResponder()
-        dismiss(animated: true, completion: nil)
+        manager.loadJSON(title: noteList)
+        
+        semaphore.wait()
+        noteList = manager.getAllNotes().last!
+        textView.text? =  manager.getNoteDataText(title: noteList)
+        labelTitle.text! = noteList
+//        performSegue(withIdentifier: "goHome", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {

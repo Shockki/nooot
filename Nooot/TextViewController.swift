@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextViewController: UIViewController, UINavigationBarDelegate {
+class TextViewController: UIViewController {
 
     
     @IBOutlet weak var historyTextView: UITextView!
@@ -25,6 +25,7 @@ class TextViewController: UIViewController, UINavigationBarDelegate {
         
         nameOfTitle.text! = hisTitleName
         historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
+        
 
     }
 

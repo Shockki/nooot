@@ -69,7 +69,9 @@ class ManagerData {
             for value in data[0].textList {
             body.append(value.bodyText)
             }
-
+        if body .isEmpty {
+            body = "Type anything you want here. When you'll come back your text will still be here."
+        }
         print("2.GetText \(Thread.current)")
         return body
     }
