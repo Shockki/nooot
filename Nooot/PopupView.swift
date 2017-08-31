@@ -19,6 +19,7 @@ class PopupView: UIViewController {
         super.viewDidLoad()
         addNewNoteView.layer.cornerRadius = 15
         textFieldAddNote.layer.cornerRadius = 11
+    
         
 
         textFieldAddNote.becomeFirstResponder()
@@ -27,7 +28,9 @@ class PopupView: UIViewController {
         if textFieldAddNote.text!.isEmpty {
             textFieldAddNote.resignFirstResponder()
             let alertContr = UIAlertController(title: "Введите имя заметки", message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ок", style: .default, handler: nil)
+            let action = UIAlertAction(title: "Ок", style: .default) { (action) in
+//                self.textFieldAddNote.becomeFirstResponder()
+            }
             alertContr.addAction(action)
             present(alertContr, animated: true, completion: nil)
             
@@ -37,14 +40,23 @@ class PopupView: UIViewController {
         }
     }
     
+
+    
+   
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-        dismiss(animated: true, completion: nil)
+        
+        // Если происходит нажатие везде, кроме выбранного View (addNewNoteView)
+        let touch = touches.first!
+        if(touch.view != addNewNoteView){
+            self.view.endEditing(true)
+            dismiss(animated: true, completion: nil)
+            print("dismiss")
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     

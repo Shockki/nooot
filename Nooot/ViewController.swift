@@ -49,7 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 // Кнопка удаления всей истории
     
     @IBAction func removeAllHistoryNotes(_ sender: Any) {
-        let alertContr = UIAlertController(title: "Вы действительно хотите удалить историю?", message: nil, preferredStyle: .actionSheet)
+        let alertContr = UIAlertController(title: "Вы действительно хотите очистить историю?", message: nil, preferredStyle: .actionSheet)
         let actionDelete = UIAlertAction(title: "Очистить", style: .destructive) { (action) in
             self.manager.removeAllNoteDataFronDB()
             self.notesList.removeAll()
@@ -81,8 +81,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = notesList[indexPath.row]
 //        cell.detailTextLabel?.text = manager.getNoteDataText(title: (cell.textLabel?.text)!)
-        cell.detailTextLabel?.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        cell.detailTextLabel?.font = UIFont(name: "Gill Sans", size: 12)
+//        cell.detailTextLabel?.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+//        cell.detailTextLabel?.font = UIFont(name: "Gill Sans", size: 12)
         
         // Изменение цвета при нажатии:
         
@@ -93,7 +93,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Цвет текста
         cell.textLabel?.highlightedTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        cell.detailTextLabel?.highlightedTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        cell.detailTextLabel?.highlightedTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         return cell
     }
@@ -114,14 +114,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         shareAction.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         
-        // Копирование ссылки заметки
-        
-        let copyAction = UITableViewRowAction(style: .default, title: "Copy") { (action, indexPath) in
-            print("copy")
-            self.historyTableView.isEditing = false
-        }
-        copyAction.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        
         // Удаление заметки
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
@@ -134,7 +126,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         deleteAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         
-        return [copyAction, deleteAction, shareAction]
+        return [deleteAction, shareAction]
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
