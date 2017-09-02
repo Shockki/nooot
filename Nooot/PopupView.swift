@@ -19,9 +19,8 @@ class PopupView: UIViewController {
         super.viewDidLoad()
         addNewNoteView.layer.cornerRadius = 15
         textFieldAddNote.layer.cornerRadius = 11
-    
-        
 
+            
         textFieldAddNote.becomeFirstResponder()
     }
     @IBAction func buttonAddNewNote(_ sender: Any) {
@@ -33,10 +32,9 @@ class PopupView: UIViewController {
             }
             alertContr.addAction(action)
             present(alertContr, animated: true, completion: nil)
-            
         } else {
             textFieldAddNote.resignFirstResponder()
-            performSegue(withIdentifier: "goNewViewNote", sender: nil)
+            performSegue(withIdentifier: "goText", sender: nil)
         }
     }
     
@@ -61,7 +59,7 @@ class PopupView: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goNewViewNote" {
+        if segue.identifier == "goText" {
             let destVC: NewTextViewController = segue.destination as! NewTextViewController
             destVC.noteList.append(textFieldAddNote.text!)
         }

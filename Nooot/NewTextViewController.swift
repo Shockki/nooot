@@ -20,9 +20,9 @@ class NewTextViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         manager.loadJSON(title: noteList)
-        
+
         semaphore.wait()
         noteList = manager.getAllNotes().last!
         textView.text? =  manager.getNoteDataText(title: noteList)
@@ -34,9 +34,7 @@ class NewTextViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func goNewViewNote(segue: UIStoryboardSegue) {
-    }
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
