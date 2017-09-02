@@ -15,13 +15,26 @@ class PopupView: UIViewController {
     @IBOutlet weak var textFieldAddNote: UITextField!
     
     
+
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addNewNoteView.layer.cornerRadius = 15
         textFieldAddNote.layer.cornerRadius = 11
-
-            
         textFieldAddNote.becomeFirstResponder()
+        
+       
+
+        // Меняет положение курсора
+        textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
+        textFieldAddNote.leftViewMode = .always
+        
+    
+        
+        
+        
     }
     @IBAction func buttonAddNewNote(_ sender: Any) {
         if textFieldAddNote.text!.isEmpty {

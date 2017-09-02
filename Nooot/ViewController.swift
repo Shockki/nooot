@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             notesList = manager.getAllNotes()
             print(notesList)
         }
-        
+
     }
     
 // Скрывает клавиатуру, когда пользователь касается внешнего вида

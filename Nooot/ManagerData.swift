@@ -120,6 +120,10 @@ class ManagerData {
         print("Remove All")
     }
     
+    
+    
+
+    
 }
 
 var load: AnyObject? {
