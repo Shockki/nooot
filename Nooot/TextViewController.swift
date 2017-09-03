@@ -19,13 +19,20 @@ class TextViewController: UIViewController {
     
     var hisTitleName: String = ""
     var hisBodyText: String = ""
+    var notesList: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        manager.loadJSON(title: hisTitleName)
+        semaphore.wait()
+        
+        notesList = manager.getAllNotes()
+        hisTitleName = notesList.last!
+        
         nameOfTitle.text! = hisTitleName
         historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
-        
 
     }
 

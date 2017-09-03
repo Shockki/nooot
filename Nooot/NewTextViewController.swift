@@ -17,7 +17,6 @@ class NewTextViewController: UIViewController {
     
     var manager: ManagerData = ManagerData()
     var noteList: String = ""
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

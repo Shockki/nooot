@@ -41,7 +41,7 @@ class ManagerData {
                 }
 //                print("1.3 Write \(Thread.current)")
                 semaphore.signal()
-                load = true as AnyObject
+//                load = true as AnyObject
             case .failure(let error):
                 print(error)
             }
@@ -104,6 +104,7 @@ class ManagerData {
         try! realm.write {
             realm.delete(data)
         }
+
     }
 // Удаление всех заметок
 
@@ -120,8 +121,13 @@ class ManagerData {
         print("Remove All")
     }
     
-    
-    
+    func reverseNotes (input: [String]) -> [String] {
+        var note: [String] = []
+        for n in input.reversed() {
+            note.append(n)
+        }
+        return note
+    }
 
     
 }

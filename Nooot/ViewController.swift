@@ -16,26 +16,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var noteText: String = ""
     var notesList: [String] = []
+    var notesReverse: [String] = []
     let manager: ManagerData = ManagerData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+                
+        notesReverse = manager.getAllNotes()
+        notesList = manager.reverseNotes(input: notesReverse)
+        print(notesList)
         
         
-        if load == nil {
-            
-            for note in notesList {
-             manager.loadJSON(title: note)
-            }
-//            semaphore.wait()
-            print("2.ReloadHistory \(Thread.current)")
-            historyTableView.reloadData()
-        } else {
-            notesList = manager.getAllNotes()
-            print(notesList)
-        }
-
+        
+//        if load == nil {
+//            
+//            for note in notesList {
+//             manager.loadJSON(title: note)
+//            }
+////            semaphore.wait()
+//            print("2.ReloadHistory \(Thread.current)")
+//            historyTableView.reloadData()
+//        } else {
+//            notesList = manager.getAllNotes()
+//            print(notesList)
+//        }
     }
     
 // Скрывает клавиатуру, когда пользователь касается внешнего вида
