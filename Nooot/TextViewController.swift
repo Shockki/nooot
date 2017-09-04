@@ -23,8 +23,7 @@ class TextViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         manager.loadJSON(title: hisTitleName)
         semaphore.wait()
         
@@ -33,7 +32,6 @@ class TextViewController: UIViewController {
         
         nameOfTitle.text! = hisTitleName
         historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
-
     }
 
     

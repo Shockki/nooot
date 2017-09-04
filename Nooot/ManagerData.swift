@@ -102,10 +102,14 @@ class ManagerData {
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", capitalizingFirstLetter(name: title))
         try! realm.write {
+            realm.delete(data[0].textList[0])
             realm.delete(data)
         }
+        print("Delete Note")
 
     }
+    
+    
 // Удаление всех заметок
 
     func removeAllNoteDataFronDB() {

@@ -25,7 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
-        print(notesList)
+//        print(notesList)
         
         
         
@@ -144,24 +144,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
-    
-    
-
-    
-//    Порядок TableView снизу вверх
-//    
-//    func updateTableContentInset() {
-//        let numRows = tableView(historyTableView, numberOfRowsInSection: 0)
-//        var contentInsetTop = historyTableView.bounds.size.height
-//        for i in 0..<numRows {
-//            contentInsetTop -= tableView(historyTableView, heightForRowAt: IndexPath(item: i, section: 0))
-//            if contentInsetTop <= 0 {
-//                contentInsetTop = 0
-//            }
-//        }
-//        historyTableView.contentInset = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0)
-//    }
-
-    
-
 }
