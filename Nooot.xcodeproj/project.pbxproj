@@ -15,7 +15,6 @@
 		FA2573671F49B8C9008CDDFF /* NoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2573661F49B8C9008CDDFF /* NoteData.swift */; };
 		FA47D4531F4B081700DB95BA /* BodyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47D4521F4B081700DB95BA /* BodyText.swift */; };
 		FA47D4551F4B112900DB95BA /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47D4541F4B112900DB95BA /* TextViewController.swift */; };
-		FA756AD51F574D6D00B0B2BB /* NewTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA756AD41F574D6D00B0B2BB /* NewTextViewController.swift */; };
 		FA87070D1F53368900F288DF /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87070C1F53368900F288DF /* Note.swift */; };
 		FAB9A9AF1F56A95C00780B24 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9A9AE1F56A95C00780B24 /* PopupView.swift */; };
 		FABC9FD41F49E1D6005C472E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC9FD31F49E1D6005C472E /* History.swift */; };
@@ -36,7 +35,6 @@
 		FA2573661F49B8C9008CDDFF /* NoteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteData.swift; sourceTree = "<group>"; };
 		FA47D4521F4B081700DB95BA /* BodyText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyText.swift; sourceTree = "<group>"; };
 		FA47D4541F4B112900DB95BA /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
-		FA756AD41F574D6D00B0B2BB /* NewTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTextViewController.swift; sourceTree = "<group>"; };
 		FA87070C1F53368900F288DF /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		FAB9A9AE1F56A95C00780B24 /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		FABC9FD31F49E1D6005C472E /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 				FABE76451F49C4C300C7E1C1 /* ViewController.swift */,
 				FAB9A9AE1F56A95C00780B24 /* PopupView.swift */,
 				FA47D4541F4B112900DB95BA /* TextViewController.swift */,
-				FA756AD41F574D6D00B0B2BB /* NewTextViewController.swift */,
 				FABE76431F49C3E500C7E1C1 /* ManagerData.swift */,
 				FA2573661F49B8C9008CDDFF /* NoteData.swift */,
 				FA87070C1F53368900F288DF /* Note.swift */,
@@ -236,7 +233,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA756AD51F574D6D00B0B2BB /* NewTextViewController.swift in Sources */,
 				FAB9A9AF1F56A95C00780B24 /* PopupView.swift in Sources */,
 				FA47D4531F4B081700DB95BA /* BodyText.swift in Sources */,
 				FABE76441F49C3E500C7E1C1 /* ManagerData.swift in Sources */,

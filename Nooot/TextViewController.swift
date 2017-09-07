@@ -17,21 +17,19 @@ class TextViewController: UIViewController {
     
     let manager: ManagerData = ManagerData()
     
-    var hisTitleName: String = ""
-    var hisBodyText: String = ""
-    var notesList: [String] = []
+    var titleName: String = ""
+    var bodyText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        manager.loadJSON(title: hisTitleName)
+        print("---------------------------------------------")
+        
+        manager.loadJSON(title: titleName)
+        
         semaphore.wait()
-        
-        notesList = manager.getAllNotes()
-        hisTitleName = notesList.last!
-        
-        nameOfTitle.text! = hisTitleName
-        historyTextView.text! = manager.getNoteDataText(title: hisTitleName)
+        titleName = manager.getAllNotes().last!
+        historyTextView.text? =  manager.getNoteDataText(title: titleName)
+        nameOfTitle.text! = titleName
     }
 
     

@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var labelBodyText: UILabel!
+    @IBOutlet weak var buttonDeleteAll: UIButton!
     
     var noteText: String = ""
     var notesList: [String] = []
@@ -22,6 +23,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+        historyTableView.delegate = self
+        buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
                 
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
@@ -138,7 +141,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue .identifier == "details" {
             if let indexPath = historyTableView.indexPathForSelectedRow {
                 let destVC: TextViewController = segue.destination as! TextViewController
-                destVC.hisTitleName = notesList[indexPath.row]
+                destVC.titleName = notesList[indexPath.row]
                 
             }
             

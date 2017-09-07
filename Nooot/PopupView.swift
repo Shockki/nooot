@@ -13,29 +13,25 @@ class PopupView: UIViewController {
     @IBOutlet weak var addNewNoteView: UIView!
     
     @IBOutlet weak var textFieldAddNote: UITextField!
-    
-    
+    var manager: ManagerData = ManagerData()
+    var noteList: [String] = []
 
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNewNoteView.layer.cornerRadius = 15
+        addNewNoteView.layer.cornerRadius = 16
         textFieldAddNote.layer.cornerRadius = 11
         textFieldAddNote.becomeFirstResponder()
-        
-       
 
         // Меняет положение курсора
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
-        
     
-        
-        
-        
+        noteList = manager.getAllNotes()
     }
+    
     @IBAction func buttonAddNewNote(_ sender: Any) {
         if textFieldAddNote.text!.isEmpty {
             textFieldAddNote.resignFirstResponder()
@@ -73,8 +69,8 @@ class PopupView: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goText" {
-            let destVC: NewTextViewController = segue.destination as! NewTextViewController
-            destVC.noteList.append(textFieldAddNote.text!)
+            let destVC: TextViewController = segue.destination as! TextViewController
+            destVC.titleName.append(textFieldAddNote.text!)
         }
     }
 
