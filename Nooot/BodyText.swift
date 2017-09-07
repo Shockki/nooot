@@ -11,4 +11,5 @@ import RealmSwift
 
 class BodyText: Object {
     dynamic var bodyText: String = ""
+    dynamic var idNote: String = ""
 }

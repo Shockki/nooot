@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
 //        print(notesList)
-        changeTable()
+//        changeTable()
         
     }
     

@@ -32,6 +32,7 @@ class ManagerData {
                 note.titleName = json["title"].stringValue
 //                print(json)
                 bodyText.bodyText = json["body"].stringValue
+                bodyText.idNote = json["_id"].stringValue
                 note.textList.append(bodyText)
 //                print(note)
 //                print("1.2 Load \(Thread.current)")
