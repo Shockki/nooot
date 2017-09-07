@@ -12,8 +12,10 @@ import RealmSwift
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var historyTableView: UITableView!
+    @IBOutlet weak var labelHello: UILabel!
     @IBOutlet weak var labelBodyText: UILabel!
     @IBOutlet weak var buttonDeleteAll: UIButton!
+    @IBOutlet weak var visited: UILabel!
     
     var noteText: String = ""
     var notesList: [String] = []
@@ -25,25 +27,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         historyTableView.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
+        
                 
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
 //        print(notesList)
+        changeTable()
         
-        
-        
-//        if load == nil {
-//            
-//            for note in notesList {
-//             manager.loadJSON(title: note)
-//            }
-////            semaphore.wait()
-//            print("2.ReloadHistory \(Thread.current)")
-//            historyTableView.reloadData()
-//        } else {
-//            notesList = manager.getAllNotes()
-//            print(notesList)
-//        }
     }
     
 // Скрывает клавиатуру, когда пользователь касается внешнего вида
@@ -69,7 +59,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alertContr.addAction(actionDelete)
         alertContr.addAction(actionCancel)
         present(alertContr, animated: true, completion: nil)
-
+        
     }
     
     
@@ -144,6 +134,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 destVC.titleName = notesList[indexPath.row]
                 
             }
+            
+        }
+    }
+    
+    
+    func changeTable () {
+        if notesList.count >= 4 {
+            historyTableView.frame = CGRect(x: 0, y: 186, width: 375, height: 482)
+            buttonDeleteAll.frame = CGRect(x: 279, y: 152, width: 80, height: 20)
+            visited.frame = CGRect(x: 20, y: 152, width: 146, height: 26)
+            labelHello.text! = " "
+            labelBodyText.text! = " "
+            
+            historyTableView.reloadData()
+        }else{
+            historyTableView.frame = CGRect(x: 0, y: 546, width: 375, height: 122)
+            buttonDeleteAll.frame = CGRect(x: 279, y: 518, width: 80, height: 20)
+            visited.frame = CGRect(x: 20, y: 512, width: 146, height: 26)
+            
+            historyTableView.reloadData()
             
         }
     }

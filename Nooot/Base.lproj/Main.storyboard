@@ -107,6 +107,8 @@
                         <outlet property="buttonDeleteAll" destination="1F3-GK-DoH" id="R4B-YI-8wu"/>
                         <outlet property="historyTableView" destination="ZMD-Ms-6qg" id="hJM-ST-Ado"/>
                         <outlet property="labelBodyText" destination="RSk-EF-kDy" id="d8y-Go-9Pn"/>
+                        <outlet property="labelHello" destination="Qw0-W9-jey" id="Tsb-W2-vXt"/>
+                        <outlet property="visited" destination="IiE-jq-xy6" id="ZLf-y1-ISG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -163,7 +165,7 @@
         <!--Popup View-->
         <scene sceneID="1Fy-A1-fW1">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="31Z-L2-8wO" customClass="PopupView" customModule="Nooot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="31Z-L2-8wO" customClass="PopupView" customModule="Nooot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qsz-N6-EhC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -222,6 +224,6 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="tf6-ub-wvT"/>
+        <segue reference="4vj-Wf-yUr"/>
     </inferredMetricsTieBreakers>
 </document>
