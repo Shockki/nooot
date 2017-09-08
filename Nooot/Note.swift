@@ -11,4 +11,8 @@ import Foundation
 class Note {
     var nameOfTitle: String = ""
     var textOfBody: String = ""
+
+    
+
 }
+

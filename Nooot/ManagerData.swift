@@ -16,11 +16,11 @@ class ManagerData {
 // Получает JSON заметики и записывает в базу
     
     func loadJSON(title: String) {
-        
+        let encodedTitle = title.addingPercentEscapes(using: String.Encoding.utf8)!
         let note: NoteData = NoteData()
         let bodyText: BodyText = BodyText()
-//        let url = "http://nooot.co/api/texts/\(capitalizingFirstLetter(name: title))"
-        let url = "http://nooot.co/api/texts/\(title)"
+
+        let url = "http://nooot.co/api/texts/\(encodedTitle)"
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             print("1.1 Start \(Thread.current)")
             
@@ -30,7 +30,7 @@ class ManagerData {
                 let realm = try! Realm()
             
                 note.titleName = json["title"].stringValue
-//                print(json)
+                print(json)
                 bodyText.bodyText = json["body"].stringValue
                 bodyText.idNote = json["_id"].stringValue
                 note.textList.append(bodyText)

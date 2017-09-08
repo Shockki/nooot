@@ -28,7 +28,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         historyTableView.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         
-                
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
 //        print(notesList)

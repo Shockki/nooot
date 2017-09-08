@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopupView: UIViewController {
+class PopupView: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var addNewNoteView: UIView!
     
@@ -21,6 +21,7 @@ class PopupView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textFieldAddNote.delegate = self
         addNewNoteView.layer.cornerRadius = 16
         textFieldAddNote.layer.cornerRadius = 11
         textFieldAddNote.becomeFirstResponder()
@@ -33,11 +34,21 @@ class PopupView: UIViewController {
     }
     
     @IBAction func buttonAddNewNote(_ sender: Any) {
+        performAction()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        performAction()
+        textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
+        return true
+    }
+
+    func performAction() {
         if textFieldAddNote.text!.isEmpty {
             textFieldAddNote.resignFirstResponder()
             let alertContr = UIAlertController(title: "Введите имя заметки", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Ок", style: .default) { (action) in
-//                self.textFieldAddNote.becomeFirstResponder()
+                //                self.textFieldAddNote.becomeFirstResponder()
             }
             alertContr.addAction(action)
             present(alertContr, animated: true, completion: nil)
