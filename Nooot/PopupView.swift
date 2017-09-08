@@ -14,11 +14,7 @@ class PopupView: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var textFieldAddNote: UITextField!
     var manager: ManagerData = ManagerData()
-    var noteList: [String] = []
-
-    
-    
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldAddNote.delegate = self
@@ -29,8 +25,6 @@ class PopupView: UIViewController, UITextFieldDelegate{
         // Меняет положение курсора
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
-    
-        noteList = manager.getAllNotes()
     }
     
     @IBAction func buttonAddNewNote(_ sender: Any) {
@@ -48,7 +42,7 @@ class PopupView: UIViewController, UITextFieldDelegate{
             textFieldAddNote.resignFirstResponder()
             let alertContr = UIAlertController(title: "Введите имя заметки", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Ок", style: .default) { (action) in
-                //                self.textFieldAddNote.becomeFirstResponder()
+//                self.textFieldAddNote.becomeFirstResponder()
             }
             alertContr.addAction(action)
             present(alertContr, animated: true, completion: nil)

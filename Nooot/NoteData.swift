@@ -13,8 +13,8 @@ class NoteData: Object {
    dynamic var titleName: String = ""
     var textList = List<BodyText>()
     
-//    override static func primaryKey() -> String? {
-//        return "titleName"
-//    }
+    override static func primaryKey() -> String? {
+        return "titleName"
+    }
     
 }

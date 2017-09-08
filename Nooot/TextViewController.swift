@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TextViewController: UIViewController {
+class TextViewController: UIViewController, UITextViewDelegate {
 
     
     @IBOutlet weak var historyTextView: UITextView!
     @IBOutlet weak var nameOfTitle: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
    
     
     let manager: ManagerData = ManagerData()
@@ -22,14 +23,16 @@ class TextViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        historyTextView.delegate = self
         print("---------------------------------------------")
         
         manager.loadJSON(title: titleName)
-        
         semaphore.wait()
+
         titleName = manager.getAllNotes().last!
-        historyTextView.text? =  manager.getNoteDataText(title: titleName)
         nameOfTitle.text! = titleName
+        idLabel.text! = manager.getNoteDataId(title: titleName)
+        historyTextView.text? =  manager.getNoteDataText(title: titleName)
     }
 
     
@@ -41,6 +44,6 @@ class TextViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
+
     
 }

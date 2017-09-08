@@ -16,10 +16,9 @@ class ManagerData {
 // Получает JSON заметики и записывает в базу
     
     func loadJSON(title: String) {
-        let encodedTitle = title.addingPercentEscapes(using: String.Encoding.utf8)!
+        var encodedTitle = title.addingPercentEscapes(using: String.Encoding.utf8)!
         let note: NoteData = NoteData()
         let bodyText: BodyText = BodyText()
-
         let url = "http://nooot.co/api/texts/\(encodedTitle)"
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             print("1.1 Start \(Thread.current)")
@@ -28,17 +27,17 @@ class ManagerData {
             case .success(let value):
                 let json = JSON(value)
                 let realm = try! Realm()
-            
+                
                 note.titleName = json["title"].stringValue
-                print(json)
+//                print(json)
                 bodyText.bodyText = json["body"].stringValue
                 bodyText.idNote = json["_id"].stringValue
                 note.textList.append(bodyText)
 //                print(note)
 //                print("1.2 Load \(Thread.current)")
                 try! realm.write {
-//                    realm.add(note, update: true)   // primaryKey
-                    realm.add(note)
+                    realm.add(note, update: true)   // primaryKey
+//                    realm.add(note)
                 }
 //                print("1.3 Write \(Thread.current)")
                 semaphore.signal()
@@ -47,34 +46,35 @@ class ManagerData {
                 print(error)
             }
         }
-      
-    }
-    
-// Первую букву делает заглавной
-    
-    func capitalizingFirstLetter(name: String) -> String {
-        let first = String(name.characters.prefix(1)).capitalized
-        let other = String(name.characters.dropFirst())
-        print("Capitalizing \(Thread.current)")
-        return first + other
+        
     }
 
     
 // Взвращает текст выбранной заметки
     
     func getNoteDataText(title: String) -> String {
-        
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
         var body: String = ""
-            for value in data[0].textList {
+        for value in data[0].textList {
             body.append(value.bodyText)
-            }
-        if body .isEmpty {
-            body = "Type anything you want here. When you'll come back your text will still be here."
         }
         print("2.GetText \(Thread.current)")
         return body
+    }
+    
+// Взвращает id выбранной заметки
+    
+    func getNoteDataId(title: String) -> String {
+        
+        let realm =  try! Realm()
+        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
+        var id: String = ""
+        for value in data[0].textList {
+            id.append(value.idNote)
+        }
+        print("2.GetId \(Thread.current)")
+        return id
     }
 
 // Возвращает все заметки из базы
@@ -126,6 +126,15 @@ class ManagerData {
         print("Remove All")
     }
     
+// Первую букву делает заглавной
+    
+    func capitalizingFirstLetter(name: String) -> String {
+        let first = String(name.characters.prefix(1)).capitalized
+        let other = String(name.characters.dropFirst())
+        print("Capitalizing \(Thread.current)")
+        return first + other
+    }
+
     func reverseNotes (input: [String]) -> [String] {
         var note: [String] = []
         for n in input.reversed() {
