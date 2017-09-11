@@ -9,13 +9,11 @@
 import UIKit
 
 class TextViewController: UIViewController, UITextViewDelegate {
-
-    
+   
     @IBOutlet weak var historyTextView: UITextView!
     @IBOutlet weak var nameOfTitle: UILabel!
     @IBOutlet weak var idLabel: UILabel!
    
-    
     let manager: ManagerData = ManagerData()
     
     var titleName: String = ""
@@ -24,7 +22,6 @@ class TextViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
-        print("---------------------------------------------")
         
         manager.loadJSON(title: titleName)
         semaphore.wait()
@@ -37,15 +34,21 @@ class TextViewController: UIViewController, UITextViewDelegate {
         historyTextView.text? =  manager.getNoteDataText(title: titleName)
     }
 
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func buttonSaveText(_ sender: Any) {
+        manager.saveNoteText(title: titleName, body: historyTextView.text)
+        historyTextView.resignFirstResponder()
+        
+        let alertContr = UIAlertController(title: "Готово!", message: nil, preferredStyle: .alert)
+        self.present(alertContr, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) { execute in alertContr.dismiss(animated: true, completion: nil)}
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-
-    
 }

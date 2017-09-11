@@ -29,10 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         
         notesReverse = manager.getAllNotes()
-        notesList = manager.reverseNotes(input: notesReverse)
-//        print(notesList)
-//        changeTable()
-        
+        notesList = manager.reverseNotes(input: notesReverse)        
     }
     
 // Скрывает клавиатуру, когда пользователь касается внешнего вида
@@ -138,22 +135,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    func changeTable () {
-        if notesList.count >= 4 {
-            historyTableView.frame = CGRect(x: 0, y: 186, width: 375, height: 482)
-            buttonDeleteAll.frame = CGRect(x: 279, y: 152, width: 80, height: 20)
-            visited.frame = CGRect(x: 20, y: 152, width: 146, height: 26)
-            labelHello.text! = " "
-            labelBodyText.text! = " "
-            
-            historyTableView.reloadData()
-        }else{
-            historyTableView.frame = CGRect(x: 0, y: 546, width: 375, height: 122)
-            buttonDeleteAll.frame = CGRect(x: 279, y: 518, width: 80, height: 20)
-            visited.frame = CGRect(x: 20, y: 512, width: 146, height: 26)
-            
-            historyTableView.reloadData()
-            
-        }
-    }
+//    func changeTable () {
+//        if notesList.count >= 4 {
+//            historyTableView.frame = CGRect(x: 0, y: 186, width: 375, height: 482)
+//            buttonDeleteAll.frame = CGRect(x: 279, y: 152, width: 80, height: 20)
+//            visited.frame = CGRect(x: 20, y: 152, width: 146, height: 26)
+//            labelHello.text! = " "
+//            labelBodyText.text! = " "
+//            
+//            historyTableView.reloadData()
+//        }else{
+//            historyTableView.frame = CGRect(x: 0, y: 546, width: 375, height: 122)
+//            buttonDeleteAll.frame = CGRect(x: 279, y: 518, width: 80, height: 20)
+//            visited.frame = CGRect(x: 20, y: 512, width: 146, height: 26)
+//            
+//            historyTableView.reloadData()    
+//        }
+//    }
 }

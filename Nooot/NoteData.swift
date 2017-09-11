@@ -16,5 +16,4 @@ class NoteData: Object {
     override static func primaryKey() -> String? {
         return "titleName"
     }
-    
 }

@@ -37,16 +37,34 @@ class ManagerData {
 //                print("1.2 Load \(Thread.current)")
                 try! realm.write {
                     realm.add(note, update: true)   // primaryKey
-//                    realm.add(note)
                 }
 //                print("1.3 Write \(Thread.current)")
                 semaphore.signal()
-//                load = true as AnyObject
             case .failure(let error):
                 print(error)
             }
         }
         
+    }
+    
+    func saveNoteText(title: String, body: String) {
+        let idNote: String = getNoteDataId(title: title)
+        let param = [
+            "_id":"\(idNote)",
+            "title":"\(title)",
+            "body":"\(body)",
+            ]
+
+        Alamofire.request("http://nooot.co/api/texts/\(idNote)", method: .post, parameters: param, encoding: URLEncoding.default)
+            .validate(statusCode: 200..<300)
+            .responseJSON(queue: concurrentQueue) { response in
+                if (response.result.error == nil) {
+                    debugPrint("HTTP Response Body: \(response.data)")
+                }
+                else {
+                    debugPrint("HTTP Request failed: \(response.result.error)")
+                }
+        }
     }
 
     
@@ -83,17 +101,11 @@ class ManagerData {
         
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self)
-//        print("----------------------------------------------------")
-//        print(data)
-//        print("----------------------------------------------------")
         var titleList: [String] = []
         for value in data {
-//            titleList.append(capitalizingFirstLetter(name: value.titleName))
             titleList.append(value.titleName)
-
         }
         print("1. GetAllNotes \(Thread.current)")
-        
         return titleList
     }
     
@@ -107,9 +119,7 @@ class ManagerData {
             realm.delete(data)
         }
         print("Delete Note")
-
     }
-    
     
 // Удаление всех заметок
 
@@ -159,16 +169,6 @@ class ManagerData {
 
 
     
-}
-
-var load: AnyObject? {
-    get {
-        return UserDefaults.standard.object(forKey: "flag") as AnyObject?
-    }
-    set {
-        UserDefaults.standard.set(newValue, forKey: "flag")
-        UserDefaults.standard.synchronize()
-    }
 }
 
 var semaphore = DispatchSemaphore(value: 0)
