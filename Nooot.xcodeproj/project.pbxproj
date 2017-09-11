@@ -90,9 +90,9 @@
 			children = (
 				FA2573541F49B257008CDDFF /* AppDelegate.swift */,
 				FABE76451F49C4C300C7E1C1 /* ViewController.swift */,
+				FABE76431F49C3E500C7E1C1 /* ManagerData.swift */,
 				FAB9A9AE1F56A95C00780B24 /* PopupView.swift */,
 				FA47D4541F4B112900DB95BA /* TextViewController.swift */,
-				FABE76431F49C3E500C7E1C1 /* ManagerData.swift */,
 				FA2573661F49B8C9008CDDFF /* NoteData.swift */,
 				FA47D4521F4B081700DB95BA /* BodyText.swift */,
 				FA2573581F49B258008CDDFF /* Main.storyboard */,

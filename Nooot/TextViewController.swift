@@ -25,9 +25,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
         manager.loadJSON(title: titleName)
         semaphore.wait()
         
-        titleName = manager.returnText(titleName: titleName)
-        print(titleName)
-        
+        titleName = manager.returnText(titleName: titleName)      
         nameOfTitle.text! = titleName
         historyTextView.text? =  manager.getNoteDataText(title: titleName)
     }

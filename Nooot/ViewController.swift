@@ -29,7 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         
         notesReverse = manager.getAllNotes()
-        notesList = manager.reverseNotes(input: notesReverse)        
+        notesList = manager.reverseNotes(input: notesReverse)
     }
     
 // Скрывает клавиатуру, когда пользователь касается внешнего вида

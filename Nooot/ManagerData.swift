@@ -16,9 +16,10 @@ class ManagerData {
 // Получает JSON заметики и записывает в базу
     
     func loadJSON(title: String) {
-        var encodedTitle = title.addingPercentEscapes(using: String.Encoding.utf8)!
+        let encodedTitle = title.addingPercentEscapes(using: String.Encoding.utf8)!
         let note: NoteData = NoteData()
         let bodyText: BodyText = BodyText()
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         let url = "http://nooot.co/api/texts/\(encodedTitle)"
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             print("1.1 Start \(Thread.current)")
@@ -27,18 +28,17 @@ class ManagerData {
             case .success(let value):
                 let json = JSON(value)
                 let realm = try! Realm()
-                
-                note.titleName = json["title"].stringValue
 //                print(json)
+                note.titleName = json["title"].stringValue
                 bodyText.bodyText = json["body"].stringValue
                 bodyText.idNote = json["_id"].stringValue
                 note.textList.append(bodyText)
-//                print(note)
-//                print("1.2 Load \(Thread.current)")
+                
+                print("1.2 Load \(Thread.current)")
                 try! realm.write {
                     realm.add(note, update: true)   // primaryKey
                 }
-//                print("1.3 Write \(Thread.current)")
+                print("1.3 Write \(Thread.current)")
                 semaphore.signal()
             case .failure(let error):
                 print(error)
