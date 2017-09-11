@@ -143,6 +143,19 @@ class ManagerData {
         return note
     }
     
+// Делает проверку на сущ. заметки
+    
+    func returnText(titleName: String) -> String{
+        let noteList: [String] = getAllNotes()
+        var getText: String = noteList.last!
+        for value in noteList {
+            if value == titleName.lowercased() || value == titleName.capitalized {
+                getText = value
+            }
+        }
+        print("ReturnText \(Thread.current)")
+        return getText
+    }
 
 
     

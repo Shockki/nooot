@@ -28,8 +28,10 @@ class TextViewController: UIViewController, UITextViewDelegate {
         
         manager.loadJSON(title: titleName)
         semaphore.wait()
-
-        titleName = manager.getAllNotes().last!
+        
+        titleName = manager.returnText(titleName: titleName)
+        print(titleName)
+        
         nameOfTitle.text! = titleName
         idLabel.text! = manager.getNoteDataId(title: titleName)
         historyTextView.text? =  manager.getNoteDataText(title: titleName)
