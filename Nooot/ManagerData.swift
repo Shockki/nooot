@@ -34,11 +34,10 @@ class ManagerData {
                 bodyText.idNote = json["_id"].stringValue
                 note.textList.append(bodyText)
                 
-                print("1.2 Load \(Thread.current)")
                 try! realm.write {
                     realm.add(note, update: true)   // primaryKey
                 }
-                print("1.3 Write \(Thread.current)")
+
                 semaphore.signal()
             case .failure(let error):
                 print(error)
