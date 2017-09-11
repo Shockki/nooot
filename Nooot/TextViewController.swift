@@ -12,7 +12,6 @@ class TextViewController: UIViewController, UITextViewDelegate {
    
     @IBOutlet weak var historyTextView: UITextView!
     @IBOutlet weak var nameOfTitle: UILabel!
-    @IBOutlet weak var idLabel: UILabel!
    
     let manager: ManagerData = ManagerData()
     
@@ -30,7 +29,6 @@ class TextViewController: UIViewController, UITextViewDelegate {
         print(titleName)
         
         nameOfTitle.text! = titleName
-        idLabel.text! = manager.getNoteDataId(title: titleName)
         historyTextView.text? =  manager.getNoteDataText(title: titleName)
     }
 

@@ -150,13 +150,6 @@
                                     <segue destination="BYZ-38-t0r" kind="modal" id="2hN-gn-ocb"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FgK-0y-qSK">
-                                <rect key="frame" x="68" y="28" width="257" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2x6-KN-0Ld">
                                 <rect key="frame" x="333" y="26" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -171,7 +164,6 @@
                     <navigationItem key="navigationItem" id="u6D-AP-NCw"/>
                     <connections>
                         <outlet property="historyTextView" destination="wPq-nm-gkd" id="HCS-En-cir"/>
-                        <outlet property="idLabel" destination="FgK-0y-qSK" id="zGR-Cb-Bvc"/>
                         <outlet property="nameOfTitle" destination="H0r-QG-0lJ" id="Im1-6r-EGa"/>
                     </connections>
                 </viewController>
