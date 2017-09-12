@@ -12,10 +12,13 @@ import RealmSwift
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var historyTableView: UITableView!
+    @IBOutlet weak var historyTableViewTwo: UITableView!
     @IBOutlet weak var labelHello: UILabel!
     @IBOutlet weak var labelBodyText: UILabel!
     @IBOutlet weak var buttonDeleteAll: UIButton!
+    @IBOutlet weak var buttonDeleteAllTwo: UIButton!
     @IBOutlet weak var visited: UILabel!
+    @IBOutlet weak var visitedTwo: UILabel!
     
     var noteText: String = ""
     var notesList: [String] = []
@@ -27,9 +30,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         historyTableView.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
-        
+
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
+        sizeTableView()
     }
     
 // Скрывает клавиатуру, когда пользователь касается внешнего вида
@@ -43,24 +47,51 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 // Кнопка удаления всей истории
     
     @IBAction func removeAllHistoryNotes(_ sender: Any) {
-        let alertContr = UIAlertController(title: "Вы действительно хотите очистить историю?", message: nil, preferredStyle: .actionSheet)
-        let actionDelete = UIAlertAction(title: "Очистить", style: .destructive) { (action) in
-            self.manager.removeAllNoteDataFronDB()
-            self.notesList.removeAll()
-            print("ReloadHistory \(Thread.current)")
-            self.historyTableView.reloadData()
-        
-        }
-        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        alertContr.addAction(actionDelete)
-        alertContr.addAction(actionCancel)
-        present(alertContr, animated: true, completion: nil)
-        
+        removeAll()
+    }
+    @IBAction func removeAllHistoryNotesTwo(_ sender: Any) {
+        removeAll()
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func removeAll() {
+        let alertContr = UIAlertController(title: "Вы действительно хотите очистить историю?", message: nil, preferredStyle: .actionSheet)
+        let actionDelete = UIAlertAction(title: "Очистить", style: .destructive) { (action) in
+            self.manager.removeAllNoteDataFronDB()
+            self.notesList.removeAll()
+            self.historyTableView.reloadData()
+            self.historyTableViewTwo.reloadData()
+        }
+        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertContr.addAction(actionDelete)
+        alertContr.addAction(actionCancel)
+        present(alertContr, animated: true, completion: nil)
+    }
+
+    func sizeTableView() {
+        if notesList.count < 4 {
+            visited.alpha = 1
+            visitedTwo.alpha = 0
+            buttonDeleteAll.alpha = 1
+            buttonDeleteAllTwo.alpha = 0
+            historyTableView.alpha = 1
+            historyTableViewTwo.alpha = 0
+            labelHello.alpha = 1
+            labelBodyText.alpha = 1
+        }else{
+            visited.alpha = 0
+            visitedTwo.alpha = 1
+            buttonDeleteAll.alpha = 0
+            buttonDeleteAllTwo.alpha = 1
+            historyTableView.alpha = 0
+            historyTableViewTwo.alpha = 1
+            labelHello.alpha = 0
+            labelBodyText.alpha = 0
+        }
     }
     
 // Источник данных таблицы
@@ -92,64 +123,47 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-// Action swiping
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        // Шаринг
-        
-        let shareAction = UITableViewRowAction(style: .normal, title: "Share") { (action, indexPath) in
-            let activityVC = UIActivityViewController(activityItems: ["http://nooot.co/text/\(self.notesList[indexPath.row])"], applicationActivities: nil)
-            activityVC.popoverPresentationController?.sourceView = self.view
-            
-            self.present(activityVC, animated: true, completion: nil)
-            self.historyTableView.isEditing = false
-        }
-        
-        shareAction.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        
-        // Удаление заметки
-        
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            print("delete")
-            
-            self.manager.removeNoteDataFronDB(title: self.notesList[indexPath.row])
-            self.notesList.remove(at: indexPath.row)
-            self.historyTableView.reloadData()
-            self.historyTableView.isEditing = false
-        }
-        deleteAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        
-        return [deleteAction, shareAction]
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue .identifier == "details" {
             if let indexPath = historyTableView.indexPathForSelectedRow {
                 let destVC: TextViewController = segue.destination as! TextViewController
                 destVC.titleName = notesList[indexPath.row]
                 
+            }else if let indexPath = historyTableViewTwo.indexPathForSelectedRow {
+                let destVC: TextViewController = segue.destination as! TextViewController
+                destVC.titleName = notesList[indexPath.row]
             }
-            
         }
     }
     
+// Action swiping
     
-//    func changeTable () {
-//        if notesList.count >= 4 {
-//            historyTableView.frame = CGRect(x: 0, y: 186, width: 375, height: 482)
-//            buttonDeleteAll.frame = CGRect(x: 279, y: 152, width: 80, height: 20)
-//            visited.frame = CGRect(x: 20, y: 152, width: 146, height: 26)
-//            labelHello.text! = " "
-//            labelBodyText.text! = " "
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        
+//        // Шаринг
+//        
+//        let shareAction = UITableViewRowAction(style: .normal, title: "Share") { (action, indexPath) in
+//            let activityVC = UIActivityViewController(activityItems: ["http://nooot.co/text/\(self.notesList[indexPath.row])"], applicationActivities: nil)
+//            activityVC.popoverPresentationController?.sourceView = self.view
 //            
-//            historyTableView.reloadData()
-//        }else{
-//            historyTableView.frame = CGRect(x: 0, y: 546, width: 375, height: 122)
-//            buttonDeleteAll.frame = CGRect(x: 279, y: 518, width: 80, height: 20)
-//            visited.frame = CGRect(x: 20, y: 512, width: 146, height: 26)
-//            
-//            historyTableView.reloadData()    
+//            self.present(activityVC, animated: true, completion: nil)
+//            self.historyTableView.isEditing = false
 //        }
+//        
+//        shareAction.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+//        
+//        // Удаление заметки
+//        
+//        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+//            print("delete")
+//            
+//            self.manager.removeNoteDataFronDB(title: self.notesList[indexPath.row])
+//            self.notesList.remove(at: indexPath.row)
+//            self.historyTableView.reloadData()
+//            self.historyTableView.isEditing = false
+//        }
+//        deleteAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+//        
+//        return [deleteAction, shareAction]
 //    }
 }
