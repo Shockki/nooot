@@ -163,6 +163,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="u6D-AP-NCw"/>
                     <connections>
+                        <outlet property="doneButton" destination="2x6-KN-0Ld" id="YcV-SH-oeK"/>
                         <outlet property="historyTextView" destination="wPq-nm-gkd" id="HCS-En-cir"/>
                         <outlet property="nameOfTitle" destination="H0r-QG-0lJ" id="Im1-6r-EGa"/>
                     </connections>

@@ -12,7 +12,9 @@ class TextViewController: UIViewController, UITextViewDelegate {
    
     @IBOutlet weak var historyTextView: UITextView!
     @IBOutlet weak var nameOfTitle: UILabel!
-   
+    @IBOutlet weak var doneButton: UIButton!
+    
+    
     let manager: ManagerData = ManagerData()
     
     var titleName: String = ""
@@ -21,6 +23,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
+        doneButton.alpha = 0
         
         manager.loadJSON(title: titleName)
         semaphore.wait()
@@ -34,9 +37,15 @@ class TextViewController: UIViewController, UITextViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        doneButton.alpha = 1
+        return true
+    }
+    
     @IBAction func buttonSaveText(_ sender: Any) {
         manager.saveNoteText(title: titleName, body: historyTextView.text)
         historyTextView.resignFirstResponder()
+        doneButton.alpha = 0
         
         let alertContr = UIAlertController(title: "Готово!", message: nil, preferredStyle: .alert)
         self.present(alertContr, animated: true, completion: nil)
