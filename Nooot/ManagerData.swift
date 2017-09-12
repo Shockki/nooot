@@ -16,10 +16,9 @@ class ManagerData {
 // Получает JSON заметики и записывает в базу
     
     func loadJSON(title: String) {
-        let encodedTitle = title.addingPercentEscapes(using: String.Encoding.utf8)!
+        let encodedTitle = space(title: title).addingPercentEscapes(using: String.Encoding.utf8)!
         let note: NoteData = NoteData()
         let bodyText: BodyText = BodyText()
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
         let url = "http://nooot.co/api/texts/\(encodedTitle)"
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             print("1.1 Start \(Thread.current)")
@@ -133,6 +132,20 @@ class ManagerData {
             realm.delete(dataText)
         }
         print("Remove All")
+    }
+    
+// Заменяет пробел символами
+    
+    func space(title: String) -> String {
+        var array: String = ""
+        for i in title.characters {
+            if i == " " {
+                array.append("%20")
+            }else{
+                array.append(i)
+            }
+        }
+        return array
     }
     
 // Первую букву делает заглавной

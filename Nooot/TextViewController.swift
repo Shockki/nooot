@@ -54,6 +54,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        doneButton.alpha = 0
         self.view.endEditing(true)
     }
 }
