@@ -30,7 +30,12 @@ class TextViewController: UIViewController, UITextViewDelegate {
         
         titleName = manager.returnText(titleName: titleName)      
         nameOfTitle.text! = titleName
-        historyTextView.text? =  manager.getNoteDataText(title: titleName)
+        bodyText =  manager.getNoteDataText(title: titleName)
+        if bodyText.isEmpty {
+            historyTextView.text? = NSLocalizedString("Enter text..", comment: "")
+        }else{
+            historyTextView.text? = bodyText
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,7 +52,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
         historyTextView.resignFirstResponder()
         doneButton.alpha = 0
         
-        let alertContr = UIAlertController(title: "Готово!", message: nil, preferredStyle: .alert)
+        let alertContr = UIAlertController(title: NSLocalizedString("Ready!", comment: ""), message: nil, preferredStyle: .alert)
         self.present(alertContr, animated: true, completion: nil)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) { execute in alertContr.dismiss(animated: true, completion: nil)}

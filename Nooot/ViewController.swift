@@ -59,14 +59,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func removeAll() {
-        let alertContr = UIAlertController(title: "Вы действительно хотите очистить историю?", message: nil, preferredStyle: .actionSheet)
-        let actionDelete = UIAlertAction(title: "Очистить", style: .destructive) { (action) in
+        let alertContr = UIAlertController(title: NSLocalizedString("Are you sure you want to delete your history?", comment: ""), message: nil, preferredStyle: .actionSheet)
+        let actionDelete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (action) in
             self.manager.removeAllNoteDataFronDB()
             self.notesList.removeAll()
             self.historyTableView.reloadData()
             self.historyTableViewTwo.reloadData()
         }
-        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let actionCancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
         alertContr.addAction(actionDelete)
         alertContr.addAction(actionCancel)
         present(alertContr, animated: true, completion: nil)

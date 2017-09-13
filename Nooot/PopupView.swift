@@ -40,8 +40,8 @@ class PopupView: UIViewController, UITextFieldDelegate{
     func performAction() {
         if textFieldAddNote.text!.isEmpty {
             textFieldAddNote.resignFirstResponder()
-            let alertContr = UIAlertController(title: "Введите имя заметки", message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ок", style: .default) { (action) in
+            let alertContr = UIAlertController(title: NSLocalizedString("Enter title of the note", comment: ""), message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default) { (action) in
             }
             alertContr.addAction(action)
             present(alertContr, animated: true, completion: nil)
