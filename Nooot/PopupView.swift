@@ -11,10 +11,11 @@ import UIKit
 class PopupView: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var addNewNoteView: UIView!
-    
     @IBOutlet weak var textFieldAddNote: UITextField!
+    @IBOutlet weak var viewBackground: UIView!
+    
     var manager: ManagerData = ManagerData()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldAddNote.delegate = self
@@ -22,9 +23,15 @@ class PopupView: UIViewController, UITextFieldDelegate{
         textFieldAddNote.layer.cornerRadius = 11
         textFieldAddNote.becomeFirstResponder()
 
+
         // Меняет положение курсора
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { execute in
+        UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
+        }
+        
     }
     
     @IBAction func buttonAddNewNote(_ sender: Any) {
@@ -47,8 +54,10 @@ class PopupView: UIViewController, UITextFieldDelegate{
             present(alertContr, animated: true, completion: nil)
         } else {
             textFieldAddNote.resignFirstResponder()
-            performSegue(withIdentifier: "goText", sender: nil)
+            performSegue(withIdentifier: "goText", sender: self)
         }
+        
+
     }
    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -57,6 +66,7 @@ class PopupView: UIViewController, UITextFieldDelegate{
         let touch = touches.first!
         if(touch.view != addNewNoteView){
             self.view.endEditing(true)
+            UIView.animate(withDuration: 0.2, animations: { self.viewBackground.alpha = 0 })
             dismiss(animated: true, completion: nil)
             print("dismiss")
         }
@@ -68,7 +78,8 @@ class PopupView: UIViewController, UITextFieldDelegate{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goText" {
-            let destVC: TextViewController = segue.destination as! TextViewController
+            let navCont = segue.destination as! UINavigationController
+            let destVC = navCont.topViewController as! TextViewController
             destVC.titleName.append(textFieldAddNote.text!)
         }
     }

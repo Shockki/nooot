@@ -1,5 +1,5 @@
 
-/* Class = "UIButton"; normalTitle = "Delete All"; ObjectID = "1F3-GK-DoH"; */
+/* Class = "UIButton"; normalTitle = "Clear"; ObjectID = "1F3-GK-DoH"; */
 "1F3-GK-DoH.normalTitle" = "Очистить";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "FWM-jl-xyR"; */
@@ -14,16 +14,16 @@
 /* Class = "UILabel"; text = "Nooot.co"; ObjectID = "K8j-6h-eji"; */
 "K8j-6h-eji.text" = "Nooot.co";
 
-/* Class = "UILabel"; text = "Title of note"; ObjectID = "QQT-mk-KbC"; */
+/* Class = "UILabel"; text = "Note title"; ObjectID = "QQT-mk-KbC"; */
 "QQT-mk-KbC.text" = "Название заметки";
 
-/* Class = "UIButton"; normalTitle = "Delete All"; ObjectID = "Qhx-CF-wXL"; */
+/* Class = "UIButton"; normalTitle = "Clear"; ObjectID = "Qhx-CF-wXL"; */
 "Qhx-CF-wXL.normalTitle" = "Очистить";
 
 /* Class = "UILabel"; text = "Hello."; ObjectID = "Qw0-W9-jey"; */
 "Qw0-W9-jey.text" = "Привет.";
 
-/* Class = "UILabel"; text = "Here you can create notes that automatically fall into the cloud, so you can later access them from any device or share them with others.\nAll notes are stored in a common database, so remember - if someone\nanother will open a note with the same name, then he will be able to change it."; ObjectID = "RSk-EF-kDy"; */
+/* Class = "UILabel"; text = "This is Nooot.\nHere you can create notes that will be automatically uploaded to the cloud.\nThis allows you to access your notes later or share them with others.\nTo create a note type in any phrase and hit enter.\nTo access the same note later or from another device just type in the same phrase.\nEnjoy!"; ObjectID = "RSk-EF-kDy"; */
 "RSk-EF-kDy.text" = "Здесь ты можешь создавать заметки, которые автоматически попадают в облако, поэтому позже можно получить к ним доступ c любого устройства или поделиться ими с другими.\nВсе заметки хранятся в общей базе, поэтому помни - если кто-то другой откроет заметку с таким же названием, то он сможет изменить её.";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "SmS-Vz-soS"; */
@@ -32,5 +32,5 @@
 /* Class = "UILabel"; text = "History"; ObjectID = "dBy-MT-qFK"; */
 "dBy-MT-qFK.text" = "Посещенные";
 
-/* Class = "UITextView"; text = "Enter text.."; ObjectID = "wPq-nm-gkd"; */
-"wPq-nm-gkd.text" = "Введите текст заметки..";
+/* Class = "UITextView"; text = "Your note..."; ObjectID = "wPq-nm-gkd"; */
+"wPq-nm-gkd.text" = "Введите текст заметки...";

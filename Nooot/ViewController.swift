@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         historyTableView.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
-
+        
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
         sizeTableView()
@@ -41,6 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
     
 //----------------------------------TableView----------------------------------------------
     
@@ -59,12 +60,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func removeAll() {
-        let alertContr = UIAlertController(title: NSLocalizedString("Are you sure you want to delete your history?", comment: ""), message: nil, preferredStyle: .actionSheet)
+        let alertContr = UIAlertController(title: NSLocalizedString("Are you sure you want to clear history?", comment: ""), message: nil, preferredStyle: .actionSheet)
         let actionDelete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (action) in
             self.manager.removeAllNoteDataFronDB()
             self.notesList.removeAll()
             self.historyTableView.reloadData()
             self.historyTableViewTwo.reloadData()
+            self.sizeTableView()
+            self.view.setNeedsDisplay()
         }
         let actionCancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
         alertContr.addAction(actionDelete)
@@ -73,7 +76,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func sizeTableView() {
-        if notesList.count < 4 {
+        if notesList.count < 1 {
+            visited.alpha = 0
+            visitedTwo.alpha = 0
+            buttonDeleteAll.alpha = 0
+            buttonDeleteAllTwo.alpha = 0
+            historyTableView.alpha = 0
+            historyTableViewTwo.alpha = 0
+            labelHello.alpha = 1
+            labelBodyText.alpha = 1
+        }else if notesList.count >= 1 && notesList.count < 4 {
             visited.alpha = 1
             visitedTwo.alpha = 0
             buttonDeleteAll.alpha = 1

@@ -144,7 +144,7 @@
 				TargetAttributes = {
 					FA2573501F49B257008CDDFF = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = TV745H5R48;
+						DevelopmentTeam = GAU33Q8VQF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -378,10 +378,10 @@
 			baseConfigurationReference = D5422728B2FAC14F846340B0 /* Pods-Nooot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TV745H5R48;
+				DEVELOPMENT_TEAM = GAU33Q8VQF;
 				INFOPLIST_FILE = Nooot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = toli.Nooot;
+				PRODUCT_BUNDLE_IDENTIFIER = co.nooot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -392,10 +392,10 @@
 			baseConfigurationReference = 0CDC656492DB3F45143AD0B8 /* Pods-Nooot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TV745H5R48;
+				DEVELOPMENT_TEAM = GAU33Q8VQF;
 				INFOPLIST_FILE = Nooot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = toli.Nooot;
+				PRODUCT_BUNDLE_IDENTIFIER = co.nooot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

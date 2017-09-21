@@ -24,15 +24,15 @@ class TextViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         historyTextView.delegate = self
         doneButton.alpha = 0
-        
+  
         manager.loadJSON(title: titleName)
         semaphore.wait()
-        
+
         titleName = manager.returnText(titleName: titleName)      
         nameOfTitle.text! = titleName
         bodyText =  manager.getNoteDataText(title: titleName)
         if bodyText.isEmpty {
-            historyTextView.text? = NSLocalizedString("Enter text..", comment: "")
+            historyTextView.text? = NSLocalizedString("Your note...", comment: "")
         }else{
             historyTextView.text? = bodyText
         }
@@ -51,11 +51,6 @@ class TextViewController: UIViewController, UITextViewDelegate {
         manager.saveNoteText(title: titleName, body: historyTextView.text)
         historyTextView.resignFirstResponder()
         doneButton.alpha = 0
-        
-        let alertContr = UIAlertController(title: NSLocalizedString("Ready!", comment: ""), message: nil, preferredStyle: .alert)
-        self.present(alertContr, animated: true, completion: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) { execute in alertContr.dismiss(animated: true, completion: nil)}
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
