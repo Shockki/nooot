@@ -28,9 +28,9 @@ class PopupView: UIViewController, UITextFieldDelegate{
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { execute in
-        UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
-        }
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { execute in
+        UIView.animate(withDuration: 1.0, animations: { self.viewBackground.alpha = 0.38 })
+//        }
         
     }
     
@@ -66,7 +66,7 @@ class PopupView: UIViewController, UITextFieldDelegate{
         let touch = touches.first!
         if(touch.view != addNewNoteView){
             self.view.endEditing(true)
-            UIView.animate(withDuration: 0.2, animations: { self.viewBackground.alpha = 0 })
+            UIView.animate(withDuration: 0.1, animations: { self.viewBackground.alpha = 0 })
             dismiss(animated: true, completion: nil)
             print("dismiss")
         }
