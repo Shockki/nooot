@@ -149,7 +149,7 @@ Enjoy!</string>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Y2q-nH-7cC">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="3Fu-L6-GIW">
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="3Fu-L6-GIW">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dnm-fl-CBg">
                                 <rect key="frame" x="331" y="8" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -206,7 +206,7 @@ Enjoy!</string>
                     <navigationItem key="navigationItem" id="u6D-AP-NCw">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="6Ww-aA-l9O">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly3-Sc-lvY">
-                                <rect key="frame" x="16" y="9" width="41" height="26"/>
+                                <rect key="frame" x="16" y="9" width="42" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="back">
                                     <color key="titleColor" red="0.0033688156399875879" green="0.48350781202316284" blue="0.99903708696365356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -255,21 +255,21 @@ Enjoy!</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" id="h0W-Me-Fml">
-                                        <rect key="frame" x="19" y="45" width="284" height="36"/>
+                                        <rect key="frame" x="19.5" y="45" width="283.5" height="36.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.94806868654822329" green="0.94806868654822329" blue="0.94806868654822329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="go"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Note title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="QQT-mk-KbC">
-                                        <rect key="frame" x="19" y="18" width="139" height="14"/>
+                                        <rect key="frame" x="19.5" y="18.5" width="139" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" red="0.32928159610000002" green="0.33586722800000002" blue="0.33586722800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ulb-EA-Z6d">
-                                        <rect key="frame" x="310" y="49" width="28" height="29"/>
+                                        <rect key="frame" x="310.5" y="49" width="27.5" height="28.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="move"/>
                                         <connections>
@@ -367,6 +367,6 @@ Enjoy!</string>
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Iru-ZQ-BfA"/>
+        <segue reference="f3O-nL-Bvt"/>
     </inferredMetricsTieBreakers>
 </document>
