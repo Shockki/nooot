@@ -20,6 +20,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var visited: UILabel!
     @IBOutlet weak var visitedTwo: UILabel!
     
+    
+    @IBOutlet weak var addNewNoteView: UIView!
+    @IBOutlet weak var textFieldAddNote: UITextField!
+    @IBOutlet weak var viewBackground: UIView!
+    
+    
+    
     var noteText: String = ""
     var notesList: [String] = []
     var notesReverse: [String] = []
@@ -30,6 +37,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         historyTableView.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+        viewBackground.alpha = 0
+        addNewNoteView.alpha = 0
         
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
@@ -39,7 +49,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 // Скрывает клавиатуру, когда пользователь касается внешнего вида
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+        let touch = touches.first!
+        if(touch.view == viewBackground){
+            self.view.endEditing(true)
+            UIView.animate(withDuration: 0.4, animations: { self.viewBackground.alpha = 0 })
+            addNewNoteView.alpha = 0
+            
+            print("dismiss")
+        }
     }
     
     
@@ -57,6 +74,50 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func buttonAddNewNote(_ sender: Any) {
+        addNewNoteView.layer.cornerRadius = 16
+        textFieldAddNote.layer.cornerRadius = 11
+        textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
+        
+        // Меняет положение курсора
+        textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
+        textFieldAddNote.leftViewMode = .always
+        
+        // Анимация появления View
+        addNewNoteView.alpha = 1
+        addNewNoteView.transform = CGAffineTransform(scaleX: 0.3, y: 2)
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            self.addNewNoteView.transform = .identity
+        })
+        UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })        
+    }
+
+    @IBAction func buttonGoText(_ sender: Any) {
+        performAction()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        performAction()
+        textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
+        return true
+    }
+    
+    func performAction() {
+        if textFieldAddNote.text!.isEmpty {
+            textFieldAddNote.resignFirstResponder()
+            let alertContr = UIAlertController(title: NSLocalizedString("Enter title of the note", comment: ""), message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default) { (action) in
+            }
+            alertContr.addAction(action)
+            present(alertContr, animated: true, completion: nil)
+        } else {
+            textFieldAddNote.resignFirstResponder()
+            performSegue(withIdentifier: "goText", sender: self)
+            UIView.animate(withDuration: 1.0, animations: { self.viewBackground.alpha = 0 })
+            UIView.animate(withDuration: 1.0, animations: { self.addNewNoteView.alpha = 0 })
+        }
     }
     
     func removeAll() {
@@ -145,6 +206,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let destVC: TextViewController = segue.destination as! TextViewController
                 destVC.titleName = notesList[indexPath.row]
             }
+        }
+        if segue.identifier == "goText" {
+            let destVC: TextViewController = segue.destination as! TextViewController
+            destVC.titleName.append(textFieldAddNote.text!)
         }
     }
     

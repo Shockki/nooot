@@ -23,6 +23,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
+        navigationController?.navigationBar.shadowImage = UIImage()
         doneButton.alpha = 0
   
         manager.loadJSON(title: titleName)
@@ -52,6 +53,11 @@ class TextViewController: UIViewController, UITextViewDelegate {
         historyTextView.resignFirstResponder()
         doneButton.alpha = 0
     }
+    
+    @IBAction func buttonBack(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         doneButton.alpha = 0

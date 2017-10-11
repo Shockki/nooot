@@ -29,7 +29,7 @@ class PopupView: UIViewController, UITextFieldDelegate{
         textFieldAddNote.leftViewMode = .always
         
 //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { execute in
-        UIView.animate(withDuration: 1.0, animations: { self.viewBackground.alpha = 0.38 })
+//        UIView.animate(withDuration: 1.0, animations: { self.viewBackground.alpha = 0.38 })
 //        }
         
     }
@@ -56,8 +56,6 @@ class PopupView: UIViewController, UITextFieldDelegate{
             textFieldAddNote.resignFirstResponder()
             performSegue(withIdentifier: "goText", sender: self)
         }
-        
-
     }
    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
