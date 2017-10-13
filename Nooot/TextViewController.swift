@@ -55,7 +55,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func buttonBack(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "goHome", sender: self)
     }
     
 

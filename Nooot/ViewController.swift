@@ -59,9 +59,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    
-//----------------------------------TableView----------------------------------------------
-    
 // Кнопка удаления всей истории
     
     @IBAction func removeAllHistoryNotes(_ sender: Any) {
@@ -115,8 +112,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             textFieldAddNote.resignFirstResponder()
             performSegue(withIdentifier: "goText", sender: self)
-            UIView.animate(withDuration: 1.0, animations: { self.viewBackground.alpha = 0 })
-            UIView.animate(withDuration: 1.0, animations: { self.addNewNoteView.alpha = 0 })
         }
     }
     
