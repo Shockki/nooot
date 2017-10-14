@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var addNewNoteView: UIView!
     @IBOutlet weak var textFieldAddNote: UITextField!
     @IBOutlet weak var viewBackground: UIView!
+    @IBOutlet weak var labelNoteTitleOnView: UILabel!
     
     
     
@@ -53,7 +54,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if(touch.view == viewBackground){
             self.view.endEditing(true)
             UIView.animate(withDuration: 0.4, animations: { self.viewBackground.alpha = 0 })
-            addNewNoteView.alpha = 0
+            UIView.animate(withDuration: 0.4, animations: { self.addNewNoteView.alpha = 0 })
             
             print("dismiss")
         }
@@ -76,6 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func buttonAddNewNote(_ sender: Any) {
         addNewNoteView.layer.cornerRadius = 16
         textFieldAddNote.layer.cornerRadius = 11
+        labelNoteTitleOnView.text! = NSLocalizedString("Note title", comment: "")
         textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
         
         // Меняет положение курсора
@@ -133,32 +135,38 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func sizeTableView() {
         if notesList.count < 1 {
-            visited.alpha = 0
-            visitedTwo.alpha = 0
-            buttonDeleteAll.alpha = 0
-            buttonDeleteAllTwo.alpha = 0
-            historyTableView.alpha = 0
-            historyTableViewTwo.alpha = 0
-            labelHello.alpha = 1
-            labelBodyText.alpha = 1
+            UIView.animate(withDuration: 0.4, animations: {
+                self.visited.alpha = 0
+                self.visitedTwo.alpha = 0
+                self.buttonDeleteAll.alpha = 0
+                self.buttonDeleteAllTwo.alpha = 0
+                self.historyTableView.alpha = 0
+                self.historyTableViewTwo.alpha = 0
+                self.labelHello.alpha = 1
+                self.labelBodyText.alpha = 1
+                })
         }else if notesList.count >= 1 && notesList.count < 4 {
-            visited.alpha = 1
-            visitedTwo.alpha = 0
-            buttonDeleteAll.alpha = 1
-            buttonDeleteAllTwo.alpha = 0
-            historyTableView.alpha = 1
-            historyTableViewTwo.alpha = 0
-            labelHello.alpha = 1
-            labelBodyText.alpha = 1
+            UIView.animate(withDuration: 0.4, animations: {
+                self.visited.alpha = 1
+                self.visitedTwo.alpha = 0
+                self.buttonDeleteAll.alpha = 1
+                self.buttonDeleteAllTwo.alpha = 0
+                self.historyTableView.alpha = 1
+                self.historyTableViewTwo.alpha = 0
+                self.labelHello.alpha = 1
+                self.labelBodyText.alpha = 1
+            })
         }else{
-            visited.alpha = 0
-            visitedTwo.alpha = 1
-            buttonDeleteAll.alpha = 0
-            buttonDeleteAllTwo.alpha = 1
-            historyTableView.alpha = 0
-            historyTableViewTwo.alpha = 1
-            labelHello.alpha = 0
-            labelBodyText.alpha = 0
+            UIView.animate(withDuration: 0.4, animations: {
+                self.visited.alpha = 0
+                self.visitedTwo.alpha = 1
+                self.buttonDeleteAll.alpha = 0
+                self.buttonDeleteAllTwo.alpha = 1
+                self.historyTableView.alpha = 0
+                self.historyTableViewTwo.alpha = 1
+                self.labelHello.alpha = 0
+                self.labelBodyText.alpha = 0
+            })
         }
     }
     

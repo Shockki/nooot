@@ -6,8 +6,9 @@
   Copyright © 2017 Анатолий Модестов. All rights reserved.
 */
 
-"Are you sure you want to delete your history?" = "Вы действительно хотите очистить историю?";
+"Are you sure you want to clear history?" = "Вы действительно хотите очистить историю?";
 "Delete" = "Очистить";
 "Cancel" = "Отмена";
 "Enter title of the note" = "Введите текст заметки";
 "Ready!" = "Готово!";
+"Note title" = "Название заметки";

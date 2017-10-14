@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1F3-GK-DoH">
-                                <rect key="frame" x="279" y="502" width="80" height="44"/>
+                                <rect key="frame" x="249" y="502" width="110" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <state key="normal" title="Clear">
@@ -50,7 +50,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Qhx-CF-wXL">
-                                <rect key="frame" x="279" y="140" width="80" height="44"/>
+                                <rect key="frame" x="249" y="140" width="110" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <state key="normal" title="Clear">
@@ -112,7 +112,7 @@ Enjoy!</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="AnL-JQ-t60" kind="modal" identifier="details" modalTransitionStyle="flipHorizontal" id="O9y-aQ-b2G"/>
+                                            <segue destination="AnL-JQ-t60" kind="custom" identifier="details" customClass="SegueFromRight" customModule="Nooot" customModuleProvider="target" id="O9y-aQ-b2G"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -144,7 +144,7 @@ Enjoy!</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="AnL-JQ-t60" kind="modal" identifier="details" modalTransitionStyle="flipHorizontal" id="f3O-nL-Bvt"/>
+                                            <segue destination="AnL-JQ-t60" kind="custom" identifier="details" customClass="SegueFromRight" customModule="Nooot" customModuleProvider="target" id="f3O-nL-Bvt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -199,11 +199,12 @@ Enjoy!</string>
                         <outlet property="historyTableViewTwo" destination="Av5-8f-4Yb" id="f53-5E-zGE"/>
                         <outlet property="labelBodyText" destination="RSk-EF-kDy" id="d8y-Go-9Pn"/>
                         <outlet property="labelHello" destination="Qw0-W9-jey" id="Tsb-W2-vXt"/>
+                        <outlet property="labelNoteTitleOnView" destination="kWn-H1-tLd" id="FY0-Co-bP4"/>
                         <outlet property="textFieldAddNote" destination="Czl-vY-fdq" id="4wh-4i-x3Q"/>
                         <outlet property="viewBackground" destination="FHw-gD-f99" id="nRj-vm-xQM"/>
                         <outlet property="visited" destination="IiE-jq-xy6" id="ZLf-y1-ISG"/>
                         <outlet property="visitedTwo" destination="dBy-MT-qFK" id="4gZ-u5-8FX"/>
-                        <segue destination="AnL-JQ-t60" kind="modal" identifier="goText" modalTransitionStyle="flipHorizontal" id="6jr-Au-fyZ"/>
+                        <segue destination="AnL-JQ-t60" kind="custom" identifier="goText" customClass="SegueFromRight" customModule="Nooot" customModuleProvider="target" id="6jr-Au-fyZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -276,7 +277,7 @@ Enjoy!</string>
                         <outlet property="doneButton" destination="vwA-jg-BWS" id="RDX-QB-uS4"/>
                         <outlet property="historyTextView" destination="wPq-nm-gkd" id="HCS-En-cir"/>
                         <outlet property="nameOfTitle" destination="H0r-QG-0lJ" id="Im1-6r-EGa"/>
-                        <segue destination="BYZ-38-t0r" kind="modal" identifier="goHome" modalTransitionStyle="flipHorizontal" id="LZb-Rz-4uZ"/>
+                        <segue destination="BYZ-38-t0r" kind="custom" identifier="goHome" customClass="SegueFromLeft" customModule="Nooot" customModuleProvider="target" id="LZb-Rz-4uZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4O-pK-rug" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -347,6 +348,6 @@ Enjoy!</string>
         <image name="move" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="O9y-aQ-b2G"/>
+        <segue reference="f3O-nL-Bvt"/>
     </inferredMetricsTieBreakers>
 </document>

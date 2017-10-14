@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A035D57694163CAFC89153A4 /* Pods_Nooot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6872930B57557BB47224EF8D /* Pods_Nooot.framework */; };
+		FA16FDDF1F926AB70041D254 /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FDDE1F926AB70041D254 /* SegueFromLeft.swift */; };
+		FA16FDE11F926AC50041D254 /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FDE01F926AC50041D254 /* SegueFromRight.swift */; };
 		FA2573551F49B257008CDDFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2573541F49B257008CDDFF /* AppDelegate.swift */; };
 		FA25735A1F49B258008CDDFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA2573581F49B258008CDDFF /* Main.storyboard */; };
 		FA25735C1F49B258008CDDFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA25735B1F49B258008CDDFF /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 		0CDC656492DB3F45143AD0B8 /* Pods-Nooot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nooot.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nooot/Pods-Nooot.release.xcconfig"; sourceTree = "<group>"; };
 		6872930B57557BB47224EF8D /* Pods_Nooot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nooot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5422728B2FAC14F846340B0 /* Pods-Nooot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nooot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nooot/Pods-Nooot.debug.xcconfig"; sourceTree = "<group>"; };
+		FA16FDDE1F926AB70041D254 /* SegueFromLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
+		FA16FDE01F926AC50041D254 /* SegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
 		FA2573511F49B257008CDDFF /* Nooot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nooot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA2573541F49B257008CDDFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA2573591F49B258008CDDFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,6 +76,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FA16FDDD1F926A6E0041D254 /* Custom Segue */ = {
+			isa = PBXGroup;
+			children = (
+				FA16FDDE1F926AB70041D254 /* SegueFromLeft.swift */,
+				FA16FDE01F926AC50041D254 /* SegueFromRight.swift */,
+			);
+			path = "Custom Segue";
+			sourceTree = "<group>";
+		};
 		FA2573481F49B257008CDDFF = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +106,7 @@
 		FA2573531F49B257008CDDFF /* Nooot */ = {
 			isa = PBXGroup;
 			children = (
+				FA16FDDD1F926A6E0041D254 /* Custom Segue */,
 				FA2573541F49B257008CDDFF /* AppDelegate.swift */,
 				FABE76451F49C4C300C7E1C1 /* ViewController.swift */,
 				FABE76431F49C3E500C7E1C1 /* ManagerData.swift */,
@@ -241,7 +255,9 @@
 				FA2573671F49B8C9008CDDFF /* NoteData.swift in Sources */,
 				FABE76461F49C4C300C7E1C1 /* ViewController.swift in Sources */,
 				FA2573551F49B257008CDDFF /* AppDelegate.swift in Sources */,
+				FA16FDDF1F926AB70041D254 /* SegueFromLeft.swift in Sources */,
 				FA47D4551F4B112900DB95BA /* TextViewController.swift in Sources */,
+				FA16FDE11F926AC50041D254 /* SegueFromRight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
