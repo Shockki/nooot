@@ -20,13 +20,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var visited: UILabel!
     @IBOutlet weak var visitedTwo: UILabel!
     
-    
     @IBOutlet weak var addNewNoteView: UIView!
     @IBOutlet weak var textFieldAddNote: UITextField!
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var labelNoteTitleOnView: UILabel!
-    
-    
     
     var noteText: String = ""
     var notesList: [String] = []

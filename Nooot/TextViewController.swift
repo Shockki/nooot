@@ -13,8 +13,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var historyTextView: UITextView!
     @IBOutlet weak var nameOfTitle: UILabel!
     @IBOutlet weak var doneButton: UIButton!
-    
-    
+        
     let manager: ManagerData = ManagerData()
     
     var titleName: String = ""
