@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var historyTableViewTwo: UITableView!
@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         historyTableView.delegate = self
+        textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         navigationController?.navigationBar.shadowImage = UIImage()
         viewBackground.alpha = 0
