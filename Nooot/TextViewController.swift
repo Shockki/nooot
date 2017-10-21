@@ -53,7 +53,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         doneButton.alpha = 1
-        if bodyText.isEmpty {
+        if historyTextView.text! == NSLocalizedString("Your note...", comment: "") {
             historyTextView.text? = ""
         }
         return true
@@ -71,6 +71,13 @@ class TextViewController: UIViewController, UITextViewDelegate {
     
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if historyTextView.text.isEmpty {
+            if bodyText.isEmpty {
+                historyTextView.text? = NSLocalizedString("Your note...", comment: "")
+            }else{
+                historyTextView.text? = bodyText
+            }
+        }
         doneButton.alpha = 0
         self.view.endEditing(true)
     }

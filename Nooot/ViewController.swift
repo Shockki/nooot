@@ -11,7 +11,6 @@ import RealmSwift
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
-    @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var historyTableViewTwo: UITableView!
     @IBOutlet weak var labelHello: UILabel!
     @IBOutlet weak var labelBodyText: UILabel!
@@ -19,6 +18,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var buttonDeleteAllTwo: UIButton!
     @IBOutlet weak var visited: UILabel!
     @IBOutlet weak var visitedTwo: UILabel!
+    
+    @IBOutlet weak var historyView: UIView!
+    @IBOutlet weak var but1: UIButton!
+    @IBOutlet weak var but2: UIButton!
+    @IBOutlet weak var but3: UIButton!
     
     @IBOutlet weak var addNewNoteView: UIView!
     @IBOutlet weak var textFieldAddNote: UITextField!
@@ -33,12 +37,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        historyTableView.delegate = self
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         navigationController?.navigationBar.shadowImage = UIImage()
         viewBackground.alpha = 0
         addNewNoteView.alpha = 0
+        disButton(butt: but1)
+        disButton(butt: but2)
+        disButton(butt: but3)
         
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
@@ -66,7 +72,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func removeAllHistoryNotesTwo(_ sender: Any) {
         removeAll()
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -120,7 +125,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let actionDelete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (action) in
             self.manager.removeAllNoteDataFronDB()
             self.notesList.removeAll()
-            self.historyTableView.reloadData()
             self.historyTableViewTwo.reloadData()
             self.sizeTableView()
             self.view.setNeedsDisplay()
@@ -130,42 +134,74 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alertContr.addAction(actionCancel)
         present(alertContr, animated: true, completion: nil)
     }
-
+    
     func sizeTableView() {
-        if notesList.count < 1 {
-            UIView.animate(withDuration: 0.4, animations: {
-                self.visited.alpha = 0
-                self.visitedTwo.alpha = 0
-                self.buttonDeleteAll.alpha = 0
-                self.buttonDeleteAllTwo.alpha = 0
-                self.historyTableView.alpha = 0
+        switch notesList.count {
+        case 0:
+            UIView.animate(withDuration: 0.2, animations: {
                 self.historyTableViewTwo.alpha = 0
-                self.labelHello.alpha = 1
-                self.labelBodyText.alpha = 1
-                })
-        }else if notesList.count >= 1 && notesList.count < 4 {
-            UIView.animate(withDuration: 0.4, animations: {
-                self.visited.alpha = 1
-                self.visitedTwo.alpha = 0
-                self.buttonDeleteAll.alpha = 1
-                self.buttonDeleteAllTwo.alpha = 0
-                self.historyTableView.alpha = 1
-                self.historyTableViewTwo.alpha = 0
-                self.labelHello.alpha = 1
-                self.labelBodyText.alpha = 1
+                self.historyView.alpha = 0
             })
-        }else{
-            UIView.animate(withDuration: 0.4, animations: {
-                self.visited.alpha = 0
-                self.visitedTwo.alpha = 1
-                self.buttonDeleteAll.alpha = 0
-                self.buttonDeleteAllTwo.alpha = 1
-                self.historyTableView.alpha = 0
+        case 1:
+            UIView.animate(withDuration: 0.2, animations: {
+                self.historyTableViewTwo.alpha = 0
+                self.historyView.alpha = 1
+                self.but1.setTitle(self.notesList[0], for: .normal)
+                self.but2.alpha = 0
+                self.but3.alpha = 0
+            })
+        case 2:
+            UIView.animate(withDuration: 0.2, animations: {
+                self.historyTableViewTwo.alpha = 0
+                self.historyView.alpha = 1
+                self.but1.setTitle(self.notesList[0], for: .normal)
+                self.but2.setTitle(self.notesList[1], for: .normal)
+                self.but2.alpha = 1
+                self.but3.alpha = 0
+            })
+        case 3:
+            UIView.animate(withDuration: 0.2, animations: {
+                self.historyTableViewTwo.alpha = 0
+                self.historyView.alpha = 1
+                self.but1.setTitle(self.notesList[0], for: .normal)
+                self.but2.setTitle(self.notesList[1], for: .normal)
+                self.but3.setTitle(self.notesList[2], for: .normal)
+                self.but2.alpha = 1
+                self.but3.alpha = 1
+            })
+            
+        default:
+            UIView.animate(withDuration: 0.2, animations: {
+                self.historyView.alpha = 0
                 self.historyTableViewTwo.alpha = 1
-                self.labelHello.alpha = 0
-                self.labelBodyText.alpha = 0
+                self.historyTableViewTwo.reloadData()
             })
         }
+    }
+    
+    func disButton (butt: UIButton) {
+        butt.layer.shadowColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
+        butt.layer.shadowOpacity = 1
+        butt.layer.shadowRadius = 1
+        butt.layer.shadowOffset = CGSize(width: 2, height: 1)
+        butt.layer.masksToBounds = false
+//        butt.setTitleColor(#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), for: .normal)
+    }
+    
+    @IBAction func but1(_ sender: Any) {
+        but1.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        but1.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+        performSegue(withIdentifier: "but1", sender: self)
+    }
+    @IBAction func but2(_ sender: Any) {
+        but2.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        but2.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+        performSegue(withIdentifier: "but2", sender: self)
+    }
+    @IBAction func but3(_ sender: Any) {
+        but3.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        but3.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+        performSegue(withIdentifier: "but2", sender: self)
     }
     
 // Источник данных таблицы
@@ -179,9 +215,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = notesList[indexPath.row]
-//        cell.detailTextLabel?.text = manager.getNoteDataText(title: (cell.textLabel?.text)!)
-//        cell.detailTextLabel?.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-//        cell.detailTextLabel?.font = UIFont(name: "Gill Sans", size: 12)
         
         // Изменение цвета при нажатии:
         
@@ -192,18 +225,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Цвет текста
         cell.textLabel?.highlightedTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        cell.detailTextLabel?.highlightedTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue .identifier == "details" {
-            if let indexPath = historyTableView.indexPathForSelectedRow {
-                let destVC: TextViewController = segue.destination as! TextViewController
-                destVC.titleName = notesList[indexPath.row]
-                
-            }else if let indexPath = historyTableViewTwo.indexPathForSelectedRow {
+          if let indexPath = historyTableViewTwo.indexPathForSelectedRow {
                 let destVC: TextViewController = segue.destination as! TextViewController
                 destVC.titleName = notesList[indexPath.row]
             }
@@ -211,6 +239,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "goText" {
             let destVC: TextViewController = segue.destination as! TextViewController
             destVC.titleName.append(textFieldAddNote.text!)
+        }
+        if segue.identifier == "but1" {
+            let destVC: TextViewController = segue.destination as! TextViewController
+            destVC.titleName.append(but1.titleLabel!.text!)
+        }
+        if segue.identifier == "but2" {
+            let destVC: TextViewController = segue.destination as! TextViewController
+            destVC.titleName.append(but2.titleLabel!.text!)
+        }
+        if segue.identifier == "but3" {
+            let destVC: TextViewController = segue.destination as! TextViewController
+            destVC.titleName.append(but3.titleLabel!.text!)
         }
     }
     
