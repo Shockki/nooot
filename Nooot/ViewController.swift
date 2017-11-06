@@ -33,22 +33,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var notesList: [String] = []
     var notesReverse: [String] = []
     let manager: ManagerData = ManagerData()
+    let settings: FuncSettings = FuncSettings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
-        navigationController?.navigationBar.shadowImage = UIImage()
         viewBackground.alpha = 0
         addNewNoteView.alpha = 0
-        disButton(butt: but1)
-        disButton(butt: but2)
-        disButton(butt: but3)
+        settings.disButton(butt: but1)
+        settings.disButton(butt: but2)
+        settings.disButton(butt: but3)
         
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
-        sizeTableView()
+        settings.sizeTableView(notesList: notesList, historyTableViewTwo: historyTableViewTwo, historyView: historyView, but1: but1, but2: but2, but3: but3)
     }
     
 // Скрывает клавиатуру, когда пользователь касается внешнего вида
@@ -108,12 +108,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func performAction() {
         if textFieldAddNote.text!.isEmpty {
-            textFieldAddNote.resignFirstResponder()
-            let alertContr = UIAlertController(title: NSLocalizedString("Enter title of the note", comment: ""), message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .default) { (action) in
-            }
-            alertContr.addAction(action)
-            present(alertContr, animated: true, completion: nil)
+           settings.shakeView(addNewNoteView)
         } else {
             textFieldAddNote.resignFirstResponder()
             performSegue(withIdentifier: "goText", sender: self)
@@ -126,66 +121,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.manager.removeAllNoteDataFronDB()
             self.notesList.removeAll()
             self.historyTableViewTwo.reloadData()
-            self.sizeTableView()
+            self.settings.sizeTableView(notesList: self.notesList, historyTableViewTwo: self.historyTableViewTwo, historyView: self.historyView, but1: self.but1, but2: self.but2, but3: self.but3)
             self.view.setNeedsDisplay()
         }
         let actionCancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
         alertContr.addAction(actionDelete)
         alertContr.addAction(actionCancel)
         present(alertContr, animated: true, completion: nil)
-    }
-    
-    func sizeTableView() {
-        switch notesList.count {
-        case 0:
-            UIView.animate(withDuration: 0.2, animations: {
-                self.historyTableViewTwo.alpha = 0
-                self.historyView.alpha = 0
-            })
-        case 1:
-            UIView.animate(withDuration: 0.2, animations: {
-                self.historyTableViewTwo.alpha = 0
-                self.historyView.alpha = 1
-                self.but1.setTitle(self.notesList[0], for: .normal)
-                self.but2.alpha = 0
-                self.but3.alpha = 0
-            })
-        case 2:
-            UIView.animate(withDuration: 0.2, animations: {
-                self.historyTableViewTwo.alpha = 0
-                self.historyView.alpha = 1
-                self.but1.setTitle(self.notesList[0], for: .normal)
-                self.but2.setTitle(self.notesList[1], for: .normal)
-                self.but2.alpha = 1
-                self.but3.alpha = 0
-            })
-        case 3:
-            UIView.animate(withDuration: 0.2, animations: {
-                self.historyTableViewTwo.alpha = 0
-                self.historyView.alpha = 1
-                self.but1.setTitle(self.notesList[0], for: .normal)
-                self.but2.setTitle(self.notesList[1], for: .normal)
-                self.but3.setTitle(self.notesList[2], for: .normal)
-                self.but2.alpha = 1
-                self.but3.alpha = 1
-            })
-            
-        default:
-            UIView.animate(withDuration: 0.2, animations: {
-                self.historyView.alpha = 0
-                self.historyTableViewTwo.alpha = 1
-                self.historyTableViewTwo.reloadData()
-            })
-        }
-    }
-    
-    func disButton (butt: UIButton) {
-        butt.layer.shadowColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
-        butt.layer.shadowOpacity = 1
-        butt.layer.shadowRadius = 1
-        butt.layer.shadowOffset = CGSize(width: 2, height: 1)
-        butt.layer.masksToBounds = false
-//        butt.setTitleColor(#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), for: .normal)
     }
     
     @IBAction func but1(_ sender: Any) {
@@ -214,8 +156,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = notesList[indexPath.row]
-        
+        cell.textLabel?.text = notesList[indexPath.row]        
+        cell.indentationWidth = 2
+        cell.indentationLevel = 2
+
         // Изменение цвета при нажатии:
         
         // Цвет бекграунда
