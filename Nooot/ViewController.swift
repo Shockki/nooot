@@ -42,6 +42,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         viewBackground.alpha = 0
         addNewNoteView.alpha = 0
+        addNewNoteView.layer.cornerRadius = 16
+        textFieldAddNote.layer.cornerRadius = 11
+        addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 300, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
         settings.disButton(butt: but1)
         settings.disButton(butt: but2)
         settings.disButton(butt: but3)
@@ -58,7 +61,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if(touch.view == viewBackground){
             self.view.endEditing(true)
             UIView.animate(withDuration: 0.4, animations: { self.viewBackground.alpha = 0 })
-            UIView.animate(withDuration: 0.4, animations: { self.addNewNoteView.alpha = 0 })
+            UIView.animate(withDuration: 0.4, animations: {
+                self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 300, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+            })
             
             print("dismiss")
         }
@@ -78,22 +83,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func buttonAddNewNote(_ sender: Any) {
-        addNewNoteView.layer.cornerRadius = 16
-        textFieldAddNote.layer.cornerRadius = 11
-        labelNoteTitleOnView.text! = NSLocalizedString("Note title", comment: "")
+        
+        // Анимация появления View
+        addNewNoteView.alpha = 1
+        UIView.animate(withDuration: 0.4, animations: {
+            self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 300, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+        })
+        UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
+        
         textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
+        labelNoteTitleOnView.text! = NSLocalizedString("Note title", comment: "")
         
         // Меняет положение курсора
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
         
-        // Анимация появления View
-        addNewNoteView.alpha = 1
-        addNewNoteView.transform = CGAffineTransform(scaleX: 0.3, y: 2)
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-            self.addNewNoteView.transform = .identity
-        })
-        UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })        
     }
 
     @IBAction func buttonGoText(_ sender: Any) {
