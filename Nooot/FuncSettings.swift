@@ -66,14 +66,23 @@ class FuncSettings {
         vw.layer.add(animation, forKey: "position")
     }
     
-    func disButton (butt: UIButton) {
-        butt.layer.shadowColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
-        butt.layer.shadowOpacity = 1
-        butt.layer.shadowRadius = 1
-        butt.layer.shadowOffset = CGSize(width: 2, height: 1)
-        butt.layer.masksToBounds = false
-//        butt.setTitleColor(#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1), for: .normal)
+    func settingsButton (_ button: UIButton) {
+        button.layer.shadowColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
+        button.layer.shadowOpacity = 1
+        button.layer.shadowRadius = 1
+        button.layer.shadowOffset = CGSize(width: 2, height: 1)
+        button.layer.masksToBounds = false
+        
+        button.addTarget(self, action: #selector(FuncSettings.butHighlight(_:)), for: .touchDown)
+        button.addTarget(self, action: #selector(FuncSettings.butNormal(_:)), for: .touchUpInside)
     }
     
-    
+    @objc private func butHighlight(_ but: UIButton) {
+        but.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .highlighted)
+        but.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+    }
+    @objc private func butNormal(_ but: UIButton) {
+        but.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .highlighted)
+        but.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
 }

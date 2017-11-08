@@ -45,9 +45,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         addNewNoteView.layer.cornerRadius = 16
         textFieldAddNote.layer.cornerRadius = 11
         addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 300, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
-        settings.disButton(butt: but1)
-        settings.disButton(butt: but2)
-        settings.disButton(butt: but3)
+        settings.settingsButton(but1)
+        settings.settingsButton(but2)
+        settings.settingsButton(but3)
         
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
@@ -135,20 +135,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func but1(_ sender: Any) {
-        but1.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        but1.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
         performSegue(withIdentifier: "but1", sender: self)
     }
     @IBAction func but2(_ sender: Any) {
-        but2.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        but2.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
         performSegue(withIdentifier: "but2", sender: self)
     }
     @IBAction func but3(_ sender: Any) {
-        but3.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        but3.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
-        performSegue(withIdentifier: "but2", sender: self)
+        performSegue(withIdentifier: "but3", sender: self)
     }
+    
+    
     
 // Источник данных таблицы
     
