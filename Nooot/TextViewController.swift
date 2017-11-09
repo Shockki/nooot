@@ -23,10 +23,6 @@ class TextViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         historyTextView.delegate = self
         doneButton.alpha = 0
-        
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(actionSwipe(swipe:)))
-        rightSwipe.direction = .right
-        view.addGestureRecognizer(rightSwipe)
   
         manager.loadJSON(title: titleName)
         semaphore.wait()
@@ -39,6 +35,12 @@ class TextViewController: UIViewController, UITextViewDelegate {
         }else{
             historyTextView.text? = bodyText
         }
+        
+//        historyTextView.isEditable = false
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(actionSwipe(swipe:)))
+        rightSwipe.direction = .right
+        view.addGestureRecognizer(rightSwipe)
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,4 +83,5 @@ class TextViewController: UIViewController, UITextViewDelegate {
         doneButton.alpha = 0
         self.view.endEditing(true)
     }
+    
 }

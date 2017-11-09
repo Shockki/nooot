@@ -42,9 +42,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         viewBackground.alpha = 0
         addNewNoteView.alpha = 0
+        
         addNewNoteView.layer.cornerRadius = 16
         textFieldAddNote.layer.cornerRadius = 11
-        addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 300, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
+        labelNoteTitleOnView.text! = NSLocalizedString("Note title", comment: "")
+        // Меняет положение курсора
+        textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
+        textFieldAddNote.leftViewMode = .always
+        addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 200, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
+        
         settings.settingsButton(but1)
         settings.settingsButton(but2)
         settings.settingsButton(but3)
@@ -54,7 +60,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         settings.sizeTableView(notesList: notesList, historyTableViewTwo: historyTableViewTwo, historyView: historyView, but1: but1, but2: but2, but3: but3)
     }
     
-// Скрывает клавиатуру, когда пользователь касается внешнего вида
+// Действие, когда пользователь касается внешнего вида
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
@@ -62,7 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.view.endEditing(true)
             UIView.animate(withDuration: 0.4, animations: { self.viewBackground.alpha = 0 })
             UIView.animate(withDuration: 0.4, animations: {
-                self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 300, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+                self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 200, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
             })
             
             print("dismiss")
@@ -85,36 +91,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func buttonAddNewNote(_ sender: Any) {
         
         // Анимация появления View
-        addNewNoteView.alpha = 1
+        self.addNewNoteView.alpha = 1
         UIView.animate(withDuration: 0.4, animations: {
-            self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 300, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+            self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 200, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
         })
         UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
-        
         textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
-        labelNoteTitleOnView.text! = NSLocalizedString("Note title", comment: "")
-        
-        // Меняет положение курсора
-        textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
-        textFieldAddNote.leftViewMode = .always
-        
     }
 
     @IBAction func buttonGoText(_ sender: Any) {
         performAction()
     }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         performAction()
-        textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
         return true
     }
     
     func performAction() {
         if textFieldAddNote.text!.isEmpty {
-           settings.shakeView(addNewNoteView)
+            settings.shakeView(addNewNoteView)
         } else {
-            textFieldAddNote.resignFirstResponder()
+            textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
             performSegue(withIdentifier: "goText", sender: self)
         }
     }

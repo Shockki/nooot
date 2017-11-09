@@ -195,7 +195,7 @@ Enjoy!</string>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.94806868649999998" green="0.94806868649999998" blue="0.94806868649999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <attributedString key="attributedText"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="go"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="kWn-H1-tLd">
                                         <rect key="frame" x="20" y="19" width="138" height="13"/>
@@ -260,7 +260,7 @@ Enjoy!</string>
                                 <inset key="contentInset" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="textColor" red="0.51372549020000002" green="0.50980392159999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="AnL-JQ-t60" id="Ztd-bv-IMg"/>
@@ -319,7 +319,7 @@ Enjoy!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4O-pK-rug" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2027" y="1198"/>
+            <point key="canvasLocation" x="2027" y="1190"/>
         </scene>
     </scenes>
     <resources>
@@ -329,6 +329,6 @@ Enjoy!</string>
         <image name="move" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="O9y-aQ-b2G"/>
+        <segue reference="6jr-Au-fyZ"/>
     </inferredMetricsTieBreakers>
 </document>

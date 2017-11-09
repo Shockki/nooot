@@ -58,7 +58,7 @@ class FuncSettings {
     func shakeView(_ vw: UIView) {
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.05
-        animation.repeatCount = 5
+        animation.repeatCount = 2.5
         animation.autoreverses = true
         animation.fromValue = NSValue(cgPoint: CGPoint(x: vw.center.x - 4, y: vw.center.y))
         animation.toValue = NSValue(cgPoint: CGPoint(x: vw.center.x + 4, y: vw.center.y))
