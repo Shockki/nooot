@@ -19,10 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var visited: UILabel!
     @IBOutlet weak var visitedTwo: UILabel!
     
-    @IBOutlet weak var historyView: UIView!
-    @IBOutlet weak var but1: UIButton!
-    @IBOutlet weak var but2: UIButton!
-    @IBOutlet weak var but3: UIButton!
+    @IBOutlet weak var historyTableView: UITableView!
     
     @IBOutlet weak var addNewNoteView: UIView!
     @IBOutlet weak var textFieldAddNote: UITextField!
@@ -51,13 +48,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textFieldAddNote.leftViewMode = .always
         addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 200, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
         
-        settings.settingsButton(but1)
-        settings.settingsButton(but2)
-        settings.settingsButton(but3)
-        
         notesReverse = manager.getAllNotes()
         notesList = manager.reverseNotes(input: notesReverse)
-        settings.sizeTableView(notesList: notesList, historyTableViewTwo: historyTableViewTwo, historyView: historyView, but1: but1, but2: but2, but3: but3)
+        settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
     
 // Действие, когда пользователь касается внешнего вида
@@ -119,11 +112,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func removeAll() {
         let alertContr = UIAlertController(title: NSLocalizedString("Are you sure you want to clear history?", comment: ""), message: nil, preferredStyle: .actionSheet)
         let actionDelete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (action) in
-            self.manager.removeAllNoteDataFronDB()
+            self.manager.removeAllNoteDataFromDB()
             self.notesList.removeAll()
-            self.historyTableViewTwo.reloadData()
-            self.settings.sizeTableView(notesList: self.notesList, historyTableViewTwo: self.historyTableViewTwo, historyView: self.historyView, but1: self.but1, but2: self.but2, but3: self.but3)
-            self.view.setNeedsDisplay()
+            self.settings.sizeTableView(notesList: self.notesList, historyTableView: self.historyTableView, historyTableViewTwo: self.historyTableViewTwo)
         }
         let actionCancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
         alertContr.addAction(actionDelete)
@@ -131,19 +122,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(alertContr, animated: true, completion: nil)
     }
     
-    @IBAction func but1(_ sender: Any) {
-        performSegue(withIdentifier: "but1", sender: self)
-    }
-    @IBAction func but2(_ sender: Any) {
-        performSegue(withIdentifier: "but2", sender: self)
-    }
-    @IBAction func but3(_ sender: Any) {
-        performSegue(withIdentifier: "but3", sender: self)
-    }
-    
-    
-    
-// Источник данных таблицы
+    // Источник данных таблицы
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -172,7 +151,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue .identifier == "details" {
-          if let indexPath = historyTableViewTwo.indexPathForSelectedRow {
+            if let indexPath = historyTableView.indexPathForSelectedRow {
+                let destVC: TextViewController = segue.destination as! TextViewController
+                destVC.titleName = notesList[indexPath.row]
+                
+            }else if let indexPath = historyTableViewTwo.indexPathForSelectedRow {
                 let destVC: TextViewController = segue.destination as! TextViewController
                 destVC.titleName = notesList[indexPath.row]
             }
@@ -180,18 +163,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "goText" {
             let destVC: TextViewController = segue.destination as! TextViewController
             destVC.titleName.append(textFieldAddNote.text!)
-        }
-        if segue.identifier == "but1" {
-            let destVC: TextViewController = segue.destination as! TextViewController
-            destVC.titleName.append(but1.titleLabel!.text!)
-        }
-        if segue.identifier == "but2" {
-            let destVC: TextViewController = segue.destination as! TextViewController
-            destVC.titleName.append(but2.titleLabel!.text!)
-        }
-        if segue.identifier == "but3" {
-            let destVC: TextViewController = segue.destination as! TextViewController
-            destVC.titleName.append(but3.titleLabel!.text!)
         }
     }
     
@@ -216,7 +187,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
 //            print("delete")
 //            
-//            self.manager.removeNoteDataFronDB(title: self.notesList[indexPath.row])
+//            self.manager.removeNoteDataFroDB(title: self.notesList[indexPath.row])
 //            self.notesList.remove(at: indexPath.row)
 //            self.historyTableView.reloadData()
 //            self.historyTableView.isEditing = false

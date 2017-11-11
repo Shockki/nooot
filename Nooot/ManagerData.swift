@@ -109,7 +109,7 @@ class ManagerData {
     
 // Удаление заметки
     
-    func removeNoteDataFronDB(title: String) {
+    func removeNoteDataFromDB(title: String) {
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", capitalizingFirstLetter(name: title))
         try! realm.write {
@@ -121,7 +121,7 @@ class ManagerData {
     
 // Удаление всех заметок
 
-    func removeAllNoteDataFronDB() {
+    func removeAllNoteDataFromDB() {
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self)
         try! realm.write {
