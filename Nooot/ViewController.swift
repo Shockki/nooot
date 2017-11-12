@@ -150,7 +150,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue .identifier == "details" {
+        if segue.identifier == "details" {
             if let indexPath = historyTableView.indexPathForSelectedRow {
                 let destVC: TextViewController = segue.destination as! TextViewController
                 destVC.titleName = notesList[indexPath.row]
@@ -166,34 +166,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-// Action swiping
-    
+//    // Action swiping
+//
 //    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        
+//
 //        // Шаринг
-//        
+//
 //        let shareAction = UITableViewRowAction(style: .normal, title: "Share") { (action, indexPath) in
 //            let activityVC = UIActivityViewController(activityItems: ["http://nooot.co/text/\(self.notesList[indexPath.row])"], applicationActivities: nil)
 //            activityVC.popoverPresentationController?.sourceView = self.view
-//            
+//
 //            self.present(activityVC, animated: true, completion: nil)
 //            self.historyTableView.isEditing = false
 //        }
-//        
-//        shareAction.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-//        
+//
+//        shareAction.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+//
 //        // Удаление заметки
-//        
+//
 //        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
 //            print("delete")
-//            
-//            self.manager.removeNoteDataFroDB(title: self.notesList[indexPath.row])
+//
+//            self.manager.removeNoteDataFromDB(title: self.notesList[indexPath.row])
 //            self.notesList.remove(at: indexPath.row)
 //            self.historyTableView.reloadData()
 //            self.historyTableView.isEditing = false
 //        }
 //        deleteAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-//        
+//
 //        return [deleteAction, shareAction]
 //    }
 }
