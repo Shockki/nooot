@@ -18,22 +18,11 @@ class FuncSettings {
                 historyTableViewTwo.alpha = 0
                 historyTableView.alpha = 0
             })
-        case 1:
+        case 1...3:
             UIView.animate(withDuration: 0.2, animations: {
                 historyTableViewTwo.alpha = 0
                 historyTableView.alpha = 1
-            })
-        case 2:
-            UIView.animate(withDuration: 0.2, animations: {
-                historyTableViewTwo.alpha = 0
-                historyTableView.alpha = 1
-            })
-        case 3:
-            UIView.animate(withDuration: 0.2, animations: {
-                historyTableViewTwo.alpha = 0
-                historyTableView.alpha = 1
-            })
-            
+            })            
         default:
             UIView.animate(withDuration: 0.2, animations: {
                 historyTableView.alpha = 0
