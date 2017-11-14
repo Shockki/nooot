@@ -63,18 +63,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             UIView.animate(withDuration: 0.4, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 200, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
             })
-            
-            print("dismiss")
         }
     }
     
 // Кнопка удаления всей истории
     
     @IBAction func removeAllHistoryNotes(_ sender: Any) {
-        removeAll()
+        removeAllNotes()
     }
     @IBAction func removeAllHistoryNotesTwo(_ sender: Any) {
-        removeAll()
+        removeAllNotes()
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,7 +83,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Анимация появления View
         self.addNewNoteView.alpha = 1
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 200, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
         })
         UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
@@ -109,7 +107,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func removeAll() {
+    func removeAllNotes() {
         let alertContr = UIAlertController(title: NSLocalizedString("Are you sure you want to clear history?", comment: ""), message: nil, preferredStyle: .actionSheet)
         let actionDelete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (action) in
             self.manager.removeAllNoteDataFromDB()

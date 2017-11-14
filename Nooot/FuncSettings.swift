@@ -42,4 +42,5 @@ class FuncSettings {
         
         vw.layer.add(animation, forKey: "position")
     }
+
 }

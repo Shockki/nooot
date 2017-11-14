@@ -178,9 +178,6 @@ class ManagerData {
         print("ReturnText \(Thread.current)")
         return getText
     }
-
-
-    
 }
 
 var semaphore = DispatchSemaphore(value: 0)
