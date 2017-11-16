@@ -42,5 +42,27 @@ class FuncSettings {
         
         vw.layer.add(animation, forKey: "position")
     }
-
+    
+    func searchLinks(bodyText: String, textView: UITextView)  {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: bodyText, options: [], range: NSRange(location: 0, length: bodyText.utf16.count))
+        for match in matches {
+            guard let range = Range(match.range, in: bodyText) else { continue }
+            let url = bodyText[range]
+            print(url)
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+

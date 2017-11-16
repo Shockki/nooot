@@ -15,6 +15,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var doneButton: UIButton!
         
     let manager: ManagerData = ManagerData()
+    let settings: FuncSettings = FuncSettings()
     
     var titleName: String = ""
     var bodyText: String = ""
@@ -36,11 +37,11 @@ class TextViewController: UIViewController, UITextViewDelegate {
             historyTextView.text? = bodyText
         }
         
-//        historyTextView.isEditable = false
-        
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(actionSwipe(swipe:)))
         rightSwipe.direction = .right
         view.addGestureRecognizer(rightSwipe)
+        
+        settings.searchLinks(bodyText: bodyText, textView: historyTextView)   
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,6 +84,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
         doneButton.alpha = 0
         self.view.endEditing(true)
     }
+
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return true

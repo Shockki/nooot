@@ -21,7 +21,7 @@ class ManagerData {
         let bodyText: BodyText = BodyText()
         let url = "http://nooot.co/api/texts/\(encodedTitle)"
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
-            print("1.1 Start \(Thread.current)")
+//            print("1.1 Start \(Thread.current)")
             
             switch response.result {
             case .success(let value):
@@ -75,7 +75,7 @@ class ManagerData {
         for value in data[0].textList {
             body.append(value.bodyText)
         }
-        print("2.GetText \(Thread.current)")
+//        print("2.GetText \(Thread.current)")
         return body
     }
     
@@ -103,7 +103,7 @@ class ManagerData {
         for value in data {
             titleList.append(value.titleName)
         }
-        print("1. GetAllNotes \(Thread.current)")
+//        print("1. GetAllNotes \(Thread.current)")
         return titleList
     }
     
@@ -175,7 +175,7 @@ class ManagerData {
                 getText = value
             }
         }
-        print("ReturnText \(Thread.current)")
+//        print("ReturnText \(Thread.current)")
         return getText
     }
 }
