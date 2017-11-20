@@ -29,7 +29,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
         semaphore.wait()
 
         titleName = manager.returnText(titleName: titleName)      
-        nameOfTitle.text! = titleName
+        nameOfTitle.text! = manager.spaceDel(title: titleName)
         bodyText =  manager.getNoteDataText(title: titleName)
         if bodyText.isEmpty {
             historyTextView.text? = NSLocalizedString("Your note...", comment: "")

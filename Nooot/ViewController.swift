@@ -49,7 +49,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 200, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
         
         notesReverse = manager.getAllNotes()
-        notesList = manager.reverseNotes(input: notesReverse)
+        for note in notesReverse {
+            notesList.append(manager.spaceDel(title: note))
+        }
+        notesList = manager.reverseNotes(input: notesList)
+        
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
     

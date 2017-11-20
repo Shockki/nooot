@@ -147,6 +147,21 @@ class ManagerData {
         }
         return array
     }
+   
+// Заменяет символы пробелом
+    
+    func spaceDel(title: String) -> String {
+        var array = Array(title.characters)
+        for i in 0...array.count - 1 {
+            if array[i] == "%" && array[i + 1] == "2" && array[i + 2] == "0" {
+                array[i] = " "
+                array.remove(at: i + 1)
+                array.remove(at: i + 1)
+                break
+            }
+        }
+        return String(array)
+    }
     
 // Первую букву делает заглавной
     
