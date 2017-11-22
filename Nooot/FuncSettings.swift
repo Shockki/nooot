@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class FuncSettings {
-    
+    let manager: ManagerData = ManagerData()    
     func sizeTableView(notesList: [String], historyTableView: UITableView, historyTableViewTwo: UITableView) {
         switch notesList.count {
         case 0:
@@ -22,6 +22,7 @@ class FuncSettings {
             UIView.animate(withDuration: 0.2, animations: {
                 historyTableViewTwo.alpha = 0
                 historyTableView.alpha = 1
+                historyTableView.reloadData()
             })            
         default:
             UIView.animate(withDuration: 0.2, animations: {

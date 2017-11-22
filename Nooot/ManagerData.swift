@@ -103,7 +103,7 @@ class ManagerData {
         for value in data {
             titleList.append(value.titleName)
         }
-//        print("1. GetAllNotes \(Thread.current)")
+        print("1. GetAllNotes \(Thread.current)")
         return titleList
     }
     
@@ -152,15 +152,17 @@ class ManagerData {
     
     func spaceDel(title: String) -> String {
         var array = Array(title.characters)
+        var result: [Character] = []
         for i in 0...array.count - 1 {
             if array[i] == "%" && array[i + 1] == "2" && array[i + 2] == "0" {
-                array[i] = " "
-                array.remove(at: i + 1)
-                array.remove(at: i + 1)
-                break
+                result.append(" ")
+            }else if array[i] == "2" && array[i - 1] == "%" && array[i + 1] == "0" {
+            }else if array[i] == "0" && array[i - 1] == "2" && array[i - 2] == "%" {
+            }else{
+                result.append(array[i])
             }
         }
-        return String(array)
+        return String(result)
     }
     
 // Первую букву делает заглавной

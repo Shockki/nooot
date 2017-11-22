@@ -35,6 +35,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+//        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.shadowImage = UIImage()
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         viewBackground.alpha = 0
@@ -46,14 +48,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Меняет положение курсора
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
-        addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 200, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
+        addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 150, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
         
         notesReverse = manager.getAllNotes()
         for note in notesReverse {
             notesList.append(manager.spaceDel(title: note))
         }
         notesList = manager.reverseNotes(input: notesList)
-        
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
     
@@ -65,9 +66,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.view.endEditing(true)
             UIView.animate(withDuration: 0.4, animations: { self.viewBackground.alpha = 0 })
             UIView.animate(withDuration: 0.4, animations: {
-                self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 200, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+                self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
             })
+//            UIView.animate(withDuration: 0.65, animations: {
+//                self.navigationController?.isNavigationBarHidden = false
+//            })
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        notesReverse = manager.getAllNotes()
+        notesList.removeAll()
+        for note in notesReverse {
+            notesList.append(manager.spaceDel(title: note))
+        }
+        notesList = manager.reverseNotes(input: notesList)
+        settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
     
 // Кнопка удаления всей истории
@@ -84,11 +99,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func buttonAddNewNote(_ sender: Any) {
-        
+
         // Анимация появления View
+        textFieldAddNote.text? = ""
         self.addNewNoteView.alpha = 1
         UIView.animate(withDuration: 0.2, animations: {
-            self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 200, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+            self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+//                self.navigationController?.isNavigationBarHidden = true
         })
         UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
         textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
@@ -106,7 +123,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if textFieldAddNote.text!.isEmpty {
             settings.shakeView(addNewNoteView)
         } else {
+//            UIView.animate(withDuration: 0.4, animations: {
+//                self.navigationController?.isNavigationBarHidden = false
+//            })
             textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
+            UIView.animate(withDuration: 0.3, animations: {
+                self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+                self.viewBackground.alpha = 0
+            })
             performSegue(withIdentifier: "goText", sender: self)
         }
     }
@@ -116,7 +140,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let actionDelete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (action) in
             self.manager.removeAllNoteDataFromDB()
             self.notesList.removeAll()
-            self.settings.sizeTableView(notesList: self.notesList, historyTableView: self.historyTableView, historyTableViewTwo: self.historyTableViewTwo)
+            self.settings.sizeTableView(notesList : self.notesList, historyTableView: self.historyTableView, historyTableViewTwo: self.historyTableViewTwo)
         }
         let actionCancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
         alertContr.addAction(actionDelete)
@@ -166,6 +190,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let destVC: TextViewController = segue.destination as! TextViewController
             destVC.titleName.append(textFieldAddNote.text!)
         }
+        
+        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
     
 //    // Action swiping

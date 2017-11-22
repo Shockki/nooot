@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextViewController: UIViewController, UITextViewDelegate {
+class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate {
    
     @IBOutlet weak var historyTextView: UITextView!
     @IBOutlet weak var nameOfTitle: UILabel!
@@ -36,22 +36,11 @@ class TextViewController: UIViewController, UITextViewDelegate {
         }else{
             historyTextView.text? = bodyText
         }
-        
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(actionSwipe(swipe:)))
-        rightSwipe.direction = .right
-        view.addGestureRecognizer(rightSwipe)
-        
         settings.searchLinks(bodyText: bodyText, textView: historyTextView)   
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func actionSwipe(swipe: UISwipeGestureRecognizer) {
-        if swipe.direction == .right {
-            performSegue(withIdentifier: "goHome", sender: self)
-        }
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -84,7 +73,10 @@ class TextViewController: UIViewController, UITextViewDelegate {
         doneButton.alpha = 0
         self.view.endEditing(true)
     }
-
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return true
