@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-//        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.shadowImage = UIImage()
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -68,14 +68,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             UIView.animate(withDuration: 0.4, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
             })
-//            UIView.animate(withDuration: 0.65, animations: {
-//                self.navigationController?.isNavigationBarHidden = false
-//            })
+            UIView.animate(withDuration: 0.65, animations: {
+                self.navigationController?.isNavigationBarHidden = false
+            })
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationController?.isNavigationBarHidden = false
         notesReverse = manager.getAllNotes()
         notesList.removeAll()
         for note in notesReverse {
@@ -105,7 +106,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.addNewNoteView.alpha = 1
         UIView.animate(withDuration: 0.2, animations: {
             self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
-//                self.navigationController?.isNavigationBarHidden = true
+                self.navigationController?.isNavigationBarHidden = true
         })
         UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
         textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
@@ -123,9 +124,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if textFieldAddNote.text!.isEmpty {
             settings.shakeView(addNewNoteView)
         } else {
-//            UIView.animate(withDuration: 0.4, animations: {
-//                self.navigationController?.isNavigationBarHidden = false
-//            })
+            UIView.animate(withDuration: 0.4, animations: {
+                self.navigationController?.isNavigationBarHidden = false
+            })
             textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
             UIView.animate(withDuration: 0.3, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)

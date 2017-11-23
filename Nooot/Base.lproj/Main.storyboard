@@ -171,7 +171,7 @@ Enjoy!</string>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" misplaced="YES" id="Qy0-So-NhA">
-                                <rect key="frame" x="8" y="70" width="359" height="100"/>
+                                <rect key="frame" x="8" y="28" width="359" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" id="Czl-vY-fdq">
@@ -295,7 +295,7 @@ Enjoy!</string>
                     </connections>
                 </screenEdgePanGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2239" y="1233"/>
+            <point key="canvasLocation" x="2239" y="1098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fUk-iH-oxm">
@@ -314,7 +314,7 @@ Enjoy!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QX6-uq-TbD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1741" y="308"/>
+            <point key="canvasLocation" x="1792" y="308"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pfX-wc-u88">
@@ -334,7 +334,7 @@ Enjoy!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YRe-I8-7L0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1741" y="1233"/>
+            <point key="canvasLocation" x="1792" y="1098"/>
         </scene>
     </scenes>
     <resources>

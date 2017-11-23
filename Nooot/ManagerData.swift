@@ -81,7 +81,7 @@ class ManagerData {
     
 // Взвращает id выбранной заметки
     
-    func getNoteDataId(title: String) -> String {
+    private func getNoteDataId(title: String) -> String {
         
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
@@ -103,7 +103,7 @@ class ManagerData {
         for value in data {
             titleList.append(value.titleName)
         }
-        print("1. GetAllNotes \(Thread.current)")
+//        print("1. GetAllNotes \(Thread.current)")
         return titleList
     }
     
@@ -167,7 +167,7 @@ class ManagerData {
     
 // Первую букву делает заглавной
     
-    func capitalizingFirstLetter(name: String) -> String {
+    private func capitalizingFirstLetter(name: String) -> String {
         let first = String(name.characters.prefix(1)).capitalized
         let other = String(name.characters.dropFirst())
         print("Capitalizing \(Thread.current)")
