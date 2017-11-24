@@ -77,10 +77,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
-    
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        return true
-    }
 }
 
 

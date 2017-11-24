@@ -18,8 +18,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var buttonDeleteAllTwo: UIButton!
     @IBOutlet weak var visited: UILabel!
     @IBOutlet weak var visitedTwo: UILabel!
-    
     @IBOutlet weak var historyTableView: UITableView!
+    @IBOutlet weak var buttonShowView: UIButton!
     
     @IBOutlet weak var addNewNoteView: UIView!
     @IBOutlet weak var textFieldAddNote: UITextField!
@@ -35,12 +35,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        navigationController?.isNavigationBarHidden = false
+//        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         viewBackground.alpha = 0
         addNewNoteView.alpha = 0
+        buttonShowView.alpha = 1
         
         addNewNoteView.layer.cornerRadius = 16
         textFieldAddNote.layer.cornerRadius = 11
@@ -58,6 +60,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        buttonShowView.alpha = 1
+        notesReverse = manager.getAllNotes()
+        notesList.removeAll()
+        for note in notesReverse {
+            notesList.append(manager.spaceDel(title: note))
+        }
+        notesList = manager.reverseNotes(input: notesList)
+        settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func buttonAddNewNote(_ sender: Any) {
+        // Анимация появления View
+        textFieldAddNote.text? = ""
+        self.addNewNoteView.alpha = 1
+        self.buttonShowView.alpha = 0
+        UIView.animate(withDuration: 0.2, animations: {
+            self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
+//                self.navigationController?.isNavigationBarHidden = true
+        })
+        UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
+        textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
+    }
+    
 // Действие, когда пользователь касается внешнего вида
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -68,48 +99,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             UIView.animate(withDuration: 0.4, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
             })
-            UIView.animate(withDuration: 0.65, animations: {
-                self.navigationController?.isNavigationBarHidden = false
-            })
+            UIView.animate(withDuration: 0.4, delay: 0.2, options: .allowAnimatedContent, animations: {
+                self.buttonShowView.alpha = 1
+            }, completion: nil)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        navigationController?.isNavigationBarHidden = false
-        notesReverse = manager.getAllNotes()
-        notesList.removeAll()
-        for note in notesReverse {
-            notesList.append(manager.spaceDel(title: note))
-        }
-        notesList = manager.reverseNotes(input: notesList)
-        settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
-    }
-    
-// Кнопка удаления всей истории
-    
-    @IBAction func removeAllHistoryNotes(_ sender: Any) {
-        removeAllNotes()
-    }
-    @IBAction func removeAllHistoryNotesTwo(_ sender: Any) {
-        removeAllNotes()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    @IBAction func buttonAddNewNote(_ sender: Any) {
-
-        // Анимация появления View
-        textFieldAddNote.text? = ""
-        self.addNewNoteView.alpha = 1
-        UIView.animate(withDuration: 0.2, animations: {
-            self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
-                self.navigationController?.isNavigationBarHidden = true
-        })
-        UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
-        textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
     }
 
     @IBAction func buttonGoText(_ sender: Any) {
@@ -124,9 +117,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if textFieldAddNote.text!.isEmpty {
             settings.shakeView(addNewNoteView)
         } else {
-            UIView.animate(withDuration: 0.4, animations: {
-                self.navigationController?.isNavigationBarHidden = false
-            })
+//            UIView.animate(withDuration: 0.65, animations: {
+//                self.navigationController?.isNavigationBarHidden = false
+//            })
             textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
             UIView.animate(withDuration: 0.3, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
@@ -136,7 +129,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func removeAllNotes() {
+    @IBAction func removeAllHistoryNotes(_ sender: Any) {
         let alertContr = UIAlertController(title: NSLocalizedString("Are you sure you want to clear history?", comment: ""), message: nil, preferredStyle: .actionSheet)
         let actionDelete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (action) in
             self.manager.removeAllNoteDataFromDB()
@@ -191,40 +184,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let destVC: TextViewController = segue.destination as! TextViewController
             destVC.titleName.append(textFieldAddNote.text!)
         }
-        
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
-    
-//    // Action swiping
-//
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//
-//        // Шаринг
-//
-//        let shareAction = UITableViewRowAction(style: .normal, title: "Share") { (action, indexPath) in
-//            let activityVC = UIActivityViewController(activityItems: ["http://nooot.co/text/\(self.notesList[indexPath.row])"], applicationActivities: nil)
-//            activityVC.popoverPresentationController?.sourceView = self.view
-//
-//            self.present(activityVC, animated: true, completion: nil)
-//            self.historyTableView.isEditing = false
-//        }
-//
-//        shareAction.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-//
-//        // Удаление заметки
-//
-//        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-//            print("delete")
-//
-//            self.manager.removeNoteDataFromDB(title: self.notesList[indexPath.row])
-//            self.notesList.remove(at: indexPath.row)
-//            self.historyTableView.reloadData()
-//            self.historyTableView.isEditing = false
-//        }
-//        deleteAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-//
-//        return [deleteAction, shareAction]
-//    }
 }
