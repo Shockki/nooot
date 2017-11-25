@@ -35,8 +35,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             historyTextView.text? = NSLocalizedString("Your note...", comment: "")
         }else{
             historyTextView.text? = bodyText
+            settings.searchLinks(bodyText: bodyText, textView: historyTextView)
         }
-        settings.searchLinks(bodyText: bodyText, textView: historyTextView)   
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,6 +75,11 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        UIApplication.shared.open(URL, options: [:])
         return false
     }
 }

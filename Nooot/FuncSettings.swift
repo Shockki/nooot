@@ -45,11 +45,14 @@ class FuncSettings {
     }
     
     func searchLinks(bodyText: String, textView: UITextView)  {
+        let attributedString = NSMutableAttributedString(string: bodyText)
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
         let matches = detector.matches(in: bodyText, options: [], range: NSRange(location: 0, length: bodyText.utf16.count))
         for match in matches {
             guard let range = Range(match.range, in: bodyText) else { continue }
             let url = bodyText[range]
+            attributedString.addAttribute(.link, value: String(url), range: match.range)
+            textView.attributedText = attributedString
             print(url)
         }
     }
