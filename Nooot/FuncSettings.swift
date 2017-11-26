@@ -45,23 +45,26 @@ class FuncSettings {
     }
     
     func searchLinks(bodyText: String, textView: UITextView)  {
-        let attributedString = NSMutableAttributedString(string: bodyText)
+        
+        let colorAttr = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let attributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16), NSForegroundColorAttributeName: colorAttr]
+        let attributedString = NSMutableAttributedString(string: bodyText, attributes: attributes)
+   
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
         let matches = detector.matches(in: bodyText, options: [], range: NSRange(location: 0, length: bodyText.utf16.count))
         for match in matches {
             guard let range = Range(match.range, in: bodyText) else { continue }
-            let url = bodyText[range]
-            attributedString.addAttribute(.link, value: String(url), range: match.range)
+        
+            attributedString.addAttribute(NSLinkAttributeName, value: bodyText[range], range: match.range)
             textView.attributedText = attributedString
-            print(url)
         }
     }
     
+
+
+
+    
 }
-
-
-
-
 
 
 

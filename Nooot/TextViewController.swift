@@ -33,9 +33,11 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         bodyText =  manager.getNoteDataText(title: titleName)
         if bodyText.isEmpty {
             historyTextView.text? = NSLocalizedString("Your note...", comment: "")
+            historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
         }else{
             historyTextView.text? = bodyText
             settings.searchLinks(bodyText: bodyText, textView: historyTextView)
+            historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
     }
 
@@ -47,6 +49,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         doneButton.alpha = 1
         if historyTextView.text! == NSLocalizedString("Your note...", comment: "") {
             historyTextView.text? = ""
+            historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
         return true
     }
@@ -66,8 +69,10 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         if historyTextView.text.isEmpty {
             if bodyText.isEmpty {
                 historyTextView.text? = NSLocalizedString("Your note...", comment: "")
+                historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
             }else{
                 historyTextView.text? = bodyText
+                settings.searchLinks(bodyText: bodyText, textView: historyTextView)
             }
         }
         doneButton.alpha = 0
