@@ -84,8 +84,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        UIApplication.shared.open(URL, options: [:])
-        return false
+        return true
     }
 }
 

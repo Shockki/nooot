@@ -203,7 +203,7 @@ Enjoy!</string>
                     </view>
                     <navigationItem key="navigationItem" id="I9f-ag-kUV">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="mHk-Hv-Hb4">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dgy-5e-sBz">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dgy-5e-sBz">
                                 <rect key="frame" x="331" y="8" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="add"/>
@@ -271,8 +271,8 @@ Enjoy!</string>
                     </view>
                     <navigationItem key="navigationItem" id="u6D-AP-NCw">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="rpg-4A-7FC">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vwA-jg-BWS">
-                                <rect key="frame" x="32" y="0.0" width="327" height="44"/>
+                            <button key="customView" opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vwA-jg-BWS">
+                                <rect key="frame" x="331" y="8" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="done"/>
                                 <connections>
