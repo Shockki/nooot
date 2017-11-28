@@ -59,7 +59,6 @@ class FuncSettings {
             textView.attributedText = attributedString
         }
     }
-    
 
 
 

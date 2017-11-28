@@ -243,9 +243,9 @@ Enjoy!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="Enter text.." textAlignment="natural" id="wPq-nm-gkd">
-                                <rect key="frame" x="16" y="124" width="340" height="521"/>
+                                <rect key="frame" x="16" y="131" width="340" height="514"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="contentInset" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="textColor" red="0.51372549020000002" green="0.50980392159999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -255,9 +255,10 @@ Enjoy!</string>
                                     <outlet property="delegate" destination="AnL-JQ-t60" id="Ztd-bv-IMg"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Note title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="H0r-QG-0lJ">
-                                <rect key="frame" x="16" y="86" width="339" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Note title" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="0.5" id="H0r-QG-0lJ">
+                                <rect key="frame" x="16" y="64" width="339" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -295,7 +296,7 @@ Enjoy!</string>
                     </connections>
                 </screenEdgePanGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2239" y="1098"/>
+            <point key="canvasLocation" x="2720.5" y="307.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fUk-iH-oxm">
@@ -315,26 +316,6 @@ Enjoy!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QX6-uq-TbD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1792" y="308"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="pfX-wc-u88">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gXm-G5-fKF" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="i1C-6z-aRo"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2mn-2G-gDT">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="AnL-JQ-t60" kind="relationship" relationship="rootViewController" id="slc-Gp-baG"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YRe-I8-7L0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1792" y="1098"/>
         </scene>
     </scenes>
     <resources>

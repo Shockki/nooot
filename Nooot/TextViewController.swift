@@ -50,6 +50,9 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         if historyTextView.text! == NSLocalizedString("Your note...", comment: "") {
             historyTextView.text? = ""
             historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        }else if historyTextView.text! == bodyText {
+            historyTextView.text! = bodyText
+            historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
         return true
     }
@@ -64,16 +67,14 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         performSegue(withIdentifier: "goHome", sender: self)
     }
     
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if historyTextView.text.isEmpty {
             if bodyText.isEmpty {
                 historyTextView.text? = NSLocalizedString("Your note...", comment: "")
                 historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
-            }else{
-                historyTextView.text? = bodyText
-                settings.searchLinks(bodyText: bodyText, textView: historyTextView)
             }
+        }else{
+            settings.searchLinks(bodyText: historyTextView.text!, textView: historyTextView)
         }
         doneButton.alpha = 0
         self.view.endEditing(true)
