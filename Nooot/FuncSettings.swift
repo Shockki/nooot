@@ -45,7 +45,6 @@ class FuncSettings {
     }
     
     func searchLinks(bodyText: String, textView: UITextView)  {
-        
         let colorAttr = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         let attributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16), NSForegroundColorAttributeName: colorAttr]
         let attributedString = NSMutableAttributedString(string: bodyText, attributes: attributes)
@@ -59,10 +58,6 @@ class FuncSettings {
             textView.attributedText = attributedString
         }
     }
-
-
-
-    
 }
 
 

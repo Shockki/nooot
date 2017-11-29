@@ -23,6 +23,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         doneButton.alpha = 0
   
         manager.loadJSON(title: titleName)
@@ -78,6 +80,21 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }
         doneButton.alpha = 0
         self.view.endEditing(true)
+    }
+    
+    func updateTextView(notification: Notification) {
+        let userInfo = notification.userInfo!
+        
+        let keyboardEndFrameScreenCoordinates = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardEndFrame = self.view.convert(keyboardEndFrameScreenCoordinates, to: view.window)
+        
+        if notification.name == Notification.Name.UIKeyboardWillHide {
+            historyTextView.contentInset = UIEdgeInsets.zero
+        }else{
+            historyTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height, right: 0)
+            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
+        }
+        historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
