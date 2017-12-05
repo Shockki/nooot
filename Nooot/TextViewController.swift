@@ -13,7 +13,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     @IBOutlet weak var historyTextView: UITextView!
     @IBOutlet weak var nameOfTitle: UILabel!
     @IBOutlet weak var doneButton: UIButton!
-        
+    
     let manager: ManagerData = ManagerData()
     let settings: FuncSettings = FuncSettings()
     
@@ -23,6 +23,9 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
+        historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 0, 11)
+        navigationController?.navigationItem.leftBarButtonItem?.imageInsets = UIEdgeInsetsMake(10, 30, 0, 0)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         doneButton.alpha = 0
@@ -38,7 +41,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
         }else{
             historyTextView.text? = bodyText
-            settings.searchLinks(bodyText: bodyText, textView: historyTextView)
             historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
     }
@@ -52,9 +54,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         if historyTextView.text! == NSLocalizedString("Your note...", comment: "") {
             historyTextView.text? = ""
             historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        }else if historyTextView.text! == bodyText {
-            historyTextView.text! = bodyText
-            historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
         return true
     }
@@ -66,8 +65,10 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     @IBAction func buttonBack(_ sender: Any) {
-        performSegue(withIdentifier: "goHome", sender: self)
+        navigationController?.popViewController(animated: true)
     }
+    
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if historyTextView.text.isEmpty {
@@ -75,8 +76,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
                 historyTextView.text? = NSLocalizedString("Your note...", comment: "")
                 historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
             }
-        }else{
-            settings.searchLinks(bodyText: historyTextView.text!, textView: historyTextView)
         }
         doneButton.alpha = 0
         self.view.endEditing(true)
@@ -84,17 +83,15 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     func updateTextView(notification: Notification) {
         let userInfo = notification.userInfo!
-        
         let keyboardEndFrameScreenCoordinates = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardEndFrame = self.view.convert(keyboardEndFrameScreenCoordinates, to: view.window)
-        
         if notification.name == Notification.Name.UIKeyboardWillHide {
-            historyTextView.contentInset = UIEdgeInsets.zero
+            historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 0, 11)
         }else{
-            historyTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height, right: 0)
+            historyTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height + 80, right: 0)
             historyTextView.scrollIndicatorInsets = historyTextView.contentInset
         }
-        historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
+//        historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

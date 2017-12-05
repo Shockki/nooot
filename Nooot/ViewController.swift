@@ -183,8 +183,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let destVC: TextViewController = segue.destination as! TextViewController
             destVC.titleName.append(textFieldAddNote.text!)
         }
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+        
+//        let butBack = UIImage(named: "back")
+//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//        navigationItem.backBarButtonItem = UIBarButtonItem(image: butBack, style: .plain, target: nil, action: nil)
+//        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back")
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back")
+
     }
 }
