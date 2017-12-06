@@ -23,7 +23,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
-        historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 0, 11)
+        historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 11, 11)
         navigationController?.navigationItem.leftBarButtonItem?.imageInsets = UIEdgeInsetsMake(10, 30, 0, 0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
@@ -68,8 +68,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         navigationController?.popViewController(animated: true)
     }
     
-    
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if historyTextView.text.isEmpty {
             if bodyText.isEmpty {
@@ -79,6 +77,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }
         doneButton.alpha = 0
         self.view.endEditing(true)
+        print("lol")
     }
     
     func updateTextView(notification: Notification) {
@@ -86,12 +85,12 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         let keyboardEndFrameScreenCoordinates = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardEndFrame = self.view.convert(keyboardEndFrameScreenCoordinates, to: view.window)
         if notification.name == Notification.Name.UIKeyboardWillHide {
-            historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 0, 11)
+            historyTextView.contentInset = UIEdgeInsets.zero
         }else{
             historyTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height + 80, right: 0)
-            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
+//            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
         }
-//        historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
+        historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
