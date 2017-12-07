@@ -14,18 +14,18 @@ class FuncSettings {
     func sizeTableView(notesList: [String], historyTableView: UITableView, historyTableViewTwo: UITableView) {
         switch notesList.count {
         case 0:
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.15, animations: {
                 historyTableViewTwo.alpha = 0
                 historyTableView.alpha = 0
             })
         case 1...3:
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.15, animations: {
                 historyTableViewTwo.alpha = 0
                 historyTableView.alpha = 1
                 historyTableView.reloadData()
             })            
         default:
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.15, animations: {
                 historyTableView.alpha = 0
                 historyTableViewTwo.alpha = 1
                 historyTableViewTwo.reloadData()

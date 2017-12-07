@@ -23,12 +23,13 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
-        historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 11, 11)
-        navigationController?.navigationItem.leftBarButtonItem?.imageInsets = UIEdgeInsetsMake(10, 30, 0, 0)
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 50, 11)
+        automaticallyAdjustsScrollViewInsets = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        doneButton.alpha = 0
+        doneButton.isHidden = true
   
         manager.loadJSON(title: titleName)
         semaphore.wait()
@@ -44,13 +45,10 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        doneButton.alpha = 1
+//        doneButton.alpha = 1
+        doneButton.isHidden = false
         if historyTextView.text! == NSLocalizedString("Your note...", comment: "") {
             historyTextView.text? = ""
             historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -61,7 +59,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     @IBAction func buttonSaveText(_ sender: Any) {
         manager.saveNoteText(title: titleName, body: historyTextView.text)
         historyTextView.resignFirstResponder()
-        doneButton.alpha = 0
+//        doneButton.alpha = 0
+        doneButton.isHidden = true
     }
     
     @IBAction func buttonBack(_ sender: Any) {
@@ -75,9 +74,9 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
                 historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
             }
         }
-        doneButton.alpha = 0
+//        doneButton.alpha = 0
+        doneButton.isHidden = true
         self.view.endEditing(true)
-        print("lol")
     }
     
     func updateTextView(notification: Notification) {
@@ -91,6 +90,10 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
 //            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
         }
         historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
