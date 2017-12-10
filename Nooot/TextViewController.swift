@@ -23,8 +23,9 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
+        navigationController?.navigationBar.shadowImage = nil
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        historyTextView.textContainerInset = UIEdgeInsetsMake(0, 11, 50, 11)
+        historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
         automaticallyAdjustsScrollViewInsets = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
@@ -35,7 +36,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         semaphore.wait()
 
         titleName = manager.returnText(titleName: titleName)      
-        nameOfTitle.text! = manager.spaceDel(title: titleName)
+        title = manager.spaceDel(title: titleName)
         bodyText =  manager.getNoteDataText(title: titleName)
         if bodyText.isEmpty {
             historyTextView.text? = NSLocalizedString("Your note...", comment: "")
@@ -47,7 +48,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-//        doneButton.alpha = 1
         doneButton.isHidden = false
         if historyTextView.text! == NSLocalizedString("Your note...", comment: "") {
             historyTextView.text? = ""
@@ -59,7 +59,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     @IBAction func buttonSaveText(_ sender: Any) {
         manager.saveNoteText(title: titleName, body: historyTextView.text)
         historyTextView.resignFirstResponder()
-//        doneButton.alpha = 0
         doneButton.isHidden = true
     }
     
@@ -74,7 +73,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
                 historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
             }
         }
-//        doneButton.alpha = 0
         doneButton.isHidden = true
         self.view.endEditing(true)
     }
@@ -86,7 +84,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         if notification.name == Notification.Name.UIKeyboardWillHide {
             historyTextView.contentInset = UIEdgeInsets.zero
         }else{
-            historyTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height + 80, right: 0)
+            historyTextView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: keyboardEndFrame.height + 80, right: 0)
 //            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
         }
         historyTextView.scrollRangeToVisible(historyTextView.selectedRange)

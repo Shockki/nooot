@@ -61,6 +61,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationController?.navigationBar.shadowImage = UIImage()
         buttonShowView.alpha = 1
         notesReverse = manager.getAllNotes()
         notesList.removeAll()

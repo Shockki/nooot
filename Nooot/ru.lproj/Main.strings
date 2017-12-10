@@ -24,7 +24,7 @@
 "Qw0-W9-jey.text" = "Привет.";
 
 /* Class = "UILabel"; text = "This is Nooot.\nHere you can create notes that will be automatically uploaded to the cloud.\nThis allows you to access your notes later or share them with others.\nTo create a note type in any phrase and hit enter.\nTo access the same note later or from another device just type in the same phrase.\nEnjoy!"; ObjectID = "RSk-EF-kDy"; */
-"RSk-EF-kDy.text" = "Здесь ты можешь создавать заметки, которые автоматически попадают в облако, поэтому позже можно получить к ним доступ c любого устройства или поделиться ими с другими.\nВсе заметки хранятся в общей базе, поэтому помни - если кто-то другой откроет заметку с таким же названием, то он сможет изменить её.";
+"RSk-EF-kDy.text" = "Здесь ты можешь создавать заметки, которые автоматически попадают в облако, поэтому позже можно получить к ним доступ c любого устройства или поделиться ими с другими.\n\nВсе заметки хранятся в общей базе, поэтому помни - если кто-то другой откроет заметку с таким же названием, то он сможет изменить её.";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "SmS-Vz-soS"; */
 "SmS-Vz-soS.text" = "Title";
