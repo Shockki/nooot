@@ -26,6 +26,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
+        
         automaticallyAdjustsScrollViewInsets = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
@@ -45,6 +46,10 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             historyTextView.text? = bodyText
             historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.shadowImage = nil
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
