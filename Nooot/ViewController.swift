@@ -37,6 +37,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         viewBackground.alpha = 0
@@ -61,6 +63,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         buttonShowView.alpha = 1
         notesReverse = manager.getAllNotes()

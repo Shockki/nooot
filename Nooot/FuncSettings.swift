@@ -44,6 +44,17 @@ class FuncSettings {
         vw.layer.add(animation, forKey: "position")
     }
     
+    func textSettings(_ historyTextView: UITextView, _ bodyText: String) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 22.0
+        paragraphStyle.maximumLineHeight = 22.0
+        paragraphStyle.minimumLineHeight = 22.0
+        let attributes = [NSFontAttributeName: UIFont(name: "Kailasa", size: 15), NSParagraphStyleAttributeName: paragraphStyle]
+        let attributedString = NSMutableAttributedString(string: bodyText, attributes: attributes)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
+        historyTextView.attributedText = attributedString
+    }
+    
     func searchLinks(bodyText: String, textView: UITextView)  {
         let colorAttr = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         let attributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16), NSForegroundColorAttributeName: colorAttr]

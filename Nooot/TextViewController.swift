@@ -23,7 +23,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
-        navigationController?.navigationBar.shadowImage = nil
+        navSettings()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
         
@@ -39,17 +39,27 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         titleName = manager.returnText(titleName: titleName)      
         title = manager.spaceDel(title: titleName)
         bodyText =  manager.getNoteDataText(title: titleName)
+        
         if bodyText.isEmpty {
             historyTextView.text? = NSLocalizedString("Your note...", comment: "")
             historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
         }else{
-            historyTextView.text? = bodyText
-            historyTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            settings.textSettings(historyTextView, bodyText)
         }
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.navigationBar.shadowImage = nil
+        navSettings()
+    }
+    
+    func navSettings() {
+        navigationController?.navigationBar.layer.shadowColor = #colorLiteral(red: 0.9529411765, green: 0.9529411765, blue: 0.9529411765, alpha: 1).cgColor
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        navigationController?.navigationBar.layer.shadowRadius = 0
+        navigationController?.navigationBar.layer.shadowOpacity = 3
+        navigationController?.navigationBar.layer.masksToBounds = false
+        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -103,8 +113,20 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         return false
     }
     
+    
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return true
+    }
+}
+
+extension UINavigationBar {
+    func setBottomBorderColor(color: UIColor?, height: CGFloat, onOff: Bool) {
+        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
+        let bottomBorderView = UIView(frame: bottomBorderRect)
+        bottomBorderView.backgroundColor = color
+        if onOff == true {
+            addSubview(bottomBorderView)
+        }
     }
 }
 
