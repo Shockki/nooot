@@ -54,7 +54,6 @@ Enjoy!</string>
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="separatorColor" red="0.78431372549019607" green="0.7803921568627451" blue="0.80000000000000004" alpha="0.17358732876712329" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="yPv-Gh-gas">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -118,7 +117,6 @@ Enjoy!</string>
                                 <rect key="frame" x="0.0" y="478" width="375" height="189"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="separatorColor" red="0.78431372549019607" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="PkH-Vb-Mi9">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -253,24 +251,6 @@ Enjoy!</string>
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <mutableString key="text">Икееентернет-издание «Медиазона» с 5 декабря начало сбор пожертвований с читателей. Издатель проекта Пётр Верзилов объяснил «Ведомостям» переход на краудфандинг нехваткой ресурсов на его дальнейшее содержание и развитие.
-
-До сих пор основным источником финансирования были дотации и гранты иностранных фондов и организаций, но издатель решил от них отказаться. «Это очень энергозатратная и ненадёжная модель финансирования», — пояснил Верзилов.
-
-По его словам, выпуск издания обходится примерно в 2,5 млн рублей в месяц или около 30 млн рублей в год. «Медиазона» рассчитывает собрать с помощью краудфандинга большую часть этой суммы. Сроки кампании не ограничены, Верзилов надеется, что читатели подпишутся на регулярные ежемесячные платежи, а не сделают разовый перевод.
-
-Вводить подписку издатель не стал, поскольку в таком случае придётся закрыть доступ к части материалов. «Медиазона» не может этого сделать из-за социально-значимой тематики, пояснил Верзилов.
-
-На сайте «Медиазоны» можно сделать разовое или оформить регулярное пожертвование в размере 300, 500, 1000 рублей или другой суммы. Перевести деньги можно с банковской карты, либо через кошелёк в «Яндекс.Деньгах» и Paypal. Также «Медиазона» открыла кошельки для приёма биткоинов и эфиров.
-
-
-Полученные от читателей деньги ббудут поступать не на счета компании-учредителя «Медиазоны», а автоматически распределяться между сотрудниками издания — журналистами, программистами и другими. По словам Верзилова, по такой же схеме было устроено финансирование со стороны иностранных организаций. Это позволяло «Медиазоне» не отчитываться о получении иностранного финансирования.
-
-Издание «Медиазона» работает с 2014 года. Редакция сосредоточена в основном на уголовных расследованиях, судебных процессах и других материалах правоохранительной и правозащитной тематики. По словам Верзилова, у издания около 1 млн уникальных посетителей в месяц. Главный редактор Сергей Смирнов — единственный владелец компании-учредителя «Медиазоны».
-Ввла
-П
-ВДВ
-Д</mutableString>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>

@@ -117,7 +117,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func performAction() {
-        if textFieldAddNote.text!.isEmpty {
+        if textFieldAddNote.text!.isEmpty || textFieldAddNote.text!.last == "%" {
             settings.shakeView(addNewNoteView)
         } else {
 //            UIView.animate(withDuration: 0.65, animations: {
