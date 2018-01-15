@@ -165,6 +165,22 @@ class ManagerData {
         return String(result)
     }
     
+//    func spaceDel(title: String) -> String {
+//        var array = Array(title.characters)
+//        var result: [Character] = []
+//        for i in 0...array.count - 1 {
+//            if array[i] == "%" && array[i + 1] == "2" && array[i + 2] == "0" {
+//                result.append(" ")
+//            }else if array[i] == "2" && array[i - 1] == "%" && array[i + 1] == "0" {
+//            }else if array[i] == "0" && array[i - 1] == "2" && array[i - 2] == "%" {
+//            }else{
+//                result.append(array[i])
+//            }
+//        }
+//        return String(result)
+//    }
+
+    
 // Первую букву делает заглавной
     
     private func capitalizingFirstLetter(name: String) -> String {

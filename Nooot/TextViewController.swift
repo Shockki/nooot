@@ -78,6 +78,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     @IBAction func buttonBack(_ sender: Any) {
+        navigationController?.navigationBar.layer.shadowOpacity = 0
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.popViewController(animated: true)
     }
     
@@ -110,6 +112,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        navigationController?.navigationBar.layer.shadowOpacity = 0
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         return false
     }
     
@@ -119,16 +123,16 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
 }
 
-extension UINavigationBar {
-    func setBottomBorderColor(color: UIColor?, height: CGFloat, onOff: Bool) {
-        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
-        let bottomBorderView = UIView(frame: bottomBorderRect)
-        bottomBorderView.backgroundColor = color
-        if onOff == true {
-            addSubview(bottomBorderView)
-        }
-    }
-}
+//extension UINavigationBar {
+//    func setBottomBorderColor(color: UIColor?, height: CGFloat, onOff: Bool) {
+//        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
+//        let bottomBorderView = UIView(frame: bottomBorderRect)
+//        bottomBorderView.backgroundColor = color
+//        if onOff == true {
+//            addSubview(bottomBorderView)
+//        }
+//    }
+//}
 
 
 
