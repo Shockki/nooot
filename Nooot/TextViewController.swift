@@ -37,7 +37,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         semaphore.wait()
 
         titleName = manager.returnText(titleName: titleName)      
-        title = manager.spaceDel(title: titleName)
+        title = titleName.replacingOccurrences(of: "%20", with: " ")
         bodyText =  manager.getNoteDataText(title: titleName)
         
         if bodyText.isEmpty {

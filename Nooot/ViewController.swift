@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         notesReverse = manager.getAllNotes()
         for note in notesReverse {
-            notesList.append(manager.spaceDel(title: note))
+            notesList.append(note.replacingOccurrences(of: "%20", with: " "))
         }
         notesList = manager.reverseNotes(input: notesList)
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         notesReverse = manager.getAllNotes()
         notesList.removeAll()
         for note in notesReverse {
-            notesList.append(manager.spaceDel(title: note))
+            notesList.append(note.replacingOccurrences(of: "%20", with: " "))
         }
         notesList = manager.reverseNotes(input: notesList)
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
@@ -117,7 +117,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func performAction() {
-        if textFieldAddNote.text!.isEmpty || textFieldAddNote.text!.last == "%" {
+        if textFieldAddNote.text!.isEmpty {
             settings.shakeView(addNewNoteView)
         } else {
 //            UIView.animate(withDuration: 0.65, animations: {

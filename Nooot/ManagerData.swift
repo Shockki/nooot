@@ -16,7 +16,7 @@ class ManagerData {
 // Получает JSON заметики и записывает в базу
     
     func loadJSON(title: String) {
-        let encodedTitle = space(title: title).addingPercentEscapes(using: String.Encoding.utf8)!
+        let encodedTitle = title.replacingOccurrences(of: " ", with: "%20").addingPercentEscapes(using: String.Encoding.utf8)!
         let note: NoteData = NoteData()
         let bodyText: BodyText = BodyText()
         let url = "http://nooot.co/api/texts/\(encodedTitle)"
@@ -133,54 +133,7 @@ class ManagerData {
         }
         print("Remove All")
     }
-    
-// Заменяет пробел символами
-    
-    func space(title: String) -> String {
-        var array: String = ""
-        for i in title.characters {
-            if i == " " {
-                array.append("%20")
-            }else{
-                array.append(i)
-            }
-        }
-        return array
-    }
-   
-// Заменяет символы пробелом
-    
-    func spaceDel(title: String) -> String {
-        var array = Array(title.characters)
-        var result: [Character] = []
-        for i in 0...array.count - 1 {
-            if array[i] == "%" && array[i + 1] == "2" && array[i + 2] == "0" {
-                result.append(" ")
-            }else if array[i] == "2" && array[i - 1] == "%" && array[i + 1] == "0" {
-            }else if array[i] == "0" && array[i - 1] == "2" && array[i - 2] == "%" {
-            }else{
-                result.append(array[i])
-            }
-        }
-        return String(result)
-    }
-    
-//    func spaceDel(title: String) -> String {
-//        var array = Array(title.characters)
-//        var result: [Character] = []
-//        for i in 0...array.count - 1 {
-//            if array[i] == "%" && array[i + 1] == "2" && array[i + 2] == "0" {
-//                result.append(" ")
-//            }else if array[i] == "2" && array[i - 1] == "%" && array[i + 1] == "0" {
-//            }else if array[i] == "0" && array[i - 1] == "2" && array[i - 2] == "%" {
-//            }else{
-//                result.append(array[i])
-//            }
-//        }
-//        return String(result)
-//    }
-
-    
+        
 // Первую букву делает заглавной
     
     private func capitalizingFirstLetter(name: String) -> String {
