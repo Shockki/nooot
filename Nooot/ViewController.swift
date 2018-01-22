@@ -84,7 +84,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textFieldAddNote.text? = ""
         self.addNewNoteView.alpha = 1
         self.buttonShowView.alpha = 0
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
 //                self.navigationController?.isNavigationBarHidden = true
         })
@@ -124,7 +124,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //                self.navigationController?.isNavigationBarHidden = false
 //            })
             textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.4, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
                 self.viewBackground.alpha = 0
             })

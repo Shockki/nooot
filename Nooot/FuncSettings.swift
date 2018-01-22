@@ -46,10 +46,14 @@ class FuncSettings {
     
     func textSettings(_ historyTextView: UITextView, _ bodyText: String) {
         let paragraphStyle = NSMutableParagraphStyle()
+        var colorAttr = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         paragraphStyle.lineHeightMultiple = 22.0
         paragraphStyle.maximumLineHeight = 22.0
         paragraphStyle.minimumLineHeight = 22.0
-        let attributes = [NSFontAttributeName: UIFont(name: "Kailasa", size: 15), NSParagraphStyleAttributeName: paragraphStyle]
+        if bodyText == NSLocalizedString("Your note...", comment: "") {
+            colorAttr = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        }
+        let attributes = [NSFontAttributeName: UIFont(name: "Kailasa", size: 15), NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: colorAttr]
         let attributedString = NSMutableAttributedString(string: bodyText, attributes: attributes)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
         historyTextView.attributedText = attributedString

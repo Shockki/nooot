@@ -19,6 +19,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     var titleName: String = ""
     var bodyText: String = ""
+    let yourNote = NSLocalizedString("Your note...", comment: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +42,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         bodyText =  manager.getNoteDataText(title: titleName)
         
         if bodyText.isEmpty {
-            historyTextView.text? = NSLocalizedString("Your note...", comment: "")
-            historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
+            settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
+
         }else{
             settings.textSettings(historyTextView, bodyText)
         }
@@ -86,8 +87,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if historyTextView.text.isEmpty {
             if bodyText.isEmpty {
-                historyTextView.text? = NSLocalizedString("Your note...", comment: "")
-                historyTextView.textColor = #colorLiteral(red: 0.5137254902, green: 0.5098039216, blue: 0.5333333333, alpha: 1)
+                settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
             }
         }
         doneButton.isHidden = true
