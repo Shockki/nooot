@@ -16,6 +16,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     let manager: ManagerData = ManagerData()
     let settings: FuncSettings = FuncSettings()
+    let reachability: Reachability = Reachability()!
     
     var titleName: String = ""
     var bodyText: String = ""
@@ -33,13 +34,20 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         doneButton.isHidden = true
-  
-        manager.loadJSON(title: titleName)
-        semaphore.wait()
-
-        titleName = manager.returnText(titleName: titleName)      
-        title = titleName.replacingOccurrences(of: "%20", with: " ")
-        bodyText =  manager.getNoteDataText(title: titleName)
+        
+        //  Проверка на изменение интернета
+        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("error")
+        }
+        
+        if reachability.connection == .none {
+            internetNotAvailable()
+        }else{
+            internetAvailable()
+        }
         
         if bodyText.isEmpty {
             settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
@@ -71,6 +79,14 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }
         return true
     }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        doneButton.isHidden = true
+        if historyTextView.text.isEmpty {
+            if bodyText.isEmpty {
+                settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
+            }
+        }
+    }
     
     @IBAction func buttonSaveText(_ sender: Any) {
         manager.saveNoteText(title: titleName, body: historyTextView.text)
@@ -82,16 +98,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         navigationController?.navigationBar.layer.shadowOpacity = 0
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.popViewController(animated: true)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if historyTextView.text.isEmpty {
-            if bodyText.isEmpty {
-                settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
-            }
-        }
-        doneButton.isHidden = true
-        self.view.endEditing(true)
     }
     
     func updateTextView(notification: Notification) {
@@ -121,18 +127,39 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return true
     }
+    
+    func internetAvailable() {
+        manager.loadJSON(title: titleName)
+        semaphore.wait()
+            
+        titleName = manager.returnText(titleName: titleName)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)]
+        title = titleName.replacingOccurrences(of: "%20", with: " ")
+        bodyText =  manager.getNoteDataText(title: titleName)
+        historyTextView.isEditable = true
+    }
+    
+    func internetNotAvailable() {
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
+        title = titleName.replacingOccurrences(of: "%20", with: " ")
+        bodyText =  manager.getNoteDataText(title: titleName)
+        historyTextView.isEditable = false
+    }
+    
+    func internetChanged(note:Notification) {
+        let reach = note.object as! Reachability
+        if reach.connection == .none {
+            DispatchQueue.main.async {
+                self.internetNotAvailable()
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.internetAvailable()
+            }
+        }
+    }
 }
 
-//extension UINavigationBar {
-//    func setBottomBorderColor(color: UIColor?, height: CGFloat, onOff: Bool) {
-//        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
-//        let bottomBorderView = UIView(frame: bottomBorderRect)
-//        bottomBorderView.backgroundColor = color
-//        if onOff == true {
-//            addSubview(bottomBorderView)
-//        }
-//    }
-//}
 
 
 

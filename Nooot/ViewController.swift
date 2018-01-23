@@ -31,6 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var notesReverse: [String] = []
     let manager: ManagerData = ManagerData()
     let settings: FuncSettings = FuncSettings()
+    let reachability: Reachability = Reachability()!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +39,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         
-
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
         viewBackground.alpha = 0
         addNewNoteView.alpha = 0
-        buttonShowView.alpha = 1
+        
+        //  Проверка на изменение интернета
+        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("error")
+        }
         
         addNewNoteView.layer.cornerRadius = 16
         textFieldAddNote.layer.cornerRadius = 11
@@ -65,7 +72,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewWillAppear(true)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        buttonShowView.alpha = 1
+        if reachability.connection == .none {
+            buttonShowView.isHidden = true
+        }else {
+            buttonShowView.isHidden = false
+        }
         notesReverse = manager.getAllNotes()
         notesList.removeAll()
         for note in notesReverse {
@@ -75,8 +86,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func internetChanged(note:Notification) {
+        let reach = note.object as! Reachability
+        if reach.connection == .none {
+            DispatchQueue.main.async {
+                self.buttonShowView.isHidden = true
+            }
+        }else{
+            DispatchQueue.main.async {
+                self.buttonShowView.isHidden = false
+            }
+        }
     }
     
     @IBAction func buttonAddNewNote(_ sender: Any) {
@@ -120,9 +140,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if textFieldAddNote.text!.isEmpty {
             settings.shakeView(addNewNoteView)
         } else {
-//            UIView.animate(withDuration: 0.65, animations: {
-//                self.navigationController?.isNavigationBarHidden = false
-//            })
             textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
             UIView.animate(withDuration: 0.4, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)

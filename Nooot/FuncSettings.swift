@@ -44,6 +44,12 @@ class FuncSettings {
         vw.layer.add(animation, forKey: "position")
     }
     
+    func colorTitle(title: String, colorTitle: UIColor) -> NSMutableAttributedString {
+        let attributes = [NSForegroundColorAttributeName: colorTitle]
+        let attrString = NSMutableAttributedString(string: title.replacingOccurrences(of: "%20", with: " "), attributes: attributes)
+        return attrString
+    }
+    
     func textSettings(_ historyTextView: UITextView, _ bodyText: String) {
         let paragraphStyle = NSMutableParagraphStyle()
         var colorAttr = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
