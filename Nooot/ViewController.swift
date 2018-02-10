@@ -62,8 +62,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        settings.navSettings(navigationController)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         buttonShowView.alpha = 1
         notesReverse = manager.getAllNotes()
         notesList.removeAll()
@@ -73,6 +73,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         notesList = manager.reverseNotes(input: notesList)
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     
     func internetChanged(note:Notification) {
         let reach = note.object as! Reachability
@@ -94,7 +100,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.buttonShowView.alpha = 0
         UIView.animate(withDuration: 0.3, animations: {
             self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
-//                self.navigationController?.isNavigationBarHidden = true
         })
         UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
         textFieldAddNote.becomeFirstResponder() // Появляется клавиатура

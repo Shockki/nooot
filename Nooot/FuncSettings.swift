@@ -80,6 +80,16 @@ class FuncSettings {
             textView.attributedText = attributedString
         }
     }
+    
+    func navSettings(_ navigationController: UINavigationController?) {
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.layer.shadowColor = #colorLiteral(red: 0.9529411765, green: 0.9529411765, blue: 0.9529411765, alpha: 1).cgColor
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        navigationController?.navigationBar.layer.shadowRadius = 0
+        navigationController?.navigationBar.layer.shadowOpacity = 3
+        navigationController?.navigationBar.layer.masksToBounds = false
+        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+    }
 }
 
 

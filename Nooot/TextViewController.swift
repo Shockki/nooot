@@ -49,20 +49,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             settings.textSettings(historyTextView, bodyText)
         }
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        navSettings()
-    }
-    
-    func navSettings() {
-        navigationController?.navigationBar.layer.shadowColor = #colorLiteral(red: 0.9529411765, green: 0.9529411765, blue: 0.9529411765, alpha: 1).cgColor
-        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        navigationController?.navigationBar.layer.shadowRadius = 0
-        navigationController?.navigationBar.layer.shadowOpacity = 3
-        navigationController?.navigationBar.layer.masksToBounds = false
-        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-    }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         doneButton.isHidden = false
@@ -72,6 +58,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }
         return true
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         doneButton.isHidden = true
         if historyTextView.text.isEmpty {
@@ -111,11 +98,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        navigationController?.navigationBar.layer.shadowOpacity = 0
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         return false
     }
-    
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return true
