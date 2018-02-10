@@ -26,6 +26,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var labelNoteTitleOnView: UILabel!
     
+    let activityIndicator = UIActivityIndicatorView()
     var noteText: String = ""
     var notesList: [String] = []
     var notesReverse: [String] = []
@@ -57,7 +58,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
         addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 150, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
-        
+        settings.activitiIndicator(activityIndicator, view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +78,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        activityIndicator.stopAnimating()
     }
     
     
@@ -197,7 +199,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let destVC: TextViewController = segue.destination as! TextViewController
             destVC.titleName.append(textFieldAddNote.text!)
         }
-        
+        activityIndicator.startAnimating()
+
 //        let butBack = UIImage(named: "back")
 //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 //        navigationItem.backBarButtonItem = UIBarButtonItem(image: butBack, style: .plain, target: nil, action: nil)

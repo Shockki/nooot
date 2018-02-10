@@ -90,6 +90,13 @@ class FuncSettings {
         navigationController?.navigationBar.layer.masksToBounds = false
         navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
     }
+    
+    func activitiIndicator(_ activitiIndicator: UIActivityIndicatorView, _ view: UIView) {
+        activitiIndicator.center = view.center
+        activitiIndicator.hidesWhenStopped = true
+        activitiIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activitiIndicator)
+    }
 }
 
 
