@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 class FuncSettings {
-    let manager: ManagerData = ManagerData()    
+    let manager: ManagerData = ManagerData()
+    
     func sizeTableView(notesList: [String], historyTableView: UITableView, historyTableViewTwo: UITableView) {
         switch notesList.count {
         case 0:

@@ -25,7 +25,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
-        navSettings()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
         
@@ -41,12 +40,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             try reachability.startNotifier()
         }catch{
             print("error")
-        }
-        
-        if reachability.connection == .none {
-            internetNotAvailable()
-        }else{
-            internetAvailable()
         }
         
         if bodyText.isEmpty {

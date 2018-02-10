@@ -36,8 +36,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
         
         textFieldAddNote.delegate = self
         buttonDeleteAll.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -60,23 +58,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textFieldAddNote.leftViewMode = .always
         addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 150, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
         
-        notesReverse = manager.getAllNotes()
-        for note in notesReverse {
-            notesList.append(note.replacingOccurrences(of: "%20", with: " "))
-        }
-        notesList = manager.reverseNotes(input: notesList)
-        settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        if reachability.connection == .none {
-            buttonShowView.isHidden = true
-        }else {
-            buttonShowView.isHidden = false
-        }
+        buttonShowView.alpha = 1
         notesReverse = manager.getAllNotes()
         notesList.removeAll()
         for note in notesReverse {
