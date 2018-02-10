@@ -100,9 +100,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textFieldAddNote.text? = ""
         self.addNewNoteView.alpha = 1
         self.buttonShowView.alpha = 0
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.transition(with: addNewNoteView, duration: 0.35, options: .curveEaseOut, animations: {
             self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y + 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
-        })
+        }, completion: nil)
         UIView.animate(withDuration: 0.6, animations: { self.viewBackground.alpha = 0.38 })
         textFieldAddNote.becomeFirstResponder() // Появляется клавиатура
     }
@@ -114,9 +114,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if(touch.view == viewBackground){
             self.view.endEditing(true)
             UIView.animate(withDuration: 0.4, animations: { self.viewBackground.alpha = 0 })
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.transition(with: addNewNoteView, duration: 0.4, options: .curveEaseOut, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
-            })
+            }, completion: nil)
             UIView.animate(withDuration: 0.4, delay: 0.2, options: .allowAnimatedContent, animations: {
                 self.buttonShowView.alpha = 1
             }, completion: nil)
@@ -136,10 +136,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             settings.shakeView(addNewNoteView)
         } else {
             textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.transition(with: addNewNoteView, duration: 0.4, options: .curveEaseOut, animations: {
                 self.addNewNoteView.frame = CGRect(x: self.addNewNoteView.frame.origin.x, y: self.addNewNoteView.frame.origin.y - 150, width: self.addNewNoteView.frame.size.width, height: self.addNewNoteView.frame.size.height)
                 self.viewBackground.alpha = 0
-            })
+            }, completion: nil)
             performSegue(withIdentifier: "goText", sender: self)
         }
     }
