@@ -27,7 +27,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         historyTextView.delegate = self
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
-        
+        navigationController?.setNavigationBarHidden(false, animated: true)
         automaticallyAdjustsScrollViewInsets = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
@@ -40,6 +40,12 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             try reachability.startNotifier()
         }catch{
             print("error")
+        }
+        
+        if reachability.connection == .none {
+            internetNotAvailable()
+        }else{
+            internetAvailable()
         }
         
         if bodyText.isEmpty {
