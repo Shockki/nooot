@@ -118,14 +118,14 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         titleName = manager.returnText(titleName: titleName)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)]
         title = titleName.replacingOccurrences(of: "%20", with: " ")
-        bodyText =  manager.getNoteDataText(title: titleName)
+        bodyText =  manager.getNoteData_Text(title: titleName)
         historyTextView.isEditable = true
     }
     
     func internetNotAvailable() {
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
         title = titleName.replacingOccurrences(of: "%20", with: " ")
-        bodyText =  manager.getNoteDataText(title: titleName)
+        bodyText =  manager.getNoteData_Text(title: titleName)
         historyTextView.isEditable = false
     }
     

@@ -12,4 +12,6 @@ import RealmSwift
 class BodyText: Object {
     dynamic var bodyText: String = ""
     dynamic var idNote: String = ""
+    var dates = List<Dates>()
 }
+
