@@ -7,7 +7,7 @@ target 'Nooot' do
 
 pod 'Alamofire', '~> 4.5'
 pod 'SwiftyJSON', '~> 3.1'
-pod 'RealmSwift', '~> 2.10'
+pod 'RealmSwift', '~> 3.1'
 
 
   # Pods for Nooot
