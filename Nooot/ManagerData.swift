@@ -14,8 +14,7 @@ import SwiftyJSON
 class ManagerData {
     let settings: FuncSettings = FuncSettings()
     
-    // Получает JSON заметики и записывает в базу
-    
+    //MARK: Получает JSON заметики и записывает в базу
     func loadJSON(title: String) {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         let encodedTitle = title.replacingOccurrences(of: " ", with: "%20").addingPercentEscapes(using: String.Encoding.utf8)!
@@ -77,6 +76,7 @@ class ManagerData {
         }
     }
     
+    //MARK: Отправляет JSON заметики
     func saveNoteText(title: String, body: String) {
         let idNote: String = getNoteData_Id(title: title)
         let param = [
@@ -212,19 +212,6 @@ class ManagerData {
             }
         }
         print("getText - \(getText)")
-        return getText
-    }
-    
-    func check(titleName: String) -> String{
-        let noteList: [String] = getAllNotes()
-        print("noteList - \(noteList)")
-        var getText: String = noteList.last!
-        for value in noteList {
-            if value == titleName.lowercased() || value == titleName.capitalized {
-                getText = value
-            }
-        }
-        //        print("ReturnText \(Thread.current)")
         return getText
     }
     

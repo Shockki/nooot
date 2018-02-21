@@ -9,9 +9,8 @@
 import UIKit
 
 class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate {
-   
+    
     @IBOutlet weak var historyTextView: UITextView!
-    @IBOutlet weak var nameOfTitle: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     
     let manager: ManagerData = ManagerData()
@@ -19,7 +18,11 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     let reachability: Reachability = Reachability()!
     
     var titleName: String = ""
+    var subtitle: String = ""
     var bodyText: String = ""
+    var date: [Int] = []
+    var checkDate: Bool = false
+    var arrayNote: [String] = []
     let yourNote = NSLocalizedString("Your note...", comment: "")
     
     override func viewDidLoad() {
@@ -33,27 +36,50 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         doneButton.isHidden = true
+        print("\n")
         
-        //  Проверка на изменение интернета
-        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged, object: reachability)
-        do{
-            try reachability.startNotifier()
-        }catch{
-            print("error")
-        }
-        
-        if reachability.connection == .none {
-            internetNotAvailable()
-        }else{
-            internetAvailable()
-        }
-        
-        if bodyText.isEmpty {
-            settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
-
-        }else{
+        if titleName.isEmpty {
+            titleName = manager.getAllNotes().last!
+            bodyText = manager.getNoteData_Text(title: titleName)
+            navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
             settings.textSettings(historyTextView, bodyText)
+        }else{
+            bodyText = manager.getNoteData_Text(title: titleName)
+            settings.textSettings(historyTextView, bodyText)
+            date = manager.getNoteData_Date(title: titleName)
+            
+            if settings.checkDate(date: date) == false {
+                navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+            }else{
+                navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date))
+            }
         }
+        
+        
+        
+        
+        
+        
+        //        //  Проверка на изменение интернета
+        //        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged, object: reachability)
+        //        do{
+        //            try reachability.startNotifier()
+        //        }catch{
+        //            print("error")
+        //        }
+        //
+        //        if reachability.connection == .none {
+        //            internetNotAvailable()
+        //        }else{
+        //            internetAvailable()
+        //        }
+        //
+        //        if bodyText.isEmpty {
+        //            settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
+        //
+        //        }else{
+        //            settings.textSettings(historyTextView, bodyText)
+        //        }
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -75,9 +101,13 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     @IBAction func buttonSaveText(_ sender: Any) {
+        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "сохранение изменений...")
         manager.saveNoteText(title: titleName, body: historyTextView.text)
+        manager.refresh_Text(title: titleName, newBodyText: historyTextView.text)
+        manager.refresh_Date(title: titleName)
         historyTextView.resignFirstResponder()
         doneButton.isHidden = true
+        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
     }
     
     @IBAction func buttonBack(_ sender: Any) {
@@ -94,7 +124,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             historyTextView.contentInset = UIEdgeInsets.zero
         }else{
             historyTextView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: keyboardEndFrame.height + 80, right: 0)
-//            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
+            //            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
         }
         historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
     }
@@ -114,8 +144,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     func internetAvailable() {
         manager.loadJSON(title: titleName)
         semaphore.wait()
-            
-        titleName = manager.returnText(titleName: titleName)
+        
+        titleName = manager.checkForAvailable(titleName: titleName)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)]
         title = titleName.replacingOccurrences(of: "%20", with: " ")
         bodyText =  manager.getNoteData_Text(title: titleName)
@@ -142,9 +172,3 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }
     }
 }
-
-
-
-
-
-
