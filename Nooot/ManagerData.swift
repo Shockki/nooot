@@ -13,6 +13,7 @@ import SwiftyJSON
 
 class ManagerData {
     let settings: FuncSettings = FuncSettings()
+    var bodyText: String = ""
     
     //MARK: Получает JSON заметики и записывает в базу
     func loadJSON(title: String) {
@@ -56,25 +57,23 @@ class ManagerData {
         let encodedTitle = title.replacingOccurrences(of: " ", with: "%20").addingPercentEscapes(using: String.Encoding.utf8)!
         let url = "http://nooot.co/api/texts/\(encodedTitle)"
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
-            print("1.1 Start \(Thread.current)")
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                let realm =  try! Realm()
-                print(json)
-                let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
-                try! realm.write {
-                    for value in data[0].textList {
-                        value.bodyText = json["body"].stringValue
-                    }
-                }
-                print(json["body"].stringValue)
+                self.bodyText = json["body"].stringValue
                 semaphore.signal()
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    func returnNewText(title: String) -> String {
+        loadJSON_refreshText(title: title)
+        semaphore.wait()
+        return bodyText
+    }
+    
     
     //MARK: Отправляет JSON заметики
     func saveNoteText(title: String, body: String) {
@@ -107,7 +106,7 @@ class ManagerData {
         for value in data[0].textList {
             body.append(value.bodyText)
         }
-        //        print("2.GetText \(Thread.current)")
+//        print("2.GetText \(Thread.current)")
         return body
     }
     
@@ -129,7 +128,6 @@ class ManagerData {
         var d: [Int] = []
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
-        print("data[0] - \(data[0].textList[0].dates)")
         for value in data[0].textList[0].dates {
             d.append(value.year)
             d.append(value.month)
@@ -150,7 +148,7 @@ class ManagerData {
         for value in data {
             titleList.append(value.titleName)
         }
-        //        print("1. GetAllNotes \(Thread.current)")
+//        print("1. GetAllNotes \(Thread.current)")
         return titleList
     }
     
@@ -236,6 +234,21 @@ class ManagerData {
                 value.day = date[2]
                 value.hour = date[3]
                 value.min = date[4]
+            }
+        }
+    }
+    
+    func delete_Date(title: String) {
+        let realm =  try! Realm()
+        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
+        var date = settings.date()
+        try! realm.write {
+            for value in data[0].textList[0].dates {
+                value.year = 0
+                value.month = 0
+                value.day = 0
+                value.hour = 0
+                value.min = 0
             }
         }
     }

@@ -11,6 +11,9 @@ import UIKit
 
 class FuncSettings {
     
+    var historyTextView: UITextView = UITextView()
+    var navContr: UINavigationController? = UINavigationController()
+    
     func sizeTableView(notesList: [String], historyTableView: UITableView, historyTableViewTwo: UITableView) {
         switch notesList.count {
         case 0:
@@ -63,15 +66,28 @@ class FuncSettings {
         let attributedString = NSMutableAttributedString(string: bodyText, attributes: attributes)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
         
-        //        // поиск ссылок
-        //        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        //        let matches = detector.matches(in: bodyText, options: [], range: NSRange(location: 0, length: bodyText.utf16.count))
-        //        for match in matches {
-        //            guard let range = Range(match.range, in: bodyText) else { continue }
-        //            attributedString.addAttribute(NSLinkAttributeName, value: bodyText[range], range: match.range)
-        //        }
+        // поиск ссылок
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: bodyText, options: [], range: NSRange(location: 0, length: bodyText.utf16.count))
+//        for match in matches {
+//            guard let range = Range(match.range, in: bodyText) else { continue }
+//            attributedString.addAttribute(NSLinkAttributeName, value: bodyText[range], range: match.range)
+//        }
         
-        historyTextView.attributedText = attributedString
+        if matches.isEmpty {
+            historyTextView.attributedText = attributedString
+            historyTextView.isEditable = true
+        }else{
+            let tap = UITapGestureRecognizer(target: self, action: #selector(textViewTapped))
+            historyTextView.addGestureRecognizer(tap)
+            historyTextView.attributedText = attributedString
+        }
+    }
+    
+    @objc func textViewTapped(_ aRecognizer: UITapGestureRecognizer) {
+        historyTextView.dataDetectorTypes = []
+        historyTextView.isEditable = true
+        historyTextView.becomeFirstResponder()
     }
     
     func navSettings(_ navigationController: UINavigationController?) {
@@ -158,10 +174,10 @@ class FuncSettings {
                             return "сохраненная версия (\(date[4] - today[4])мин назад)"
                         }
                     }else{
-                        return "сохраненная версия (\(date[3] - today[3])ч назад)"
+                        return "сохраненная версия (\(60 - today[4] + date[4])ч назад)"
                     }
                 }else if date[2] - 1 > today[2] {
-                    return "(\(today[2]).\(today[1]).\(today[0]))"
+                    return "(сохраненная версия (\(today[2]).\(today[1]).\(today[0])))"
                 }else if (24 - today[3] + date[3]) >= 24 {
                     return "сохраненная версия (вчера)"
                 }else if (24 - today[3] + date[3]) <= 24  {

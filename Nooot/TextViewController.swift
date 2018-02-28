@@ -20,6 +20,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     var titleName: String = ""
     var subtitle: String = ""
     var bodyText: String = ""
+    var checkBodyText: String = ""
     var date: [Int] = []
     var checkDate: Bool = false
     var arrayNote: [String] = []
@@ -28,58 +29,32 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTextView.delegate = self
+        settings.historyTextView = historyTextView
+        settings.navContr = navigationController
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
         navigationController?.setNavigationBarHidden(false, animated: true)
         automaticallyAdjustsScrollViewInsets = false
+        doneButton.isHidden = true
+        historyTextView.isEditable = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        doneButton.isHidden = true
-        print("\n")
-        
-        if titleName.isEmpty {
-            titleName = manager.getAllNotes().last!
-            bodyText = manager.getNoteData_Text(title: titleName)
-            navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
-            settings.textSettings(historyTextView, bodyText)
-        }else{
-            bodyText = manager.getNoteData_Text(title: titleName)
-            settings.textSettings(historyTextView, bodyText)
-            date = manager.getNoteData_Date(title: titleName)
-            
-            if settings.checkDate(date: date) == false {
-                navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
-            }else{
-                navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date))
-            }
+      
+        //  Проверка на изменение интернета
+        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+            print("*************************************************")
+        }catch{
+            print("error")
         }
         
-        
-        
-        
-        
-        
-        //        //  Проверка на изменение интернета
-        //        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged, object: reachability)
-        //        do{
-        //            try reachability.startNotifier()
-        //        }catch{
-        //            print("error")
-        //        }
-        //
-        //        if reachability.connection == .none {
-        //            internetNotAvailable()
-        //        }else{
-        //            internetAvailable()
-        //        }
-        //
-        //        if bodyText.isEmpty {
-        //            settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
-        //
-        //        }else{
-        //            settings.textSettings(historyTextView, bodyText)
-        //        }
+//        if reachability.connection == .none {
+//            internetNotAvailable()
+//        }else{
+//            internetAvailable()
+//        }
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -93,6 +68,8 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     func textViewDidEndEditing(_ textView: UITextView) {
         doneButton.isHidden = true
+        historyTextView.isEditable = false
+        historyTextView.dataDetectorTypes = .link
         if historyTextView.text.isEmpty {
             if bodyText.isEmpty {
                 settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
@@ -107,7 +84,9 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         manager.refresh_Date(title: titleName)
         historyTextView.resignFirstResponder()
         doneButton.isHidden = true
-        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+        DispatchQueue.main.asyncAfter(deadline: (.now() + 1), execute: {
+            self.navigationItem.titleView = self.settings.setTitle(title: self.titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+        })
     }
     
     @IBAction func buttonBack(_ sender: Any) {
@@ -124,7 +103,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
             historyTextView.contentInset = UIEdgeInsets.zero
         }else{
             historyTextView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: keyboardEndFrame.height + 80, right: 0)
-            //            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
+//            historyTextView.scrollIndicatorInsets = historyTextView.contentInset
         }
         historyTextView.scrollRangeToVisible(historyTextView.selectedRange)
     }
@@ -141,22 +120,62 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         return true
     }
     
+    //MARK: Интернет доступен
     func internetAvailable() {
-        manager.loadJSON(title: titleName)
-        semaphore.wait()
+        print("internet Available")
         
-        titleName = manager.checkForAvailable(titleName: titleName)
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)]
-        title = titleName.replacingOccurrences(of: "%20", with: " ")
-        bodyText =  manager.getNoteData_Text(title: titleName)
-        historyTextView.isEditable = true
+        historyTextView.dataDetectorTypes = .link
+        if titleName.isEmpty {
+            titleName = manager.getAllNotes().last!
+            bodyText = manager.getNoteData_Text(title: titleName)
+            navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+            if bodyText.isEmpty {
+                settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
+            }else{
+                settings.textSettings(historyTextView, bodyText)
+            }
+        }else{
+            checkBodyText = manager.returnNewText(title: titleName)
+            bodyText = manager.getNoteData_Text(title: titleName)
+            if checkBodyText == bodyText {
+                date = manager.getNoteData_Date(title: titleName)
+            }else{
+                bodyText = checkBodyText
+                manager.delete_Date(title: titleName)
+                date = manager.getNoteData_Date(title: titleName)
+            }
+            
+            if bodyText.isEmpty {
+                settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
+            }else{
+                settings.textSettings(historyTextView, bodyText)
+            }
+            
+            if settings.checkDate(date: date) == false {
+                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+            }else{
+                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date))
+            }
+        }
     }
-    
+    @objc func textViewTapped(_ aRecognizer: UITapGestureRecognizer) {
+        historyTextView.dataDetectorTypes = []
+        historyTextView.isEditable = true
+        historyTextView.becomeFirstResponder()
+    }
+
+    //MARK: Интернет недоступен
     func internetNotAvailable() {
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
-        title = titleName.replacingOccurrences(of: "%20", with: " ")
-        bodyText =  manager.getNoteData_Text(title: titleName)
-        historyTextView.isEditable = false
+        print("internet Not Available")
+
+        historyTextView.dataDetectorTypes = []
+        bodyText = manager.getNoteData_Text(title: titleName)
+        if bodyText.isEmpty {
+            settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
+        }else{
+            settings.textSettings(historyTextView, bodyText)
+        }
+        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "отсутствует подключение к интернету...")
     }
     
     func internetChanged(note:Notification) {

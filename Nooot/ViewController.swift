@@ -190,11 +190,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "details" {
             if let indexPath = historyTableView.indexPathForSelectedRow {
                 let destVC: TextViewController = segue.destination as! TextViewController
-                destVC.titleName = notesList[indexPath.row]
+                destVC.titleName = notesList[indexPath.row].replacingOccurrences(of: " ", with: "%20")
                 
             }else if let indexPath = historyTableViewTwo.indexPathForSelectedRow {
                 let destVC: TextViewController = segue.destination as! TextViewController
-                destVC.titleName = notesList[indexPath.row]
+                destVC.titleName = notesList[indexPath.row].replacingOccurrences(of: " ", with: "%20")
             }
         }
         if segue.identifier == "goText" {
