@@ -101,14 +101,15 @@ class FuncSettings {
     }
     
     func activitiIndicator(_ activitiIndicator: UIActivityIndicatorView, _ view: UIView) {
+        view.addSubview(activitiIndicator)
         activitiIndicator.center = view.center
         activitiIndicator.hidesWhenStopped = true
-        activitiIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
-        view.addSubview(activitiIndicator)
+        activitiIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
     }
     
     func setTitle(title:String,_ colorTitle: UIColor, subtitle:String) -> UIView {
         let titleLabel = UILabel(frame: CGRect(x:0, y:-5, width:0, height:0))
+        let wn = (navContr?.navigationBar.frame.size.width)! / 1.5
         var colorSubtitle = #colorLiteral(red: 0.6106639504, green: 0.6106786728, blue: 0.6106707454, alpha: 1)
         if subtitle == "актуальная версия" {
             colorSubtitle = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
@@ -118,6 +119,8 @@ class FuncSettings {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         titleLabel.text = title
         titleLabel.sizeToFit()
+        titleLabel.frame.size.width = wn
+        titleLabel.textAlignment = .center
         
         let subtitleLabel = UILabel(frame: CGRect(x:0, y:18, width:0, height:0))
         subtitleLabel.backgroundColor = UIColor.clear
@@ -125,20 +128,22 @@ class FuncSettings {
         subtitleLabel.font = UIFont.systemFont(ofSize: 12)
         subtitleLabel.text = subtitle
         subtitleLabel.sizeToFit()
+        subtitleLabel.frame.size.width = wn
+        subtitleLabel.textAlignment = .center
         
-        let titleView = UIView(frame: CGRect(x:0, y:0, width:max(titleLabel.frame.size.width, subtitleLabel.frame.size.width), height:30))
+//        let titleView = UIView(frame: CGRect(x:0, y:0, width:max(titleLabel.frame.size.width, subtitleLabel.frame.size.width), height:30))
+        let titleView = UIView(frame: CGRect(x:0, y:0, width:wn, height:30))
         titleView.addSubview(titleLabel)
         titleView.addSubview(subtitleLabel)
         
-        let widthDiff = subtitleLabel.frame.size.width - titleLabel.frame.size.width
-        
-        if widthDiff < 0 {
-            let newX = widthDiff / 2
-            subtitleLabel.frame.origin.x = abs(newX)
-        } else {
-            let newX = widthDiff / 2
-            titleLabel.frame.origin.x = newX
-        }
+//        let widthDiff = subtitleLabel.frame.size.width - titleLabel.frame.size.width
+//        if widthDiff < 0 {
+//            let newX = widthDiff / 2
+//            subtitleLabel.frame.origin.x = abs(newX)
+//        } else {
+//            let newX = widthDiff / 2
+//            titleLabel.frame.origin.x = newX
+//        }
         return titleView
     }
     

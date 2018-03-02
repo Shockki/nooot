@@ -25,9 +25,11 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     var checkDate: Bool = false
     var arrayNote: [String] = []
     let yourNote = NSLocalizedString("Your note...", comment: "")
+    let indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        settings.activitiIndicator(indicator, view)
         historyTextView.delegate = self
         settings.historyTextView = historyTextView
         settings.navContr = navigationController
@@ -38,6 +40,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         doneButton.isHidden = true
         historyTextView.isEditable = false
         
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
       
@@ -45,7 +48,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged, object: reachability)
         do{
             try reachability.startNotifier()
-            print("*************************************************")
         }catch{
             print("error")
         }
@@ -55,6 +57,11 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
 //        }else{
 //            internetAvailable()
 //        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        indicator.startAnimating()
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -122,8 +129,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     //MARK: Интернет доступен
     func internetAvailable() {
-        print("internet Available")
-        
+//        print("internet Available")
         historyTextView.dataDetectorTypes = .link
         if titleName.isEmpty {
             titleName = manager.getAllNotes().last!
@@ -144,19 +150,19 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
                 manager.delete_Date(title: titleName)
                 date = manager.getNoteData_Date(title: titleName)
             }
+            if settings.checkDate(date: date) == false {
+                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+            }else{
+                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date))
+            }
             
             if bodyText.isEmpty {
                 settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
             }else{
                 settings.textSettings(historyTextView, bodyText)
             }
-            
-            if settings.checkDate(date: date) == false {
-                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
-            }else{
-                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date))
-            }
         }
+        indicator.stopAnimating()
     }
     @objc func textViewTapped(_ aRecognizer: UITapGestureRecognizer) {
         historyTextView.dataDetectorTypes = []
@@ -166,16 +172,16 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
 
     //MARK: Интернет недоступен
     func internetNotAvailable() {
-        print("internet Not Available")
-
+//        print("internet Not Available")
         historyTextView.dataDetectorTypes = []
         bodyText = manager.getNoteData_Text(title: titleName)
+        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "отсутствует подключение к интернету...")
         if bodyText.isEmpty {
             settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
         }else{
             settings.textSettings(historyTextView, bodyText)
         }
-        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "отсутствует подключение к интернету...")
+        indicator.stopAnimating()
     }
     
     func internetChanged(note:Notification) {

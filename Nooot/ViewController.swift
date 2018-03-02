@@ -26,7 +26,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var labelNoteTitleOnView: UILabel!
     
-    let activityIndicator = UIActivityIndicatorView()
     var noteText: String = ""
     var notesList: [String] = []
     var notesReverse: [String] = []
@@ -58,8 +57,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textFieldAddNote.leftView = UIView(frame: .init(x: 0, y: 0, width: 8, height: 0))
         textFieldAddNote.leftViewMode = .always
         addNewNoteView.frame = CGRect(x: addNewNoteView.frame.origin.x, y: addNewNoteView.frame.origin.y - 150, width: addNewNoteView.frame.size.width, height: addNewNoteView.frame.size.height)
-        
-        settings.activitiIndicator(activityIndicator, view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,11 +71,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         notesList = manager.reverseNotes(input: notesList)
         settings.sizeTableView(notesList: notesList, historyTableView: historyTableView, historyTableViewTwo: historyTableViewTwo)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        activityIndicator.stopAnimating()
     }
     
     func internetChanged(note:Notification) {
@@ -134,7 +126,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if textFieldAddNote.text!.isEmpty {
             settings.shakeView(addNewNoteView)
         } else {
-            activityIndicator.startAnimating()
             manager.loadJSON(title: textFieldAddNote.text!)
             textFieldAddNote.resignFirstResponder() // Скрывает клавиатуру
             UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
