@@ -112,7 +112,7 @@ class ManagerData {
     
     //MARK: Взвращает id выбранной заметки
     
-    private func getNoteData_Id(title: String) -> String {
+    func getNoteData_Id(title: String) -> String {
         let realm =  try! Realm()
         let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
         var id: String = ""

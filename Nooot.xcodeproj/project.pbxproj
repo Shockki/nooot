@@ -19,6 +19,7 @@
 		FA78FD851F6961A500198307 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA78FD871F6961A500198307 /* Localizable.strings */; };
 		FA87A2C21FB0A94100A1E553 /* FuncSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87A2C11FB0A94100A1E553 /* FuncSettings.swift */; };
 		FA8AB722201754E6006B03A7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AB721201754E6006B03A7 /* Reachability.swift */; };
+		FA913C07206BF2E900E6AE62 /* SocketData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA913C06206BF2E900E6AE62 /* SocketData.swift */; };
 		FABE76441F49C3E500C7E1C1 /* ManagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE76431F49C3E500C7E1C1 /* ManagerData.swift */; };
 		FABE76461F49C4C300C7E1C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE76451F49C4C300C7E1C1 /* ViewController.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		FA78FD8B1F6961C100198307 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA87A2C11FB0A94100A1E553 /* FuncSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncSettings.swift; sourceTree = "<group>"; };
 		FA8AB721201754E6006B03A7 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		FA913C06206BF2E900E6AE62 /* SocketData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketData.swift; sourceTree = "<group>"; };
 		FABE76431F49C3E500C7E1C1 /* ManagerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerData.swift; sourceTree = "<group>"; };
 		FABE76451F49C4C300C7E1C1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				FA2573541F49B257008CDDFF /* AppDelegate.swift */,
 				FA8AB721201754E6006B03A7 /* Reachability.swift */,
 				FABE76431F49C3E500C7E1C1 /* ManagerData.swift */,
+				FA913C06206BF2E900E6AE62 /* SocketData.swift */,
 				FA87A2C11FB0A94100A1E553 /* FuncSettings.swift */,
 				FABE76451F49C4C300C7E1C1 /* ViewController.swift */,
 				FA47D4541F4B112900DB95BA /* TextViewController.swift */,
@@ -207,6 +210,8 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -214,6 +219,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +272,7 @@
 				FABE76441F49C3E500C7E1C1 /* ManagerData.swift in Sources */,
 				FA87A2C21FB0A94100A1E553 /* FuncSettings.swift in Sources */,
 				FA2573671F49B8C9008CDDFF /* NoteData.swift in Sources */,
+				FA913C07206BF2E900E6AE62 /* SocketData.swift in Sources */,
 				FABE76461F49C4C300C7E1C1 /* ViewController.swift in Sources */,
 				FA2573551F49B257008CDDFF /* AppDelegate.swift in Sources */,
 				FA1282292039B051000C50D0 /* Dates.swift in Sources */,

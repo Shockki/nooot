@@ -8,6 +8,7 @@ target 'Nooot' do
 pod 'Alamofire', '~> 4.5'
 pod 'SwiftyJSON', '~> 3.1'
 pod 'RealmSwift', '~> 3.1'
+pod 'Socket.IO-Client-Swift', '~> 12.0.0'
 
 
   # Pods for Nooot

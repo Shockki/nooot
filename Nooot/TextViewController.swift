@@ -16,11 +16,13 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     let manager: ManagerData = ManagerData()
     let settings: FuncSettings = FuncSettings()
     let reachability: Reachability = Reachability()!
+    let socket: SocketData = SocketData()
     
     var titleName: String = ""
     var subtitle: String = ""
     var bodyText: String = ""
     var checkBodyText: String = ""
+    var id: String = ""
     var date: [Int] = []
     var checkDate: Bool = false
     var arrayNote: [String] = []
@@ -29,8 +31,21 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("\n")
+        concurrentQueue.async {
+            print("start socket - \(Thread.current)")
+            self.socket.startSocket()
+            if self.titleName.isEmpty {
+                self.titleName = self.manager.getAllNotes().last!
+                self.socket.id = self.manager.getNoteData_Id(title: self.titleName)
+                print("id получен")
+            }else{
+            self.socket.id = self.manager.getNoteData_Id(title: self.titleName)
+                print("id получен")
+            }
+        }
+        socket.textView = historyTextView
         settings.activitiIndicator(indicator, view)
-        historyTextView.delegate = self
         settings.historyTextView = historyTextView
         settings.navContr = navigationController
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
@@ -61,7 +76,18 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        print("viewWillAppear")
         indicator.startAnimating()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        concurrentQueue.async {
+            self.socket.disconnect()
+        }
+        if socket.check == true{
+            manager.refresh_Text(title: titleName, newBodyText: historyTextView.text)
+        }
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
