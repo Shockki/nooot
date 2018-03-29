@@ -19,6 +19,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     let socket: SocketData = SocketData()
     
     var titleName: String = ""
+    var checkTitleName = false
     var subtitle: String = ""
     var bodyText: String = ""
     var checkBodyText: String = ""
@@ -32,29 +33,27 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\n")
-        concurrentQueue.async {
-            print("start socket - \(Thread.current)")
-            self.socket.startSocket()
-            if self.titleName.isEmpty {
-                self.titleName = self.manager.getAllNotes().last!
-                self.socket.id = self.manager.getNoteData_Id(title: self.titleName)
-                print("id получен")
-            }else{
-            self.socket.id = self.manager.getNoteData_Id(title: self.titleName)
-                print("id получен")
-            }
+        if titleName.isEmpty {
+            checkTitleName = false
+            titleName = manager.getAllNotes().last!
+            socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
+            socket.id = manager.getNoteData_Id(title: titleName)
+        }else{
+            checkTitleName = true
+            socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
+            socket.id = manager.getNoteData_Id(title: titleName)
         }
         socket.textView = historyTextView
-        settings.activitiIndicator(indicator, view)
+        socket.navContr = navigationController
+        socket.navItem = navigationItem
+        
+        settings.activityIndicator(indicator, view)
         settings.historyTextView = historyTextView
-        settings.navContr = navigationController
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
         navigationController?.setNavigationBarHidden(false, animated: true)
         automaticallyAdjustsScrollViewInsets = false
         doneButton.isHidden = true
-        historyTextView.isEditable = false
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -66,25 +65,23 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }catch{
             print("error")
         }
-        
-//        if reachability.connection == .none {
-//            internetNotAvailable()
-//        }else{
-//            internetAvailable()
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("viewWillAppear")
+//        print("viewWillAppear")
         indicator.startAnimating()
+        socket.startSocket()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        indicator.stopAnimating()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        concurrentQueue.async {
-            self.socket.disconnect()
-        }
+        socket.disconnect()
         if socket.check == true{
             manager.refresh_Text(title: titleName, newBodyText: historyTextView.text)
         }
@@ -101,8 +98,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     func textViewDidEndEditing(_ textView: UITextView) {
         doneButton.isHidden = true
-        historyTextView.isEditable = false
-        historyTextView.dataDetectorTypes = .link
         if historyTextView.text.isEmpty {
             if bodyText.isEmpty {
                 settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
@@ -111,14 +106,14 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     @IBAction func buttonSaveText(_ sender: Any) {
-        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "сохранение изменений...")
+        settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "сохранение изменений...", navContr: navigationController, navItem: navigationItem)
         manager.saveNoteText(title: titleName, body: historyTextView.text)
         manager.refresh_Text(title: titleName, newBodyText: historyTextView.text)
-        manager.refresh_Date(title: titleName)
+//        manager.refresh_Date(title: titleName)
         historyTextView.resignFirstResponder()
         doneButton.isHidden = true
-        DispatchQueue.main.asyncAfter(deadline: (.now() + 1), execute: {
-            self.navigationItem.titleView = self.settings.setTitle(title: self.titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+        DispatchQueue.main.asyncAfter(deadline: (.now() + 0.5), execute: {
+            self.settings.setTitle(title: self.titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия", navContr: self.navigationController, navItem: self.navigationItem)
         })
     }
     
@@ -155,18 +150,23 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     
     //MARK: Интернет доступен
     func internetAvailable() {
-//        print("internet Available")
-        historyTextView.dataDetectorTypes = .link
-        if titleName.isEmpty {
+        print("Интернет доступен")
+        if checkTitleName == false {
             titleName = manager.getAllNotes().last!
+            socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
+            socket.id = manager.getNoteData_Id(title: titleName)
             bodyText = manager.getNoteData_Text(title: titleName)
-            navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
+            manager.delete_Date(title: titleName)
+//            settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия", navContr: navigationController!, navItem: navigationItem)
             if bodyText.isEmpty {
                 settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
             }else{
                 settings.textSettings(historyTextView, bodyText)
             }
         }else{
+            socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
+            socket.id = manager.getNoteData_Id(title: titleName)
+            
             checkBodyText = manager.returnNewText(title: titleName)
             bodyText = manager.getNoteData_Text(title: titleName)
             if checkBodyText == bodyText {
@@ -176,11 +176,11 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
                 manager.delete_Date(title: titleName)
                 date = manager.getNoteData_Date(title: titleName)
             }
-            if settings.checkDate(date: date) == false {
-                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия")
-            }else{
-                navigationItem.titleView = settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date))
-            }
+//            if settings.checkDate(date: date) == false {
+//                settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия", navContr: navigationController, navItem: navigationItem)
+//            }else{
+//                settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date), navContr: navigationController, navItem: navigationItem)
+//            }
             
             if bodyText.isEmpty {
                 settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
@@ -190,18 +190,20 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }
         indicator.stopAnimating()
     }
-    @objc func textViewTapped(_ aRecognizer: UITapGestureRecognizer) {
-        historyTextView.dataDetectorTypes = []
-        historyTextView.isEditable = true
-        historyTextView.becomeFirstResponder()
-    }
+    
+//    @objc func textViewTapped(_ aRecognizer: UITapGestureRecognizer) {
+//        historyTextView.dataDetectorTypes = []
+//        historyTextView.isEditable = true
+//        historyTextView.becomeFirstResponder()
+//    }
 
     //MARK: Интернет недоступен
     func internetNotAvailable() {
-//        print("internet Not Available")
+        print("Интернет НЕ доступен")
         historyTextView.dataDetectorTypes = []
+        historyTextView.isEditable = false
         bodyText = manager.getNoteData_Text(title: titleName)
-        navigationItem.titleView = settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "отсутствует подключение к интернету...")
+        settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "отсутствует подключение к интернету...", navContr: navigationController, navItem: navigationItem)
         if bodyText.isEmpty {
             settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
         }else{

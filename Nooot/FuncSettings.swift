@@ -12,7 +12,6 @@ import UIKit
 class FuncSettings {
     
     var historyTextView: UITextView = UITextView()
-    var navContr: UINavigationController? = UINavigationController()
     
     func sizeTableView(notesList: [String], historyTableView: UITableView, historyTableViewTwo: UITableView) {
         switch notesList.count {
@@ -67,21 +66,21 @@ class FuncSettings {
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.0), range: NSRange(location: 0, length: attributedString.length))
         
         // поиск ссылок
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        let matches = detector.matches(in: bodyText, options: [], range: NSRange(location: 0, length: bodyText.utf16.count))
-//        for match in matches {
-//            guard let range = Range(match.range, in: bodyText) else { continue }
-//            attributedString.addAttribute(NSLinkAttributeName, value: bodyText[range], range: match.range)
+//        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+//        let matches = detector.matches(in: bodyText, options: [], range: NSRange(location: 0, length: bodyText.utf16.count))
+////        for match in matches {
+////            guard let range = Range(match.range, in: bodyText) else { continue }
+////            attributedString.addAttribute(NSLinkAttributeName, value: bodyText[range], range: match.range)
+////        }
+//        if matches.isEmpty {
+//            historyTextView.attributedText = attributedString
+//            historyTextView.isEditable = true
+//        }else{
+//            let tap = UITapGestureRecognizer(target: self, action: #selector(textViewTapped))
+//            historyTextView.addGestureRecognizer(tap)
+//            historyTextView.attributedText = attributedString
 //        }
-        
-        if matches.isEmpty {
-            historyTextView.attributedText = attributedString
-            historyTextView.isEditable = true
-        }else{
-            let tap = UITapGestureRecognizer(target: self, action: #selector(textViewTapped))
-            historyTextView.addGestureRecognizer(tap)
-            historyTextView.attributedText = attributedString
-        }
+        historyTextView.attributedText = attributedString
     }
     
     @objc func textViewTapped(_ aRecognizer: UITapGestureRecognizer) {
@@ -100,14 +99,14 @@ class FuncSettings {
         navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
     }
     
-    func activitiIndicator(_ activitiIndicator: UIActivityIndicatorView, _ view: UIView) {
-        view.addSubview(activitiIndicator)
-        activitiIndicator.center = view.center
-        activitiIndicator.hidesWhenStopped = true
-        activitiIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+    func activityIndicator(_ activityIndicator: UIActivityIndicatorView, _ view: UIView) {
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activityIndicator)
     }
     
-    func setTitle(title:String,_ colorTitle: UIColor, subtitle:String) -> UIView {
+    func setTitle(title:String,_ colorTitle: UIColor, subtitle:String, navContr: UINavigationController?, navItem: UINavigationItem) {
         let titleLabel = UILabel(frame: CGRect(x:0, y:-5, width:0, height:0))
         let wn = (navContr?.navigationBar.frame.size.width)! / 1.5
         var colorSubtitle = #colorLiteral(red: 0.6106639504, green: 0.6106786728, blue: 0.6106707454, alpha: 1)
@@ -144,7 +143,7 @@ class FuncSettings {
 //            let newX = widthDiff / 2
 //            titleLabel.frame.origin.x = newX
 //        }
-        return titleView
+        navItem.titleView = titleView
     }
     
     //MARK: Возвращает текущую дату
