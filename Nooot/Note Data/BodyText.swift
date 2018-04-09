@@ -12,6 +12,7 @@ import RealmSwift
 class BodyText: Object {
     dynamic var bodyText: String = ""
     dynamic var idNote: String = ""
+    dynamic var checkInternet: Bool = true
     var dates = List<Dates>()
 }
 

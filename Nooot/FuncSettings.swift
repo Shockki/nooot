@@ -166,42 +166,46 @@ class FuncSettings {
     }
     
     //MARK: Возвращает статус субтитров
-    func subtitle(today: [Int]) -> String {
+    func subtitle(saved: [Int], onOff: Bool) -> String {
         var date: [Int] = self.date()
-        if date[0] == today[0] { // год
-            if date[1] == today[1] { //месяц
-                if date[2] == today[2] { //день
-                    if date[3] == today[3] { // часы
-                        if date[4] - today[4] == 0 { // минуты
-                            return "актуальная версия"
+        if date[0] == saved[0] { // год
+            if date[1] == saved[1] { //месяц
+                if date[2] == saved[2] { //день
+                    if date[3] == saved[3] { // часы
+                        if date[4] - saved[4] == 0 { // минуты
+                            if onOff == true {
+                                return "актуальная версия"
+                            }else{
+                                return "сохраненно меньше мин назад"
+                            }
                         }else{
-                            return "сохраненная версия (\(date[4] - today[4])мин назад)"
+                            return "сохраненная версия (\(date[4] - saved[4])мин назад)"
                         }
                     }else{
-                        return "сохраненная версия (\(60 - today[4] + date[4])ч назад)"
+                        return "сохраненная версия (\(60 - saved[4] + date[4])ч назад)"
                     }
-                }else if date[2] - 1 > today[2] {
-                    return "(сохраненная версия (\(today[2]).\(today[1]).\(today[0])))"
-                }else if (24 - today[3] + date[3]) >= 24 {
+                }else if date[2] - 1 > saved[2] {
+                    return "(сохраненная версия (\(saved[2]).\(saved[1]).\(saved[0])))"
+                }else if (24 - saved[3] + date[3]) >= 24 {
                     return "сохраненная версия (вчера)"
-                }else if (24 - today[3] + date[3]) <= 24  {
-                    if (24 - today[3] + date[3]) <= 1 {
-                        if 60 - today[4] + date[4] < 60 {
-                            return "сохраненная версия (\(60 - today[4] + date[4])мин назад)"
+                }else if (24 - saved[3] + date[3]) <= 24  {
+                    if (24 - saved[3] + date[3]) <= 1 {
+                        if 60 - saved[4] + date[4] < 60 {
+                            return "сохраненная версия (\(60 - saved[4] + date[4])мин назад)"
                         }else{
-                            return "сохраненная версия (\(24 - today[3] + date[3])ч назад)"
+                            return "сохраненная версия (\(24 - saved[3] + date[3])ч назад)"
                         }
                     }else{
-                        return "сохраненная версия (\(24 - today[3] + date[3])ч назад)"
+                        return "сохраненная версия (\(24 - saved[3] + date[3])ч назад)"
                     }
                 }else{
-                    return "сохраненная версия (\(today[2]).\(today[1]).\(today[0]))"
+                    return "сохраненная версия (\(saved[2]).\(saved[1]).\(saved[0]))"
                 }
             }else{
-                return "сохраненная версия (\(today[2]).\(today[1]).\(today[0]))"
+                return "сохраненная версия (\(saved[2]).\(saved[1]).\(saved[0]))"
             }
         }else{
-            return "сохраненная версия (\(today[2]).\(today[1]).\(today[0]))"
+            return "сохраненная версия (\(saved[2]).\(saved[1]).\(saved[0]))"
         }
     }
     

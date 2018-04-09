@@ -138,6 +138,18 @@ class ManagerData {
         return d
     }
     
+    //MARK: Проверка на изменение интернета
+    
+    func getNoteData_CheckInternet(title: String) -> Bool {
+        let realm =  try! Realm()
+        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
+        var checkInternet: Bool!
+        for value in data[0].textList {
+            checkInternet = value.checkInternet
+        }
+        return checkInternet
+    }
+    
     
     //MARK: Возвращает имя всех заметок из базы
     
@@ -234,6 +246,16 @@ class ManagerData {
                 value.day = date[2]
                 value.hour = date[3]
                 value.min = date[4]
+            }
+        }
+    }
+    
+    func refresh_checkInternet(title: String, check: Bool) {
+        let realm =  try! Realm()
+        let data = realm.objects(NoteData.self).filter("titleName  BEGINSWITH %@", title)
+        try! realm.write {
+            for value in data[0].textList {
+                value.checkInternet = check
             }
         }
     }

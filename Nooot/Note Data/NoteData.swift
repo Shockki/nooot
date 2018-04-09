@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class NoteData: Object {
-   dynamic var titleName: String = ""
+    dynamic var titleName: String = ""
     var textList = List<BodyText>()
     
     override static func primaryKey() -> String? {

@@ -36,19 +36,17 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         if titleName.isEmpty {
             checkTitleName = false
             titleName = manager.getAllNotes().last!
-            socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
-            socket.id = manager.getNoteData_Id(title: titleName)
         }else{
             checkTitleName = true
-            socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
-            socket.id = manager.getNoteData_Id(title: titleName)
         }
+        socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
+        socket.id = manager.getNoteData_Id(title: titleName)
         socket.textView = historyTextView
         socket.navContr = navigationController
         socket.navItem = navigationItem
-        
         settings.activityIndicator(indicator, view)
         settings.historyTextView = historyTextView
+        
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         historyTextView.textContainerInset = UIEdgeInsetsMake(20, 11, 50, 11)
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -65,13 +63,13 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         }catch{
             print("error")
         }
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-//        print("viewWillAppear")
         indicator.startAnimating()
-        socket.startSocket()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -151,13 +149,13 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
     //MARK: Интернет доступен
     func internetAvailable() {
         print("Интернет доступен")
+        socket.startSocket()
         if checkTitleName == false {
             titleName = manager.getAllNotes().last!
             socket.titleName = titleName.replacingOccurrences(of: "%20", with: " ")
             socket.id = manager.getNoteData_Id(title: titleName)
             bodyText = manager.getNoteData_Text(title: titleName)
             manager.delete_Date(title: titleName)
-//            settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия", navContr: navigationController!, navItem: navigationItem)
             if bodyText.isEmpty {
                 settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
             }else{
@@ -176,11 +174,6 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
                 manager.delete_Date(title: titleName)
                 date = manager.getNoteData_Date(title: titleName)
             }
-//            if settings.checkDate(date: date) == false {
-//                settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "актуальная версия", navContr: navigationController, navItem: navigationItem)
-//            }else{
-//                settings.setTitle(title: titleName.replacingOccurrences(of: "%20", with: " "), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(today: date), navContr: navigationController, navItem: navigationItem)
-//            }
             
             if bodyText.isEmpty {
                 settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
@@ -188,6 +181,7 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
                 settings.textSettings(historyTextView, bodyText)
             }
         }
+        manager.refresh_checkInternet(title: titleName, check: true)
         indicator.stopAnimating()
     }
     
@@ -202,13 +196,20 @@ class TextViewController: UIViewController, UITextViewDelegate, UIGestureRecogni
         print("Интернет НЕ доступен")
         historyTextView.dataDetectorTypes = []
         historyTextView.isEditable = false
+        socket.disconnect()
         bodyText = manager.getNoteData_Text(title: titleName)
-        settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: "отсутствует подключение к интернету...", navContr: navigationController, navItem: navigationItem)
+        
         if bodyText.isEmpty {
             settings.textSettings(historyTextView, NSLocalizedString("Your note...", comment: ""))
         }else{
             settings.textSettings(historyTextView, bodyText)
         }
+        
+        if manager.getNoteData_CheckInternet(title: titleName) == true {
+            manager.refresh_checkInternet(title: titleName, check: false)
+            manager.refresh_Date(title: titleName)
+        }
+        settings.setTitle(title: titleName, #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), subtitle: settings.subtitle(saved: manager.getNoteData_Date(title: titleName),onOff: false), navContr: navigationController, navItem: navigationItem)
         indicator.stopAnimating()
     }
     
